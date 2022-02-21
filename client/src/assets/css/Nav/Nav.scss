@@ -1,0 +1,451 @@
+nav {
+  &.navbar {
+    position: sticky;
+    top: 0px;
+    min-height: 6.25rem;
+    .digits-wrapper {
+      font-size: 14px;
+      min-width: 250px;
+      //padding-top: 5px;
+      margin: 0 10px;
+      ul {
+        &.digit-content {
+          //max-width: 120px;
+          margin: 0;
+          li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #536782;
+            padding-bottom: 3px;
+            margin-bottom: 3px;
+            span {
+              &.digit {
+                margin-left: auto;
+                font-weight: bolder;
+                &#loosing {
+                  //color: #5ba1ff;
+                }
+              }
+              &.negative {
+                color: $red !important;
+              }
+              &.positive {
+                color: #5ba1ff;
+              }
+              &#totalCasino,#pointsTotal,#cashTotal{
+                cursor: pointer;
+              }
+              &#pointsTotal{
+                cursor: pointer;
+              }
+              &#cashTotal{
+                cursor: pointer;
+              }
+            }
+            &:last-child{
+              margin-bottom: 0;
+              border-bottom: 0px;
+            }
+          }
+        }
+      }
+    }
+    .menu-wrapper {
+      width: 100%;
+      min-height: 82px;
+      .main-menu-wrapper {
+        .menu-list {
+          margin-bottom: 0.625rem !important;
+          justify-content: flex-start;
+          flex-wrap: wrap;
+          li {
+            margin-right: 0.265rem;
+            font-size: 14px;
+            transition: all 0.2s ease-in-out;
+            border: 1px transparent solid;
+            color: #fff;
+            border-radius: 2px;
+            display: block;
+            padding: 0.5em 0.75em;
+            &.is-active {
+              border-color: #fff;
+            }
+            &:hover {
+              // background-color: transparent;
+              // color: #fff;
+              // border-color: #fff;
+              cursor: pointer;
+            }
+          }
+          .toggle{
+            position: relative;
+            margin-top: -7px;
+            .theme-toggle-wrapper {
+              .theme-toggle-content {
+                width: 50px;
+                height: 26px;
+                border-radius: 16px;
+                overflow: hidden;
+                .theme-toggle {
+                  position: relative;
+                  padding: 6px 6px;
+                  height: 100%;
+                  .moon-sun {
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    .moon {
+                      svg {
+                      }
+                    }
+                    .sun {
+                      svg {
+                      }
+                    }
+                  }
+                  .circle {
+                    position: absolute;
+                    top: 4px;
+                    -webkit-transition: all 0.3s ease;
+                    -moz-transition: all 0.3s ease;
+                    -o-transition: all 0.3s ease;
+                    transition: all 0.3s ease;
+                    svg {
+                    }
+                  }
+                  &.light-active {
+                    -webkit-transition: all 0.3s ease;
+                    -moz-transition: all 0.3s ease;
+                    -o-transition: all 0.3s ease;
+                    transition: all 0.3s ease;
+                    background-color: #ea5101;
+                    .moon {
+                      opacity: 0;
+                    }
+                    .sun {
+                      opacity: 1;
+                    }
+                    .circle {
+                      right: 28px;
+                    }
+                  }
+                  &.dark-active {
+                    -webkit-transition: all 0.3s ease;
+                    -moz-transition: all 0.3s ease;
+                    -o-transition: all 0.3s ease;
+                    transition: all 0.3s ease;
+                    background-color: #4e4e4e;
+                    .moon {
+                      opacity: 1;
+                    }
+                    .sun {
+                      opacity: 0;
+                    }
+                    .circle {
+                      right: 4px;
+                    }
+                  }
+                }
+              }
+            }
+            &:hover{
+              cursor: auto;
+            }
+          }
+        }
+      }
+      .sub-menu-wrapper {
+        .submenu-list {
+          margin-top: -14px;
+          margin-bottom: 0.625rem !important;
+          justify-content: flex-start;
+          li {
+            margin-right: 0.265rem;
+            a {
+              font-size: 14px;
+              transition: all 0.2s ease-in-out;
+              border: 1px transparent solid;
+              color: #fff;
+              border-radius: 2px;
+              display: block;
+              padding: 0.5em 0.75em;
+              &.is-active {
+                border-color: #fff;
+              }
+              &:hover {
+                background-color: transparent;
+                color: #fff;
+                border-color: #fff;
+              }
+            }
+          }
+        }
+        ul {
+          &.submenu-list {
+            display: none;
+            &.show {
+              display: flex;
+            }
+          }
+        }
+      }
+    }
+    .info-table-wrapper {
+      .info-table-content {
+        margin-top: 15px;
+        .info-box-wrapper {
+          display: inline-flex;
+          flex-wrap: wrap;
+          .info-box-content {
+            width: 5.325rem;
+            height: 66px;
+            background-color: #3a516f;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            margin-right: 0.365rem;
+            margin-bottom: 0.365rem;
+            border-radius: 6px;
+            align-items: stretch;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+            .info-title-wrapper {
+              // background-color: #536987;
+              background-color: #00729d;
+              padding: 3px 0px;
+              text-align: center;
+              height: 40%;
+              font-size: 14px;
+              span.info-title {
+                color: #ffffff;
+              }
+            }
+            .info-values {
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              height: inherit;
+              p {
+                color: #94a9c5;
+                font-weight: 300;
+              }
+              span.infovalsin {
+                color: #ffffff;
+                font-weight: bolder;
+                font-size: 18px;
+                margin-left: 5px;
+              }
+            }
+            &:hover {
+              //background-color: #2f4766;
+              filter: brightness(1.19);
+            }
+          }
+          .info-box-content:nth-child(4) {
+            .info-title-wrapper {
+              background-color: #a33a38;
+            }
+          }
+          .info-box-content:nth-child(5) {
+            .info-title-wrapper {
+              background-color: #a33a38;
+            }
+          }
+          .info-box-content:nth-child(6) {
+            .info-title-wrapper {
+              background-color: #a33a38;
+            }
+          }
+          .info-box-content:nth-child(7) {
+            .info-title-wrapper {
+              background-color: #209585;
+            }
+          }
+          .info-box-content:nth-child(8) {
+            .info-title-wrapper {
+              background-color: #9b42ab;
+            }
+          }
+          .info-box-content:nth-child(9) {
+            .info-title-wrapper {
+              background-color: #b78e31;
+            }
+          }
+          .info-box-content:nth-child(10) {
+            .info-title-wrapper {
+              // background-color: #772828;
+              background-color: #772828;
+            }
+          }
+          .info-box-content:nth-child(11) {
+            .info-title-wrapper {
+              background-color: #a76420;
+            }
+          }
+          &#partner_style {
+            .info-box-content:nth-child(1) {
+              .info-title-wrapper {
+                background-color: #00729d;
+              }
+            }
+            .info-box-content:nth-child(2) {
+              .info-title-wrapper {
+                background-color: #a33a38;
+              }
+            }
+            .info-box-content:nth-child(3) {
+              .info-title-wrapper {
+                background-color: #b78e31;
+              }
+            }
+            .info-box-content:nth-child(4) {
+              .info-title-wrapper {
+                //background-color: #286738;
+              }
+            }
+            .info-box-content:nth-child(5) {
+              .info-title-wrapper {
+                background-color: #286738;
+              }
+            }
+          }
+        }
+      }
+    }
+    .views-count-wrapper {
+      border: 1px solid #c1c1c1;
+      border-radius: 4px;
+      padding: 0.225rem;
+      padding-bottom: 0 !important;
+      width: auto;
+      height: min-content;
+      margin-top: 15px;
+      .views-count-content {
+        display: flex;
+        justify-content: flex-start;
+        flex-wrap: wrap;
+        .views-count-box-wrapper {
+          margin-right: 0.225rem;
+          margin-bottom: 0.225rem;
+          .views-count-box-content {
+            border: 1px solid #fff;
+            //background-color: #536782;
+            width: 5rem;
+            position: relative;
+            border-radius: 4px;
+            .views-count-box-header {
+              text-align: center;
+              border-bottom: 1px solid #fff;
+              padding: 2px 4px;
+              font-size: 14px;
+              span {
+                &.header-text {
+                  text-overflow: ellipsis;
+                }
+              }
+            }
+            .views-count-box-body {
+              cursor: pointer;
+              text-align: center;
+              padding: 4px 4px;
+              i {
+                color: #dfdfdf;
+              }
+              span {
+                &.count {
+                }
+              }
+              &:hover {
+                filter: brightness(1.2);
+              }
+            }
+            .viewers-wrapper {
+              display: none;
+              position: absolute;
+              background: #296591eb;
+              width: auto;
+              min-width: 77px;
+              border-radius: 4px;
+              box-shadow: 0px 0px 8px #000;
+              top: 56px;
+              z-index: 1;
+              .viewers-content {
+                max-height: 600px;
+                display: flex;
+                padding: 5px;
+                ul {
+                  list-style-type: none;
+                  padding: 0px;
+                  margin: 0px;
+                  width: 100%;
+                  &.viewers-list {
+                    position: relative;
+                  }
+                  li {
+                    &.viewer {
+                      display: flex;
+                      align-items: center;
+                    }
+                    &.casino-balance {
+                    }
+                    a {
+                      color: #fff;
+                      &:hover {
+                        color: #dadada;
+                      }
+                    }
+                    i {
+                      cursor: pointer;
+                      margin-left: auto;
+                      color: #fff;
+                      font-size: 8px;
+                    }
+                  }
+                }
+                .casino-balance-wrapper {
+                  position: absolute;
+                  left: 78px;
+                  top: 0px;
+                  width: 175px;
+                  padding: 10px;
+                  background: #313131cf;
+                  box-shadow: 0px 0px 3px #00000075;
+                  z-index: 2;
+                  .casino-balance-content {
+                    ul {
+                      &.balance-list {
+                        li {
+                          &.casino-co {
+                            img {
+                              margin-right: 4px;
+                            }
+                            span {
+                              margin-left: 6px;
+                              font-weight: bold;
+                              font-size: 14px;
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+              &.active {
+                display: block;
+              }
+            }
+          }
+          &:hover {
+            box-shadow: 0 0 0 62.5rem #008cff14 inset;
+          }
+        }
+        .views-count-box-wrapper:last-child {
+          margin-right: 0rem;
+        }
+      }
+    }
+  }
+}
