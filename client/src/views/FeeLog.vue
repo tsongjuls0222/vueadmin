@@ -1,11 +1,10 @@
 <template>
   <div>
-    <div>
-      <Nav />
-    </div>
-
-    <div>
-      <Settings />
+    <Nav />
+    <div class="column">
+      <div class="card">
+        <Settings />
+      </div>
     </div>
   </div>
 </template>
@@ -25,6 +24,7 @@ export default {
     "Segoe UI Symbol", "Noto Color Emoji";
   font-size: 0.8125rem;
   font-weight: 400;
-  color: #333;
+  color: rgb(0, 0, 0);
+  /* background-color: white; */
 }
 </style>
