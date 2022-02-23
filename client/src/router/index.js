@@ -9,6 +9,7 @@ import FeeLog from '../views/FeeLog.vue';
 import MemInputset from '../views/MemInputset.vue';
 import MemInputsetCasino from '../views/MemInputsetCasino.vue';
 import MemInputsetOthers from '../views/MemInputsetOthers.vue';
+import OnlineAdminList from '../views/OnlineAdminList.vue';
 
 Vue.use(VueRouter)
 
@@ -108,6 +109,19 @@ const routes = [
     path: '/admin/mem-inputset-others',
     name: 'MemInputsetOthers',
     component: MemInputsetOthers,
+    beforeEnter: (to, from, next) => {
+      if(store.state.account.authenticated == false){
+        next("/");
+      }
+      else{
+        next();
+      }
+    }
+  },
+  {
+    path: '/admin/online-admin-list',
+    name: 'OnlineAdminList',
+    component: OnlineAdminList,
     beforeEnter: (to, from, next) => {
       if(store.state.account.authenticated == false){
         next("/");

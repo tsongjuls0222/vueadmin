@@ -492,7 +492,8 @@ export default {
         {
           title: "관리자 접속",
           id: "online-list-admin",
-          to: "member-list-test"
+          to: "/admin/online-list-admin",
+          checker: ["online-list-admin"]
         },
         {
           title: "로그아웃",
@@ -580,7 +581,7 @@ export default {
         subMenu2.classList.remove("show");
       }
       subMenu.classList.add("show");
-      console.log(subMenu);
+      // console.log(subMenu);
     },
     activeSub() {},
     changeMode() {

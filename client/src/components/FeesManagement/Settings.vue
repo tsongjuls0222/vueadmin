@@ -1,8 +1,8 @@
 <template>
-  <div class="column">
+  <div class="column is-7">
     <div class="card">
       <div class="custom-card-header">
-        <div class="tabs is-medium">
+        <div class="tabs is-normal">
           <ul>
             <li :class="tabClass1" @click="tabChange(1, '월요일')">
               <a>월요일</a>
@@ -28,170 +28,182 @@
           </ul>
         </div>
       </div>
-      <div class="card">
-        <div class="card-header">
-          <span class="card-header-title">{{ this.title }}</span>
-        </div>
-        <div class="card-content">
-          <div class="content">
-            <div class="form-row">
-              <input type="radio" name="radio1" id="" />
-              <label for="radio1">항상 첫충 자동지급</label>
-            </div>
-            <div class="form-row">
-              <input type="radio" name="radio2" id="" />
-              <label for="radio2"
-                >당일 환전이 없을시에만 자동지급
-                <br />
-                <span class="pepe-blue"
-                  >당일 환전이 있는경우 수동 지급모드로 변경</span
-                >
-              </label>
-            </div>
-
-            <div class="form-row columns">
-              <div class="row">
-                <label for="">신규 첫충 보너스</label>
-                <div class="input-group">
-                  <span class="input-group-text">신규 첫충 보너스</span>
-                  <input class="input-group-number" type="number" value="10" />
-                  <span class="input-group-text">%</span>
-                  <span class="input-group-text">자동지급</span>
+      <div class="card-content">
+        <div class="card">
+          <div class="card-header">
+            <span class="card-header-title">{{ this.title }}</span>
+          </div>
+          <div class="card-content">
+            <div class="content">
+              <div class="field is-multiline mb-3">
+                <label for="">첫충 지급 조건</label>
+                <div class="field control is-flex mt-2 ml-5">
+                  <input type="radio" name="radio1" id="" />
+                  <label for="radio1">항상 첫충 자동지급</label>
                 </div>
-                <label for="">매일 첫 충전</label>
-                <div class="input-group">
-                  <span class="input-group-text">레벨 1 첫충 보너스</span>
-                  <input class="input-group-number" type="number" value="10" />
-                  <span class="input-group-text">%</span>
-                  <span class="input-group-text">자동지급</span>
-                </div>
-                <div class="input-group">
-                  <span class="input-group-text">레벨 2 첫충 보너스</span>
-                  <input class="input-group-number" type="number" value="10" />
-                  <span class="input-group-text">%</span>
-                  <span class="input-group-text">자동지급</span>
-                </div>
-                <div class="input-group">
-                  <span class="input-group-text">레벨 3 첫충 보너스</span>
-                  <input class="input-group-number" type="number" value="10" />
-                  <span class="input-group-text">%</span>
-                  <span class="input-group-text">자동지급</span>
-                </div>
-                <div class="input-group">
-                  <span class="input-group-text">레벨 4 첫충 보너스</span>
-                  <input class="input-group-number" type="number" value="10" />
-                  <span class="input-group-text">%</span>
-                  <span class="input-group-text">자동지급</span>
-                </div>
-                <div class="input-group">
-                  <span class="input-group-text">레벨 5 첫충 보너스</span>
-                  <input class="input-group-number" type="number" value="10" />
-                  <span class="input-group-text">%</span>
-                  <span class="input-group-text">자동지급</span>
-                </div>
-                <div class="input-group">
-                  <span class="input-group-text">레벨 6 첫충 보너스</span>
-                  <input class="input-group-number" type="number" value="10" />
-                  <span class="input-group-text">%</span>
-                  <span class="input-group-text">자동지급</span>
-                </div>
-                <div class="input-group">
-                  <span class="input-group-text">레벨 7 첫충 보너스</span>
-                  <input class="input-group-number" type="number" value="10" />
-                  <span class="input-group-text">%</span>
-                  <span class="input-group-text">자동지급</span>
-                </div>
-                <div class="input-group">
-                  <span class="input-group-text">레벨 8 첫충 보너스</span>
-                  <input class="input-group-number" type="number" value="10" />
-                  <span class="input-group-text">%</span>
-                  <span class="input-group-text">자동지급</span>
-                </div>
-                <div class="input-group">
-                  <span class="input-group-text">레벨 9 첫충 보너스</span>
-                  <input class="is-small" type="number" value="10" />
-                  <span class="input-group-text">%</span>
-                  <span class="input-group-text">자동지급</span>
-                </div>
-                <div class="input-group">
-                  <span class="input-group-text">레벨 10 첫충 보너스</span>
-                  <input class="is-small" type="number" value="10" />
-                  <span class="input-group-text">%</span>
-                  <span class="input-group-text">자동지급</span>
+                <div class="field control is-flex mt-2 ml-5">
+                  <input type="radio" name="radio2" id="" />
+                  <label for="radio2"
+                    >당일 환전이 없을시에만 자동지급
+                    <br />
+                    <span class="pepe-blue"
+                      >당일 환전이 있는경우 수동 지급모드로 변경</span
+                    >
+                  </label>
                 </div>
               </div>
-              <div class="row">
-                <label for="">최대 보너스 지급금액</label>
-                <div class="input-group">
-                  <input type="number" value="200000" />
-                  <span class="input-group-text">P</span>
-                </div>
-                <label for="">매일 첫 충전</label>
-                <div class="input-group">
-                  <span class="input-group-text">레벨 1 매충 보너스</span>
-                  <input type="number" value="10" />
-                  <span class="input-group-text">%</span>
-                  <span class="input-group-text">자동지급</span>
-                </div>
-                <div class="input-group">
-                  <span class="input-group-text">레벨 2 매충 보너스</span>
-                  <input type="number" value="10" />
-                  <span class="input-group-text">%</span>
-                  <span class="input-group-text">자동지급</span>
-                </div>
-                <div class="input-group">
-                  <span class="input-group-text">레벨 3 매충 보너스</span>
-                  <input type="number" value="10" />
-                  <span class="input-group-text">%</span>
-                  <span class="input-group-text">자동지급</span>
-                </div>
-                <div class="input-group">
-                  <span class="input-group-text">레벨 4 매충 보너스</span>
-                  <input type="number" value="10" />
-                  <span class="input-group-text">%</span>
-                  <span class="input-group-text">자동지급</span>
-                </div>
-                <div class="input-group">
-                  <span class="input-group-text">레벨 5 매충 보너스</span>
-                  <input type="number" value="10" />
-                  <span class="input-group-text">%</span>
-                  <span class="input-group-text">자동지급</span>
-                </div>
-                <div class="input-group">
-                  <span class="input-group-text">레벨 6 매충 보너스</span>
-                  <input type="number" value="10" />
-                  <span class="input-group-text">%</span>
-                  <span class="input-group-text">자동지급</span>
-                </div>
-                <div class="input-group">
-                  <span class="input-group-text">레벨 7 매충 보너스</span>
-                  <input type="number" value="10" />
-                  <span class="input-group-text">%</span>
-                  <span class="input-group-text">자동지급</span>
-                </div>
-                <div class="input-group">
-                  <span class="input-group-text">레벨 8 매충 보너스</span>
-                  <input class="form-control" type="number" value="10" />
-                  <span class="input-group-text">%</span>
-                  <span class="input-group-text">자동지급</span>
-                </div>
-                <div class="input-group">
-                  <span class="input-group-text">레벨 9 매충 보너스</span>
-                  <input class="form-control" type="number" value="10" />
-                  <span class="input-group-text">%</span>
-                  <span class="input-group-text">자동지급</span>
-                </div>
-                <div class="input-group">
-                  <span class="input-group-text">레벨 10 매충 보너스</span>
-                  <input class="form-control" type="number" value="10" />
-                  <span class="input-group-text">%</span>
-                  <span class="input-group-text">자동지급</span>
+              <div class="field is-multiline">
+                <div class="columns">
+                  <div class="column">
+                    <label for="">신규 첫충 보너스</label>
+                    <div class="field is-multiline is-flex">
+                      <span class="input-group-text">신규 첫충 보너스</span>
+                      <input class="input is-small" type="number" value="10" />
+                      <span class="input-group-text">%</span>
+                      <span class="input-group-text">자동지급</span>
+                    </div>
+                    <label for="">매일 첫 충전</label>
+                    <div class="control mt-2 is-flex">
+                      <span class="input-group-text">레벨 1 첫충 보너스</span>
+                      <input class="input is-small" type="number" value="10" />
+                      <span class="input-group-text">%</span>
+                      <span class="input-group-text">자동지급</span>
+                    </div>
+                    <div class="control mt-2 is-flex">
+                      <span class="input-group-text">레벨 2 첫충 보너스</span>
+                      <input class="input is-small" type="number" value="10" />
+                      <span class="input-group-text">%</span>
+                      <span class="input-group-text">자동지급</span>
+                    </div>
+                    <div class="control mt-2 is-flex">
+                      <span class="input-group-text">레벨 3 첫충 보너스</span>
+                      <input class="input is-small" type="number" value="10" />
+                      <span class="input-group-text">%</span>
+                      <span class="input-group-text">자동지급</span>
+                    </div>
+                    <div class="control mt-2 is-flex">
+                      <span class="input-group-text">레벨 4 첫충 보너스</span>
+                      <input class="input is-small" type="number" value="10" />
+                      <span class="input-group-text">%</span>
+                      <span class="input-group-text">자동지급</span>
+                    </div>
+                    <div class="control mt-2 is-flex">
+                      <span class="input-group-text">레벨 5 첫충 보너스</span>
+                      <input class="input is-small" type="number" value="10" />
+                      <span class="input-group-text">%</span>
+                      <span class="input-group-text">자동지급</span>
+                    </div>
+                    <div class="control mt-2 is-flex">
+                      <span class="input-group-text">레벨 6 첫충 보너스</span>
+                      <input class="input is-small" type="number" value="10" />
+                      <span class="input-group-text">%</span>
+                      <span class="input-group-text">자동지급</span>
+                    </div>
+                    <div class="control mt-2 is-flex">
+                      <span class="input-group-text">레벨 7 첫충 보너스</span>
+                      <input class="input is-small" type="number" value="10" />
+                      <span class="input-group-text">%</span>
+                      <span class="input-group-text">자동지급</span>
+                    </div>
+                    <div class="control mt-2 is-flex">
+                      <span class="input-group-text">레벨 8 첫충 보너스</span>
+                      <input class="input is-small" type="number" value="10" />
+                      <span class="input-group-text">%</span>
+                      <span class="input-group-text">자동지급</span>
+                    </div>
+                    <div class="control mt-2 is-flex">
+                      <span class="input-group-text">레벨 9 첫충 보너스</span>
+                      <input class="input is-small" type="number" value="10" />
+                      <span class="input-group-text">%</span>
+                      <span class="input-group-text">자동지급</span>
+                    </div>
+                    <div class="control mt-2 is-flex">
+                      <span class="input-group-text">레벨 10 첫충 보너스</span>
+                      <input class="input is-small" type="number" value="10" />
+                      <span class="input-group-text">%</span>
+                      <span class="input-group-text">자동지급</span>
+                    </div>
+                  </div>
+                  <div class="column">
+                    <label for="">최대 보너스 지급금액</label>
+                    <div class="field is-multiline is-flex">
+                      <input
+                        class="input is-small"
+                        type="number"
+                        value="200000"
+                      />
+                      <span class="input-group-text">P</span>
+                    </div>
+                    <label for="">매일 첫 충전</label>
+                    <div class="control mt-2 is-flex">
+                      <span class="input-group-text">레벨 1 매충 보너스</span>
+                      <input class="input is-small" type="number" value="10" />
+                      <span class="input-group-text">%</span>
+                      <span class="input-group-text">자동지급</span>
+                    </div>
+                    <div class="control mt-2 is-flex">
+                      <span class="input-group-text">레벨 2 매충 보너스</span>
+                      <input class="input is-small" type="number" value="10" />
+                      <span class="input-group-text">%</span>
+                      <span class="input-group-text">자동지급</span>
+                    </div>
+                    <div class="control mt-2 is-flex">
+                      <span class="input-group-text">레벨 3 매충 보너스</span>
+                      <input class="input is-small" type="number" value="10" />
+                      <span class="input-group-text">%</span>
+                      <span class="input-group-text">자동지급</span>
+                    </div>
+                    <div class="control mt-2 is-flex">
+                      <span class="input-group-text">레벨 4 매충 보너스</span>
+                      <input class="input is-small" type="number" value="10" />
+                      <span class="input-group-text">%</span>
+                      <span class="input-group-text">자동지급</span>
+                    </div>
+                    <div class="control mt-2 is-flex">
+                      <span class="input-group-text">레벨 5 매충 보너스</span>
+                      <input class="input is-small" type="number" value="10" />
+                      <span class="input-group-text">%</span>
+                      <span class="input-group-text">자동지급</span>
+                    </div>
+                    <div class="control mt-2 is-flex">
+                      <span class="input-group-text">레벨 6 매충 보너스</span>
+                      <input class="input is-small" type="number" value="10" />
+                      <span class="input-group-text">%</span>
+                      <span class="input-group-text">자동지급</span>
+                    </div>
+                    <div class="control mt-2 is-flex">
+                      <span class="input-group-text">레벨 7 매충 보너스</span>
+                      <input class="input is-small" type="number" value="10" />
+                      <span class="input-group-text">%</span>
+                      <span class="input-group-text">자동지급</span>
+                    </div>
+                    <div class="control mt-2 is-flex">
+                      <span class="input-group-text">레벨 8 매충 보너스</span>
+                      <input class="input is-small" type="number" value="10" />
+                      <span class="input-group-text">%</span>
+                      <span class="input-group-text">자동지급</span>
+                    </div>
+                    <div class="control mt-2 is-flex">
+                      <span class="input-group-text">레벨 9 매충 보너스</span>
+                      <input class="input is-small" type="number" value="10" />
+                      <span class="input-group-text">%</span>
+                      <span class="input-group-text">자동지급</span>
+                    </div>
+                    <div class="control mt-2 is-flex">
+                      <span class="input-group-text">레벨 10 매충 보너스</span>
+                      <input class="input is-small" type="number" value="10" />
+                      <span class="input-group-text">%</span>
+                      <span class="input-group-text">자동지급</span>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
-            <div class="card-footer">
-              <button type="button" class="button is-info">
-                설정 저장 <i class="icon-paperplane"></i>
+          </div>
+          <div class="card-footer">
+            <div class="card-footer-item is-centered">
+              <button class="button is-info is-outlined is-centered">
+                설정 저장
               </button>
             </div>
           </div>
@@ -237,6 +249,32 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+.card {
+  border: 1px solid rgb(231 227 227);
+  label {
+    font-size: 0.7125rem;
+  }
+}
+.pepe-blue {
+  color: blue;
+  margin-left: 12px;
+}
+.input-group-text {
+  //   display: flex;
+  align-items: center;
+  padding: 0.4375rem 0.875rem;
+  margin-bottom: 0;
+  font-size: 0.7125rem;
+  font-weight: 400;
+  line-height: 1.5385;
+  color: #333;
+  text-align: center;
+  white-space: nowrap;
+  background-color: #fafafa;
+  border: 1px solid #ddd;
+  border-radius: 0.1875rem;
+}
+
 .card-content {
   padding: 1.25rem;
   //   width: 100%;
@@ -247,10 +285,7 @@ export default {
     display: flex;
     -ms-flex-wrap: wrap;
     flex-wrap: wrap;
-    .pepe-blue {
-      color: blue;
-      margin-left: 12px;
-    }
+
     .row {
       margin-left: 20px;
     }
@@ -260,21 +295,6 @@ export default {
       margin-bottom: 10px;
       input {
         width: 100%;
-      }
-      .input-group-text {
-        //   display: flex;
-        align-items: center;
-        padding: 0.4375rem 0.875rem;
-        margin-bottom: 0;
-        font-size: 0.8125rem;
-        font-weight: 400;
-        line-height: 1.5385;
-        color: #333;
-        text-align: center;
-        white-space: nowrap;
-        background-color: #fafafa;
-        border: 1px solid #ddd;
-        border-radius: 0.1875rem;
       }
     }
   }

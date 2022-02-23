@@ -2,18 +2,20 @@
   <div>
     <Nav />
     <div class="column">
-      <div class="card">
-        <Settings />
-      </div>
+      <!-- <div class="card"> -->
+      <!-- <div class="card-content"> -->
+      <FeeLogs />
+      <!-- </div> 
+      </div>-->
     </div>
   </div>
 </template>
 <script>
 import Nav from "../components/Nav/Nav.vue";
-import Settings from "../components/FeesManagement/Settings.vue";
+import FeeLogs from "../components/FeesManagement/FeeLogs.vue";
 export default {
   name: "FeeLog",
-  components: { Nav, Settings }
+  components: { Nav, FeeLogs }
 };
 </script>
 

@@ -1,13 +1,19 @@
 <template>
   <div>
     <Nav />
+    <div class="column">
+      <div class="card">
+        <Settings />
+      </div>
+    </div>
   </div>
 </template>
 <script>
 import Nav from "../components/Nav/Nav.vue";
+import Settings from "../components/FeesManagement/Settings.vue";
 export default {
   name: "MemInputset",
-  components: { Nav }
+  components: { Nav, Settings }
 };
 </script>
 
@@ -18,6 +24,7 @@ export default {
     "Segoe UI Symbol", "Noto Color Emoji";
   font-size: 0.8125rem;
   font-weight: 400;
-  color: #333;
+  color: rgb(0, 0, 0);
+  /* background-color: white; */
 }
 </style>
