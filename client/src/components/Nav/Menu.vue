@@ -439,16 +439,19 @@ export default {
           title: "API 로그",
           to: { name: "apiSettings-settings" },
           id: "api-settings",
+          checker: ["otp-log", "casino-log"],
           subItems: [
             {
               subTitle: "프리메치 경기목록",
-              id: "api-settings",
-              to: "member-list-test"
+              id: "otp",
+              to: "/admin/otp-log",
+              idto: "otp-log"
             },
             {
               subTitle: "국내스포츠",
-              id: "api-settings",
-              to: "member-list-test"
+              id: "casino",
+              to: "/admin/casino-log",
+              idto: "casino-log"
             }
           ]
         },
@@ -491,9 +494,17 @@ export default {
         },
         {
           title: "관리자 접속",
-          id: "online-list-admin",
-          to: "/admin/online-list-admin",
-          checker: ["online-list-admin"]
+          id: "online-admin-list",
+          to: "/admin/online-admin-list",
+          checker: ["online-admin-list"],
+          subItems: [
+            {
+              subTitle: "관리자 접속",
+              id: "admin",
+              to: "/admin/online-admin-list",
+              idto: "online-admin-list"
+            }
+          ]
         },
         {
           title: "로그아웃",
@@ -554,6 +565,7 @@ export default {
       if (param == this.dir) {
         c = "sub is-active-sub";
       }
+      console.log(param);
       return c;
     },
     showSub(event) {
@@ -570,18 +582,20 @@ export default {
         );
         mainMenuID.classList.add("is-active");
       }
-      // console.log(mainMenuID);
+
       var subMenu = document.getElementById(mainMenuID.dataset.id);
       this.subActive = subMenu;
       let subMenu1 = document.getElementsByClassName("submenu-list");
-
+      // console.log(subMenu1);
       for (let x = 0; x < subMenu1.length; x++) {
         var subMenuID = subMenu1[x].getAttribute("id");
         let subMenu2 = document.getElementById(subMenuID);
         subMenu2.classList.remove("show");
       }
       subMenu.classList.add("show");
-      // console.log(subMenu);
+      // console.log(subMenu.children.length);
+      if (subMenu.children.length < 1) {
+      }
     },
     activeSub() {},
     changeMode() {

@@ -55,7 +55,7 @@ export default {
     "Segoe UI Symbol", "Noto Color Emoji";
   font-size: 0.8125rem;
   font-weight: 400;
-  color: rgb(0, 0, 0);
+  /* color: rgb(0, 0, 0); */
   /* background-color: white; */
 }
 </style>

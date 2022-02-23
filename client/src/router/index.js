@@ -10,6 +10,8 @@ import MemInputset from '../views/MemInputset.vue';
 import MemInputsetCasino from '../views/MemInputsetCasino.vue';
 import MemInputsetOthers from '../views/MemInputsetOthers.vue';
 import OnlineAdminList from '../views/OnlineAdminList.vue';
+import OTPLogs from '../views/OTPLogs.vue';
+import CasinoLogs from '../views/CasinoLogs.vue';
 
 Vue.use(VueRouter)
 
@@ -122,6 +124,32 @@ const routes = [
     path: '/admin/online-admin-list',
     name: 'OnlineAdminList',
     component: OnlineAdminList,
+    beforeEnter: (to, from, next) => {
+      if(store.state.account.authenticated == false){
+        next("/");
+      }
+      else{
+        next();
+      }
+    }
+  },
+  {
+    path: '/admin/otp-log',
+    name: 'OTPLogs',
+    component: OTPLogs,
+    beforeEnter: (to, from, next) => {
+      if(store.state.account.authenticated == false){
+        next("/");
+      }
+      else{
+        next();
+      }
+    }
+  },
+  {
+    path: '/admin/casino-log',
+    name: 'CasinoLogs',
+    component: CasinoLogs,
     beforeEnter: (to, from, next) => {
       if(store.state.account.authenticated == false){
         next("/");
