@@ -376,16 +376,43 @@ export default {
           title: "고객센터",
           to: { name: "cs-list" },
           id: "customer-service",
+          checker: [
+            "cs-list",
+            "cs-list",
+            "cslist-form",
+            "aclist-form",
+            "badlist-form"
+          ],
           subItems: [
             {
-              subTitle: "프리메치 경기목록",
-              id: "customer-service",
-              to: "member-list-test"
+              subTitle: "계좌문의",
+              id: "cs9",
+              to: "/admin/cs-list&cdtype=9",
+              idto: "cs-list"
             },
             {
-              subTitle: "국내스포츠",
-              id: "customer-service",
-              to: "member-list-test"
+              subTitle: "일반문의",
+              id: "cs0",
+              to: "/admin/cs-list&cdtype=0",
+              idto: "cs-list"
+            },
+            {
+              subTitle: "일반답변양식",
+              id: "cslist",
+              to: "/admin/cslist-form",
+              idto: "cslist-form"
+            },
+            {
+              subTitle: "계좌답변양식",
+              id: "aclist",
+              to: "/admin/aclist-form",
+              idto: "aclist-form"
+            },
+            {
+              subTitle: "블랙계좌답변양식",
+              id: "badlist",
+              to: "/admin/badlist-form",
+              idto: "badlist-form"
             }
           ]
         },
@@ -393,11 +420,13 @@ export default {
           title: "쪽지관리",
           to: { name: "message-list" },
           id: "message-list",
+          checker: ["message-list"],
           subItems: [
             {
-              subTitle: "프리메치 경기목록",
-              id: "message-list",
-              to: "member-list-test"
+              subTitle: "쪽지목록",
+              id: "message",
+              to: "/admin/message-list",
+              idto: "message-list"
             }
           ]
         },

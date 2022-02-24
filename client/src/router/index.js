@@ -22,6 +22,7 @@ import Maintenance from '../views/Maintenance.vue';
 import ConfigLevel from '../views/ConfigLevel.vue';
 import BankList from '../views/BankList.vue';
 import IPSet from '../views/IPSet.vue';
+import MessageList from '../views/MessageList.vue';
 
 Vue.use(VueRouter)
 
@@ -290,6 +291,19 @@ const routes = [
     path: '/admin/ip-set',
     name: 'IPSet',
     component: IPSet,
+    beforeEnter: (to, from, next) => {
+      if(store.state.account.authenticated == false){
+        next("/");
+      }
+      else{
+        next();
+      }
+    }
+  },
+  {
+    path: '/admin/message-list',
+    name: 'MessageList',
+    component: MessageList,
     beforeEnter: (to, from, next) => {
       if(store.state.account.authenticated == false){
         next("/");
