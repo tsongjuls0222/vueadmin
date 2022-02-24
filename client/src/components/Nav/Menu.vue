@@ -377,8 +377,8 @@ export default {
           to: { name: "cs-list" },
           id: "customer-service",
           checker: [
-            "cs-list",
-            "cs-list",
+            "cs-list&cdtype=9",
+            "cs-list&cdtype=0",
             "cslist-form",
             "aclist-form",
             "badlist-form"
@@ -388,13 +388,13 @@ export default {
               subTitle: "계좌문의",
               id: "cs9",
               to: "/admin/cs-list&cdtype=9",
-              idto: "cs-list"
+              idto: "cs-list&cdtype=9"
             },
             {
               subTitle: "일반문의",
               id: "cs0",
               to: "/admin/cs-list&cdtype=0",
-              idto: "cs-list"
+              idto: "cs-list&cdtype=0"
             },
             {
               subTitle: "일반답변양식",

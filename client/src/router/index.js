@@ -23,6 +23,11 @@ import ConfigLevel from '../views/ConfigLevel.vue';
 import BankList from '../views/BankList.vue';
 import IPSet from '../views/IPSet.vue';
 import MessageList from '../views/MessageList.vue';
+import AccountInquiry from '../views/AccountInquiry.vue';
+import GeneralInquiry from '../views/GeneralInquiry.vue';
+import CSListForm from '../views/CSListForm.vue';
+import ACListForm from '../views/MessageList.vue';
+import BadListForm from '../views/BadListForm.vue';
 
 Vue.use(VueRouter)
 
@@ -304,6 +309,71 @@ const routes = [
     path: '/admin/message-list',
     name: 'MessageList',
     component: MessageList,
+    beforeEnter: (to, from, next) => {
+      if(store.state.account.authenticated == false){
+        next("/");
+      }
+      else{
+        next();
+      }
+    }
+  },
+  {
+    path: '/admin/cs-list&cdtype=9',
+    name: 'AccountInquiry',
+    component: AccountInquiry,
+    beforeEnter: (to, from, next) => {
+      if(store.state.account.authenticated == false){
+        next("/");
+      }
+      else{
+        next();
+      }
+    }
+  },
+  {
+    path: '/admin/cs-list&cdtype=0',
+    name: 'GeneralInquiry',
+    component: GeneralInquiry,
+    beforeEnter: (to, from, next) => {
+      if(store.state.account.authenticated == false){
+        next("/");
+      }
+      else{
+        next();
+      }
+    }
+  },
+  {
+    path: '/admin/cslist-form',
+    name: 'CSListForm',
+    component: CSListForm,
+    beforeEnter: (to, from, next) => {
+      if(store.state.account.authenticated == false){
+        next("/");
+      }
+      else{
+        next();
+      }
+    }
+  },
+  {
+    path: '/admin/aclist-form',
+    name: 'ACListForm',
+    component: ACListForm,
+    beforeEnter: (to, from, next) => {
+      if(store.state.account.authenticated == false){
+        next("/");
+      }
+      else{
+        next();
+      }
+    }
+  },
+  {
+    path: '/admin/badlist-form',
+    name: 'BadListForm',
+    component: BadListForm,
     beforeEnter: (to, from, next) => {
       if(store.state.account.authenticated == false){
         next("/");
