@@ -1,13 +1,17 @@
 <template>
   <div>
     <Nav />
+    <div class="column">
+      <Partner />
+    </div>
   </div>
 </template>
 <script>
 import Nav from "../components/Nav/Nav.vue";
+import Partner from "../components/SiteSettings/PartnerSetting.vue";
 export default {
-  name: "MemberListTest",
-  components: { Nav }
+  name: "PartnerList",
+  components: { Nav, Partner }
 };
 </script>
 <style scoped>

@@ -6,7 +6,7 @@
 <script>
 import Nav from "../components/Nav/Nav.vue";
 export default {
-  name: "MemberListTest",
+  name: "ConfigLevel",
   components: { Nav }
 };
 </script>

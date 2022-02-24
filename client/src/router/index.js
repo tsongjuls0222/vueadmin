@@ -12,6 +12,16 @@ import MemInputsetOthers from '../views/MemInputsetOthers.vue';
 import OnlineAdminList from '../views/OnlineAdminList.vue';
 import OTPLogs from '../views/OTPLogs.vue';
 import CasinoLogs from '../views/CasinoLogs.vue';
+import Attendance from '../views/Attendance.vue';
+import BoardList from '../views/BoardList.vue';
+import NoticeList from '../views/NoticeList.vue';
+import AddPopup from '../views/AddPopup.vue';
+import PartnerList from '../views/PartnerList.vue';
+import ConfigSports from '../views/ConfigSports.vue';
+import Maintenance from '../views/Maintenance.vue';
+import ConfigLevel from '../views/ConfigLevel.vue';
+import BankList from '../views/BankList.vue';
+import IPSet from '../views/IPSet.vue';
 
 Vue.use(VueRouter)
 
@@ -150,6 +160,136 @@ const routes = [
     path: '/admin/casino-log',
     name: 'CasinoLogs',
     component: CasinoLogs,
+    beforeEnter: (to, from, next) => {
+      if(store.state.account.authenticated == false){
+        next("/");
+      }
+      else{
+        next();
+      }
+    }
+  },
+  {
+    path: '/admin/attendance',
+    name: 'Attendance',
+    component: Attendance,
+    beforeEnter: (to, from, next) => {
+      if(store.state.account.authenticated == false){
+        next("/");
+      }
+      else{
+        next();
+      }
+    }
+  },
+  {
+    path: '/admin/board-list',
+    name: 'BoardList',
+    component: BoardList,
+    beforeEnter: (to, from, next) => {
+      if(store.state.account.authenticated == false){
+        next("/");
+      }
+      else{
+        next();
+      }
+    }
+  },
+  {
+    path: '/admin/notice-list',
+    name: 'NoticeList',
+    component: NoticeList,
+    beforeEnter: (to, from, next) => {
+      if(store.state.account.authenticated == false){
+        next("/");
+      }
+      else{
+        next();
+      }
+    }
+  },
+  {
+    path: '/admin/add-popup',
+    name: 'AddPopup',
+    component: AddPopup,
+    beforeEnter: (to, from, next) => {
+      if(store.state.account.authenticated == false){
+        next("/");
+      }
+      else{
+        next();
+      }
+    }
+  },
+  {
+    path: '/admin/partner-list',
+    name: 'PartnerList',
+    component: PartnerList,
+    beforeEnter: (to, from, next) => {
+      if(store.state.account.authenticated == false){
+        next("/");
+      }
+      else{
+        next();
+      }
+    }
+  },
+  {
+    path: '/admin/config-sports',
+    name: 'ConfigSports',
+    component: ConfigSports,
+    beforeEnter: (to, from, next) => {
+      if(store.state.account.authenticated == false){
+        next("/");
+      }
+      else{
+        next();
+      }
+    }
+  },
+  {
+    path: '/admin/maintenance',
+    name: 'Maintenance',
+    component: Maintenance,
+    beforeEnter: (to, from, next) => {
+      if(store.state.account.authenticated == false){
+        next("/");
+      }
+      else{
+        next();
+      }
+    }
+  },
+  {
+    path: '/admin/config-level',
+    name: 'ConfigLevel',
+    component: ConfigLevel,
+    beforeEnter: (to, from, next) => {
+      if(store.state.account.authenticated == false){
+        next("/");
+      }
+      else{
+        next();
+      }
+    }
+  },
+  {
+    path: '/admin/bank-list',
+    name: 'BankList',
+    component: BankList,
+    beforeEnter: (to, from, next) => {
+      if(store.state.account.authenticated == false){
+        next("/");
+      }
+      else{
+        next();
+      }
+    }
+  },
+  {
+    path: '/admin/ip-set',
+    name: 'IPSet',
+    component: IPSet,
     beforeEnter: (to, from, next) => {
       if(store.state.account.authenticated == false){
         next("/");

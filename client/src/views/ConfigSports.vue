@@ -1,13 +1,17 @@
 <template>
   <div>
     <Nav />
+    <div class="column">
+      <ConfigSport />
+    </div>
   </div>
 </template>
 <script>
 import Nav from "../components/Nav/Nav.vue";
+import ConfigSport from "../components/SiteSettings/ConfigSportSetting.vue";
 export default {
-  name: "MemberListTest",
-  components: { Nav }
+  name: "ConfigSports",
+  components: { Nav, ConfigSport }
 };
 </script>
 <style scoped>

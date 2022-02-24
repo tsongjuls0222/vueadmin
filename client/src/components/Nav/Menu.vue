@@ -405,16 +405,50 @@ export default {
           title: "사이트설정",
           to: { name: "partner-list" },
           id: "site-settings",
+          checker: [
+            "partner-list",
+            "config-sports",
+            "maintenance",
+            "config-level",
+            "bank-list",
+            "ip-set"
+          ],
           subItems: [
             {
-              subTitle: "프리메치 경기목록",
-              id: "site-settings",
-              to: "member-list-test"
+              subTitle: "파트너관리",
+              id: "partner",
+              to: "/admin/partner-list",
+              idto: "partner-list"
             },
             {
-              subTitle: "국내스포츠",
-              id: "site-settings",
-              to: "member-list-test"
+              subTitle: "스포츠 기본설정",
+              id: "config-sports",
+              to: "/admin/config-sports",
+              idto: "config-sports"
+            },
+            {
+              subTitle: "점검",
+              id: "maintenance",
+              to: "/admin/maintenance",
+              idto: "maintenance"
+            },
+            {
+              subTitle: "레벨관리",
+              id: "config-level",
+              to: "/admin/config-level",
+              idto: "config-level"
+            },
+            {
+              subTitle: "은행목록",
+              id: "bank",
+              to: "/admin/bank-list",
+              idto: "bank-list"
+            },
+            {
+              subTitle: "IP 차단/설정",
+              id: "ip-set",
+              to: "/admin/ip-set",
+              idto: "ip-set"
             }
           ]
         },
@@ -422,16 +456,31 @@ export default {
           title: "공지/이벤트",
           to: { name: "attendance-list" },
           id: "event-management",
+          checker: ["attendance", "board-list", "notice-list", "add-popup"],
           subItems: [
             {
-              subTitle: "프리메치 경기목록",
-              id: "event-management",
-              to: "member-list-test"
+              subTitle: "출석 이벤트",
+              id: "attendance",
+              to: "/admin/attendance",
+              idto: "attendance"
             },
             {
-              subTitle: "국내스포츠",
-              id: "event-management",
-              to: "member-list-test"
+              subTitle: "이벤트목록",
+              id: "board",
+              to: "/admin/board-list",
+              idto: "board-list"
+            },
+            {
+              subTitle: "공지 목록",
+              id: "notice",
+              to: "/admin/notice-list",
+              idto: "notice-list"
+            },
+            {
+              subTitle: "팝업",
+              id: "popup",
+              to: "/admin/add-popup",
+              idto: "add-popup"
             }
           ]
         },

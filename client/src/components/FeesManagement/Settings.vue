@@ -259,21 +259,6 @@ export default {
   color: blue;
   margin-left: 12px;
 }
-.input-group-text {
-  //   display: flex;
-  align-items: center;
-  padding: 0.4375rem 0.875rem;
-  margin-bottom: 0;
-  font-size: 0.7125rem;
-  font-weight: 400;
-  line-height: 1.5385;
-  color: #333;
-  text-align: center;
-  white-space: nowrap;
-  background-color: #fafafa;
-  border: 1px solid #ddd;
-  border-radius: 0.1875rem;
-}
 
 .card-content {
   padding: 1.25rem;
