@@ -2,7 +2,7 @@
   <div>
     <Nav />
     <div class="column">
-        <BetList/>
+        <BetList :title="'미니게임'"/>
     </div>
   </div>
 </template>

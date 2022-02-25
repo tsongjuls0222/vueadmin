@@ -2,7 +2,7 @@
   <div>
     <Nav />
     <div class="column">
-        <BetList/>
+        <BetList :title="'프리매치'"/>
     </div>
   </div>
 </template>
