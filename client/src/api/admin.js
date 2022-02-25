@@ -14,10 +14,6 @@ export default class API {
         const res = await axios.get(`${url}/admin/agents`);
         return res.data;
     }
-    static async getSelectAgentAndCode() {
-        const res = await axios.get(`${url}/admin/agentsncodes`);
-        return res.data;
-    }
     static async getSelectCode() {
         const res = await axios.get(`${url}/admin/codes`);
         return res.data;

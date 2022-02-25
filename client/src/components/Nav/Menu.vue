@@ -337,21 +337,25 @@ export default {
           title: "배팅관리",
           to: { name: "bet-management-prematch" },
           id: "bet-management",
+          checker: ['prematch','realtime','minigame'],
           subItems: [
             {
               subTitle: "프리메치 배팅목록",
-              id: "bet-management",
-              to: "member-list-test"
+              id: "prematch",
+              to: "/admin/prematch",
+              idto: "prematch"
             },
             {
               subTitle: "실시간 배팅목록",
-              id: "bet-management",
-              to: "member-list-test"
+              id: "realtime",
+              to: "/admin/realtime",
+              idto: "realtime"
             },
             {
               subTitle: "미니 게임 배팅목록",
-              id: "bet-management",
-              to: "member-list-test"
+              id: "minigame",
+              to: "/admin/minigame",
+              idto: "minigame"
             }
           ]
         },
@@ -359,17 +363,32 @@ export default {
           title: "정산",
           to: { name: "dailySettlement-prematch" },
           id: "daily-settlement",
+          checker:['partner-settlement','member-history','deposit','withdraw'],
           subItems: [
             {
-              subTitle: "프리메치 경기목록",
-              id: "daily-settlement",
-              to: "member-list-test"
+              subTitle: "일일정산",
+              id: "partner-settlement",
+              to: "/admin/partner-settlement",
+              idto: "partner-settlement"
             },
             {
-              subTitle: "국내스포츠",
-              id: "daily-settlement",
-              to: "member-list-test"
-            }
+              subTitle: "기간별 결산내역",
+              id: "member-history",
+              to: "/admin/member-history",
+              idto: "member-history"
+            },
+            {
+              subTitle: "[엑셀]입금관리",
+              id: "deposit",
+              to: "/admin/deposit",
+              idto: "deposit"
+            },
+            {
+              subTitle: "[엑셀]출금관리",
+              id: "withdraw",
+              to: "/admin/withdraw",
+              idto: "withdraw"
+            },
           ]
         },
         {

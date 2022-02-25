@@ -4,7 +4,7 @@
     <div class="column">
       <!-- <div class="card"> -->
       <!-- <div class="card-content"> -->
-      <FeeLogs agents:agents/>
+      <FeeLogs :agents="agents"/>
       <!-- </div> 
       </div>-->
     </div>
@@ -23,17 +23,13 @@ export default {
     }
   },
   methods: {
-    async getAgentNCode(){
-      const res = APIFilter.getSelectAgent();
-      // const codes = API.getSelectCode();
-      this.$store.commit("setAgents", res);
+    async getSelectAgent(){
+      const res = await APIFilter.getSelectAgent();
       this.agents = res;
-      
-      console.log(this.agents);
     }
   },
   created() {
-    this.getAgentNCode();
+    this.getSelectAgent();
   },
 };
 </script>

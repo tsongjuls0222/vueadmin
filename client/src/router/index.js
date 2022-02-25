@@ -28,6 +28,13 @@ import GeneralInquiry from '../views/GeneralInquiry.vue';
 import CSListForm from '../views/CSListForm.vue';
 import ACListForm from '../views/ACListForm.vue';
 import BadListForm from '../views/BadListForm.vue';
+import PartnerSettlement from '../views/PartnerSettlement.vue';
+import MemberHistory from '../views/MemberHistory.vue';
+import Deposit from '../views/Deposit.vue';
+import Withdraw from '../views/Withdraw.vue';
+import Prematch from '../views/Prematch.vue';
+import Realtime from '../views/Realtime.vue';
+import Minigame from '../views/Minigame.vue';
 
 Vue.use(VueRouter)
 
@@ -374,6 +381,97 @@ const routes = [
     path: '/admin/badlist-form',
     name: 'BadListForm',
     component: BadListForm,
+    beforeEnter: (to, from, next) => {
+      if (store.state.account.authenticated == false) {
+        next("/");
+      }
+      else {
+        next();
+      }
+    }
+  },
+  {
+    path: '/admin/partner-settlement',
+    name: 'PartnerSettlement',
+    component: PartnerSettlement,
+    beforeEnter: (to, from, next) => {
+      if (store.state.account.authenticated == false) {
+        next("/");
+      }
+      else {
+        next();
+      }
+    }
+  },
+  {
+    path: '/admin/member-history',
+    name: 'MemberHistory',
+    component: MemberHistory,
+    beforeEnter: (to, from, next) => {
+      if (store.state.account.authenticated == false) {
+        next("/");
+      }
+      else {
+        next();
+      }
+    }
+  },
+  {
+    path: '/admin/deposit',
+    name: 'Deposit',
+    component: Deposit,
+    beforeEnter: (to, from, next) => {
+      if (store.state.account.authenticated == false) {
+        next("/");
+      }
+      else {
+        next();
+      }
+    }
+  },
+  {
+    path: '/admin/withdraw',
+    name: 'Withdraw',
+    component: Withdraw,
+    beforeEnter: (to, from, next) => {
+      if (store.state.account.authenticated == false) {
+        next("/");
+      }
+      else {
+        next();
+      }
+    }
+  },
+  {
+    path: '/admin/prematch',
+    name: 'Prematch',
+    component: Prematch,
+    beforeEnter: (to, from, next) => {
+      if (store.state.account.authenticated == false) {
+        next("/");
+      }
+      else {
+        next();
+      }
+    }
+  },
+  {
+    path: '/admin/realtime',
+    name: 'Realtime',
+    component: Realtime,
+    beforeEnter: (to, from, next) => {
+      if (store.state.account.authenticated == false) {
+        next("/");
+      }
+      else {
+        next();
+      }
+    }
+  },
+  {
+    path: '/admin/minigame',
+    name: 'Minigame',
+    component: Minigame,
     beforeEnter: (to, from, next) => {
       if (store.state.account.authenticated == false) {
         next("/");

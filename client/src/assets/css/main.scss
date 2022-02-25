@@ -538,6 +538,7 @@ table {
     }
   }
 }
+//global table
 table {
   width: 100%;
   thead {
@@ -591,6 +592,7 @@ table {
     }
   }
 }
+//global label
 .input-group-text {
   //   display: flex;
   align-items: center;
@@ -605,6 +607,12 @@ table {
   background-color: #fafafa;
   border: 1px solid #ddd;
   border-radius: 0.1875rem;
+}
+
+//global checkbox 
+.check {
+  width: 22px !important;
+  height: 22px !important;
 }
 // GLOBAL POPUP
 // .userpopup-modal,

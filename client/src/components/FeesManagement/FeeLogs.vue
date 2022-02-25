@@ -9,19 +9,18 @@
               <div class="field is-narrow control">
                 <div class="select">
                   <select name="" id="">
-                    <option value="0">default</option>
-                    <option v-for="agent in agents" :key="agent.ia_idx" :value="agent.ia_idx">{{agent.name}}</option>
+                    <option v-for="agent in agents" :key="agent.ia_idx" :value="agent.ia_idx">{{agent.ia_name}}</option>
                   </select>
                 </div>
               </div>
               <div class="field is-narrow">
-                <input class="input" type="text" />
+                <input class="input" type="text" placeholder="이름, 닉네임, 아이디로 검색"/>
               </div>
               <div class="field is-narrow">
-                <input class="input" type="date" placeholder="검색내용" />
+                <input class="input" type="date" v-model="date" placeholder="검색내용" />
               </div>
               <div class="field is-narrow">
-                <input class="input" type="date" placeholder="검색내용" />
+                <input class="input" type="date" v-model="date" placeholder="검색내용" />
               </div>
               <div class="field is-narrow">
                 <button type="button" class="button is-info">
@@ -71,7 +70,12 @@
 </template>
 <script>
 export default {
-  props:['agents']
+  props:['agents'],
+  data() {
+    return {
+      date : new Date().toISOString().slice(0,10)
+    }
+  },
 };
 </script>
 
