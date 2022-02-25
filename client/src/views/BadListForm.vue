@@ -3,7 +3,7 @@
     <Nav />
     <div class="column">
       <div class="card">
-        <div class="card-header"><CSHeader :title="'계좌답변양식'" /></div>
+        <div class="card-header"><CSHeader :title="'블랙계좌답변양식'" /></div>
       </div>
     </div>
   </div>

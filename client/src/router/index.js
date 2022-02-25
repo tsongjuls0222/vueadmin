@@ -26,7 +26,7 @@ import MessageList from '../views/MessageList.vue';
 import AccountInquiry from '../views/AccountInquiry.vue';
 import GeneralInquiry from '../views/GeneralInquiry.vue';
 import CSListForm from '../views/CSListForm.vue';
-import ACListForm from '../views/MessageList.vue';
+import ACListForm from '../views/ACListForm.vue';
 import BadListForm from '../views/BadListForm.vue';
 
 Vue.use(VueRouter)
@@ -37,10 +37,10 @@ const routes = [
     name: 'Login',
     component: Login,
     beforeEnter: (to, from, next) => {
-      if(store.state.account.authenticated == true){
+      if (store.state.account.authenticated == true) {
         next("/admin");
       }
-      else{
+      else {
         next();
       }
     }
@@ -50,10 +50,10 @@ const routes = [
     name: 'Admin',
     component: Admin,
     beforeEnter: (to, from, next) => {
-      if(store.state.account.authenticated == false){
+      if (store.state.account.authenticated == false) {
         next("/");
       }
-      else{
+      else {
         next();
       }
     }
@@ -63,10 +63,10 @@ const routes = [
     name: 'MemberList',
     component: MemberList,
     beforeEnter: (to, from, next) => {
-      if(store.state.account.authenticated == false){
+      if (store.state.account.authenticated == false) {
         next("/");
       }
-      else{
+      else {
         next();
       }
     }
@@ -76,10 +76,10 @@ const routes = [
     name: 'MemberListTest',
     component: MemberListTest,
     beforeEnter: (to, from, next) => {
-      if(store.state.account.authenticated == false){
+      if (store.state.account.authenticated == false) {
         next("/");
       }
-      else{
+      else {
         next();
       }
     }
@@ -89,10 +89,10 @@ const routes = [
     name: 'FeeLog',
     component: FeeLog,
     beforeEnter: (to, from, next) => {
-      if(store.state.account.authenticated == false){
+      if (store.state.account.authenticated == false) {
         next("/");
       }
-      else{
+      else {
         next();
       }
     }
@@ -102,10 +102,10 @@ const routes = [
     name: 'MemInputset',
     component: MemInputset,
     beforeEnter: (to, from, next) => {
-      if(store.state.account.authenticated == false){
+      if (store.state.account.authenticated == false) {
         next("/");
       }
-      else{
+      else {
         next();
       }
     }
@@ -115,10 +115,10 @@ const routes = [
     name: 'MemInputsetCasino',
     component: MemInputsetCasino,
     beforeEnter: (to, from, next) => {
-      if(store.state.account.authenticated == false){
+      if (store.state.account.authenticated == false) {
         next("/");
       }
-      else{
+      else {
         next();
       }
     }
@@ -128,10 +128,10 @@ const routes = [
     name: 'MemInputsetOthers',
     component: MemInputsetOthers,
     beforeEnter: (to, from, next) => {
-      if(store.state.account.authenticated == false){
+      if (store.state.account.authenticated == false) {
         next("/");
       }
-      else{
+      else {
         next();
       }
     }
@@ -141,10 +141,10 @@ const routes = [
     name: 'OnlineAdminList',
     component: OnlineAdminList,
     beforeEnter: (to, from, next) => {
-      if(store.state.account.authenticated == false){
+      if (store.state.account.authenticated == false) {
         next("/");
       }
-      else{
+      else {
         next();
       }
     }
@@ -154,10 +154,10 @@ const routes = [
     name: 'OTPLogs',
     component: OTPLogs,
     beforeEnter: (to, from, next) => {
-      if(store.state.account.authenticated == false){
+      if (store.state.account.authenticated == false) {
         next("/");
       }
-      else{
+      else {
         next();
       }
     }
@@ -167,10 +167,10 @@ const routes = [
     name: 'CasinoLogs',
     component: CasinoLogs,
     beforeEnter: (to, from, next) => {
-      if(store.state.account.authenticated == false){
+      if (store.state.account.authenticated == false) {
         next("/");
       }
-      else{
+      else {
         next();
       }
     }
@@ -180,10 +180,10 @@ const routes = [
     name: 'Attendance',
     component: Attendance,
     beforeEnter: (to, from, next) => {
-      if(store.state.account.authenticated == false){
+      if (store.state.account.authenticated == false) {
         next("/");
       }
-      else{
+      else {
         next();
       }
     }
@@ -193,10 +193,10 @@ const routes = [
     name: 'BoardList',
     component: BoardList,
     beforeEnter: (to, from, next) => {
-      if(store.state.account.authenticated == false){
+      if (store.state.account.authenticated == false) {
         next("/");
       }
-      else{
+      else {
         next();
       }
     }
@@ -206,10 +206,10 @@ const routes = [
     name: 'NoticeList',
     component: NoticeList,
     beforeEnter: (to, from, next) => {
-      if(store.state.account.authenticated == false){
+      if (store.state.account.authenticated == false) {
         next("/");
       }
-      else{
+      else {
         next();
       }
     }
@@ -219,10 +219,10 @@ const routes = [
     name: 'AddPopup',
     component: AddPopup,
     beforeEnter: (to, from, next) => {
-      if(store.state.account.authenticated == false){
+      if (store.state.account.authenticated == false) {
         next("/");
       }
-      else{
+      else {
         next();
       }
     }
@@ -232,10 +232,10 @@ const routes = [
     name: 'PartnerList',
     component: PartnerList,
     beforeEnter: (to, from, next) => {
-      if(store.state.account.authenticated == false){
+      if (store.state.account.authenticated == false) {
         next("/");
       }
-      else{
+      else {
         next();
       }
     }
@@ -245,10 +245,10 @@ const routes = [
     name: 'ConfigSports',
     component: ConfigSports,
     beforeEnter: (to, from, next) => {
-      if(store.state.account.authenticated == false){
+      if (store.state.account.authenticated == false) {
         next("/");
       }
-      else{
+      else {
         next();
       }
     }
@@ -258,10 +258,10 @@ const routes = [
     name: 'Maintenance',
     component: Maintenance,
     beforeEnter: (to, from, next) => {
-      if(store.state.account.authenticated == false){
+      if (store.state.account.authenticated == false) {
         next("/");
       }
-      else{
+      else {
         next();
       }
     }
@@ -271,10 +271,10 @@ const routes = [
     name: 'ConfigLevel',
     component: ConfigLevel,
     beforeEnter: (to, from, next) => {
-      if(store.state.account.authenticated == false){
+      if (store.state.account.authenticated == false) {
         next("/");
       }
-      else{
+      else {
         next();
       }
     }
@@ -284,10 +284,10 @@ const routes = [
     name: 'BankList',
     component: BankList,
     beforeEnter: (to, from, next) => {
-      if(store.state.account.authenticated == false){
+      if (store.state.account.authenticated == false) {
         next("/");
       }
-      else{
+      else {
         next();
       }
     }
@@ -297,10 +297,10 @@ const routes = [
     name: 'IPSet',
     component: IPSet,
     beforeEnter: (to, from, next) => {
-      if(store.state.account.authenticated == false){
+      if (store.state.account.authenticated == false) {
         next("/");
       }
-      else{
+      else {
         next();
       }
     }
@@ -310,10 +310,10 @@ const routes = [
     name: 'MessageList',
     component: MessageList,
     beforeEnter: (to, from, next) => {
-      if(store.state.account.authenticated == false){
+      if (store.state.account.authenticated == false) {
         next("/");
       }
-      else{
+      else {
         next();
       }
     }
@@ -323,10 +323,10 @@ const routes = [
     name: 'AccountInquiry',
     component: AccountInquiry,
     beforeEnter: (to, from, next) => {
-      if(store.state.account.authenticated == false){
+      if (store.state.account.authenticated == false) {
         next("/");
       }
-      else{
+      else {
         next();
       }
     }
@@ -336,10 +336,10 @@ const routes = [
     name: 'GeneralInquiry',
     component: GeneralInquiry,
     beforeEnter: (to, from, next) => {
-      if(store.state.account.authenticated == false){
+      if (store.state.account.authenticated == false) {
         next("/");
       }
-      else{
+      else {
         next();
       }
     }
@@ -349,10 +349,10 @@ const routes = [
     name: 'CSListForm',
     component: CSListForm,
     beforeEnter: (to, from, next) => {
-      if(store.state.account.authenticated == false){
+      if (store.state.account.authenticated == false) {
         next("/");
       }
-      else{
+      else {
         next();
       }
     }
@@ -362,10 +362,10 @@ const routes = [
     name: 'ACListForm',
     component: ACListForm,
     beforeEnter: (to, from, next) => {
-      if(store.state.account.authenticated == false){
+      if (store.state.account.authenticated == false) {
         next("/");
       }
-      else{
+      else {
         next();
       }
     }
@@ -375,10 +375,10 @@ const routes = [
     name: 'BadListForm',
     component: BadListForm,
     beforeEnter: (to, from, next) => {
-      if(store.state.account.authenticated == false){
+      if (store.state.account.authenticated == false) {
         next("/");
       }
-      else{
+      else {
         next();
       }
     }
