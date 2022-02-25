@@ -9,12 +9,8 @@
               <div class="field is-narrow control">
                 <div class="select">
                   <select name="" id="">
-                    <option value="a">qweqwe</option>
-                    <option value="b">qwewqe</option>
-                    <option value="c">qeadawda</option>
-                    <option value="d">awddw</option>
-                    <option value="e">qwqeqweqwe</option>
-                    <option value="f">qweqweqweqwe</option>
+                    <option value="0">default</option>
+                    <option v-for="agent in agents" :key="agent.ia_idx" :value="agent.ia_idx">{{agent.name}}</option>
                   </select>
                 </div>
               </div>
@@ -74,7 +70,9 @@
   </div>
 </template>
 <script>
-export default {};
+export default {
+  props:['agents']
+};
 </script>
 
 <style lang="scss" scoped></style>

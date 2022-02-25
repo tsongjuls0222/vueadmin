@@ -5,16 +5,16 @@ const { Op } = require("sequelize");
 module.exports = class API {
 
     //fetch all agent sith status 1
-    static async fetchAllMemberListSelect1(req, res){
+    static async fetchAllMemberListSelect1(req, res) {
         try {
-            var agents = await Agent.findAll({ 
+            var agents = await Agent.findAll({
                 where: {
                     status: 1
                 },
                 order: [
                     ['ia_level', 'DESC']
                 ],
-                attributes: ['ia_idx', 'ia_name', 'ia_level']
+                attributes: ['ia_idx', 'ia_name', 'ia_level', 'ia_code']
             });
             res.status(200).json(agents);
         } catch (error) {
@@ -23,12 +23,12 @@ module.exports = class API {
     }
 
     //fetch all agent code
-    static async fetchAllMemberListSelect2(req, res){
+    static async fetchAllMemberListSelect2(req, res) {
         try {
-            const codes = await Code.findAll({ 
+            const codes = await Code.findAll({
                 where: {
                     status: {
-                        [Op.lt]: 2 
+                        [Op.lt]: 2
                     }
                 },
                 order: [
@@ -41,14 +41,14 @@ module.exports = class API {
         }
     }
 
-    static async fetchAllMemberListSelect3(req, res){
+    static async fetchAllMemberListSelect3(req, res) {
         try {
             var arrdata = [];
 
-            for(var i = 1; i < 11; i++){
+            for (var i = 1; i < 11; i++) {
                 const data = {
-                    "id" : i,
-                    "option" : "레벨 "+i
+                    "id": i,
+                    "option": "레벨 " + i
                 }
 
                 arrdata.push(data);
@@ -59,40 +59,40 @@ module.exports = class API {
         }
     }
 
-    static async fetchAllMemberListSelect4(req, res){
+    static async fetchAllMemberListSelect4(req, res) {
         try {
             const arrdata = [
                 {
-                    "id" : "-1",
-                    "option" : "회원유형"
+                    "id": "-1",
+                    "option": "회원유형"
                 },
                 {
-                    "id" : "1",
-                    "option" : "정상유저"
+                    "id": "1",
+                    "option": "정상유저"
                 },
                 {
-                    "id" : "2",
-                    "option" : "의심유저"
+                    "id": "2",
+                    "option": "의심유저"
                 },
                 {
-                    "id" : "3",
-                    "option" : "불량유저"
+                    "id": "3",
+                    "option": "불량유저"
                 },
                 {
-                    "id" : "4",
-                    "option" : "기타유저"
+                    "id": "4",
+                    "option": "기타유저"
                 },
                 {
-                    "id" : "5",
-                    "option" : "장기미접"
+                    "id": "5",
+                    "option": "장기미접"
                 },
                 {
-                    "id" : "6",
-                    "option" : "정지유저"
+                    "id": "6",
+                    "option": "정지유저"
                 },
                 {
-                    "id" : "7",
-                    "option" : "테스트아이디"
+                    "id": "7",
+                    "option": "테스트아이디"
                 }
             ];
             res.status(200).json(arrdata);
@@ -101,48 +101,48 @@ module.exports = class API {
         }
     }
 
-    static async fetchAllMemberListSelect5(req, res){
+    static async fetchAllMemberListSelect5(req, res) {
         try {
             const arrdata = [
                 {
-                    "id" : "1",
-                    "option" : "아이디",
-                    "value" : "a.username"
+                    "id": "1",
+                    "option": "아이디",
+                    "value": "a.username"
                 },
                 {
-                    "id" : "2",
-                    "option" : "닉네임",
-                    "value" : "a.iu_nickname"
+                    "id": "2",
+                    "option": "닉네임",
+                    "value": "a.iu_nickname"
                 },
                 {
-                    "id" : "3",
-                    "option" : "이름",
-                    "value" : "a.iu_name"
+                    "id": "3",
+                    "option": "이름",
+                    "value": "a.iu_name"
                 },
                 {
-                    "id" : "4",
-                    "option" : "연락처",
-                    "value" : "a.iu_phone"
+                    "id": "4",
+                    "option": "연락처",
+                    "value": "a.iu_phone"
                 },
                 {
-                    "id" : "5",
-                    "option" : "계좌번호",
-                    "value" : "a.iu_acc"
+                    "id": "5",
+                    "option": "계좌번호",
+                    "value": "a.iu_acc"
                 },
                 {
-                    "id" : "6",
-                    "option" : "코드",
-                    "value" : "a.real_code"
+                    "id": "6",
+                    "option": "코드",
+                    "value": "a.real_code"
                 },
                 {
-                    "id" : "7",
-                    "option" : "파트너",
-                    "value" : "b.ia_name"
+                    "id": "7",
+                    "option": "파트너",
+                    "value": "b.ia_name"
                 },
                 {
-                    "id" : "8",
-                    "option" : "추천인",
-                    "value" : "a.iu_recommend"
+                    "id": "8",
+                    "option": "추천인",
+                    "value": "a.iu_recommend"
                 }
             ];
             res.status(200).json(arrdata);

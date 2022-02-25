@@ -643,7 +643,7 @@ export default {
       if (param == this.dir) {
         c = "sub is-active-sub";
       }
-      console.log(param);
+      // console.log(param);
       return c;
     },
     showSub(event) {
