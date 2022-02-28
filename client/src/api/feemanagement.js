@@ -9,4 +9,16 @@ export default class API {
         const res = await axios.post(`${url}/feemanagement/filterfeelogs`, data);
         return res.data;
     }
+    static async getSettings(id) {
+        const res = await axios.get(`${url}/feemanagement/getBonus${id}`);
+        return res.data;
+    }
+    static async getConfig(id) {
+        const res = await axios.get(`${url}/feemanagement/getConfig${id}`);
+        return res.data;
+    }
+    static async setSettings(data) {
+        const res = await axios.post(`${url}/feemanagement/setBonus`, data);
+        return res.data;
+    }
 }

@@ -34,32 +34,224 @@ const User = db.define('info_user_charget_bonusset', {
             allowNull: true
         }
     },
-    if_bet_idx: {
-        type: Sequelize.STRING,
+    first_input_bonus_level_1: {
+        type: Sequelize.DECIMAL,
         validate: {
             allowNull: true
         }
     },
-    if_fee: {
-        type: Sequelize.INTEGER,
+    first_input_bonus_level_2: {
+        type: Sequelize.DECIMAL,
         validate: {
             allowNull: true
         }
     },
-    if_datetime: {
+    first_input_bonus_level_3: {
+        type: Sequelize.DECIMAL,
+        validate: {
+            allowNull: true
+        }
+    },
+    first_input_bonus_level_4: {
+        type: Sequelize.DECIMAL,
+        validate: {
+            allowNull: true
+        }
+    },
+    first_input_bonus_level_5: {
+        type: Sequelize.DECIMAL,
+        validate: {
+            allowNull: true
+        }
+    },
+    first_input_bonus_level_6: {
+        type: Sequelize.DECIMAL,
+        validate: {
+            allowNull: true
+        }
+    },
+    first_input_bonus_level_7: {
+        type: Sequelize.DECIMAL,
+        validate: {
+            allowNull: true
+        }
+    },
+    first_input_bonus_level_8: {
+        type: Sequelize.DECIMAL,
+        validate: {
+            allowNull: true
+        }
+    },
+    first_input_bonus_level_9: {
+        type: Sequelize.DECIMAL,
+        validate: {
+            allowNull: true
+        }
+    },
+    first_input_bonus_level_10: {
+        type: Sequelize.DECIMAL,
+        validate: {
+            allowNull: true
+        }
+    },
+    first_input_bonus_partner1: {
+        type: Sequelize.DECIMAL,
+        validate: {
+            allowNull: true
+        }
+    },
+    first_input_bonus_partner2: {
+        type: Sequelize.DECIMAL,
+        validate: {
+            allowNull: true
+        }
+    },
+    first_input_bonus_partner3: {
+        type: Sequelize.DECIMAL,
+        validate: {
+            allowNull: true
+        }
+    },
+    first_input_bonus_partner4: {
+        type: Sequelize.DECIMAL,
+        validate: {
+            allowNull: true
+        }
+    },
+    first_input_bonus_partner5: {
+        type: Sequelize.DECIMAL,
+        validate: {
+            allowNull: true
+        }
+    },
+    each_input_bonus_level_1: {
+        type: Sequelize.DECIMAL,
+        validate: {
+            allowNull: true
+        }
+    },
+    each_input_bonus_level_2: {
+        type: Sequelize.DECIMAL,
+        validate: {
+            allowNull: true
+        }
+    },
+    each_input_bonus_level_3: {
+        type: Sequelize.DECIMAL,
+        validate: {
+            allowNull: true
+        }
+    },
+    each_input_bonus_level_4: {
+        type: Sequelize.DECIMAL,
+        validate: {
+            allowNull: true
+        }
+    },
+    each_input_bonus_level_5: {
+        type: Sequelize.DECIMAL,
+        validate: {
+            allowNull: true
+        }
+    },
+    each_input_bonus_level_6: {
+        type: Sequelize.DECIMAL,
+        validate: {
+            allowNull: true
+        }
+    },
+    each_input_bonus_level_7: {
+        type: Sequelize.DECIMAL,
+        validate: {
+            allowNull: true
+        }
+    },
+    each_input_bonus_level_8: {
+        type: Sequelize.DECIMAL,
+        validate: {
+            allowNull: true
+        }
+    },
+    each_input_bonus_level_9: {
+        type: Sequelize.DECIMAL,
+        validate: {
+            allowNull: true
+        }
+    },
+    each_input_bonus_level_10: {
+        type: Sequelize.DECIMAL,
+        validate: {
+            allowNull: true
+        }
+    },
+    each_input_bonus_partner1: {
+        type: Sequelize.DECIMAL,
+        validate: {
+            allowNull: true
+        }
+    },
+    each_input_bonus_partner2: {
+        type: Sequelize.DECIMAL,
+        validate: {
+            allowNull: true
+        }
+    },
+    each_input_bonus_partner3: {
+        type: Sequelize.DECIMAL,
+        validate: {
+            allowNull: true
+        }
+    },
+    each_input_bonus_partner4: {
+        type: Sequelize.DECIMAL,
+        validate: {
+            allowNull: true
+        }
+    },
+    each_input_bonus_partner5: {
+        type: Sequelize.DECIMAL,
+        validate: {
+            allowNull: true
+        }
+    },
+    first_input_bonus_new: {
+        type: Sequelize.DECIMAL,
+        validate: {
+            allowNull: true
+        }
+    },
+    sudden_bonus_date_from: {
         type: Sequelize.DATE,
         validate: {
             allowNull: true
         }
     },
-    if_before: {
-        type: Sequelize.INTEGER,
+    sudden_bonus_date_to: {
+        type: Sequelize.DATE,
         validate: {
             allowNull: true
         }
     },
-    if_after: {
-        type: Sequelize.INTEGER,
+    sudden_event: {
+        type: Sequelize.DATE,
+        validate: {
+            allowNull: true
+        }
+    },
+    sudden_event_unlimited: {
+        type: Sequelize.TINYINT,
+        validate: {
+            allowNull: true
+        }
+    },
+    dev_note: {
+        type: Sequelize.STRING,
+        validate: {
+            allowNull: true
+        }
+    },
+    time_loop: {
+        type: Sequelize.TIME,
         validate: {
             allowNull: true
         }

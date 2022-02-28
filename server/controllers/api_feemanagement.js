@@ -1,4 +1,6 @@
 const db = require('../db_config.js');
+const Bonus = require('../models/chargeset_bonus.js');
+const Config = require('../models/info_config.js');
 const { QueryTypes } = require('sequelize');
 const { Op } = require("sequelize");
 const date = require('date-and-time');
@@ -59,6 +61,58 @@ module.exports = class API {
             // res.status(200).json(myquery);
         } catch (error) {
             res.status(404).json({ message: error.message });
+        }
+    }
+    static async getBonus(req, res) {
+        const id = req.params.id;
+        try {
+            const bonuset = await Bonus.findAll({
+                where: {
+                    num: id
+                },
+            });
+            res.status(200).json(bonuset);
+            // res.status(200).json(bonuset);
+        } catch (error) {
+            res.status(404).json({ message: error.message });
+        }
+    }
+    static async getConfig(req, res) {
+        const id = req.params.id;
+        try {
+            const configset = await Config.findAll({
+                where: {
+                    icg_idx: id
+                },
+            });
+            res.status(200).json(configset);
+            // res.status(200).json(bonuset);
+        } catch (error) {
+            res.status(404).json({ message: error.message });
+        }
+    }
+    static async setBonus(req, res) {
+        const body = req.body;
+        const icg_idx = body.icg_idx;
+        const first_input_bonus_level_1 = body.first_input_bonus_level_1;
+        try {
+            const bonusset = await Bonus.update({
+                first_input_bonus_level_1
+            },
+                {
+                    where: {
+                        icg_idx
+                    }
+                }
+            );
+            res.json({
+                message: "Successfully Change bonus 1",
+            });
+            // res.status(200).json(myquery);
+        } catch (error) {
+            res.json({
+                message: error//"Cannot Change bonus 1",
+            });
         }
     }
 }
