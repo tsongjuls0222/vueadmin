@@ -47,6 +47,9 @@ app.use("/api/navbar", require("./routes/routes_navbar"));
 //userpopup
 app.use("/api/userpopup", require("./routes/routes_userpopup"));
 
+// feelogs
+app.use("/api/feemanagement", require("./routes/routes_feemanagement"));
+
 
 
 //start server

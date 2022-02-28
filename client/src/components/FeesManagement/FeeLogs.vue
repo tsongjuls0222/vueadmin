@@ -8,22 +8,23 @@
             <div class="field-body pl-5 pr-4 pb-4">
               <div class="field is-narrow control">
                 <div class="select">
-                  <select name="" id="">
+                  <select v-model="agent" name="" id="">
+                    <option value="-1" >전체파트너</option>
                     <option v-for="agent in agents" :key="agent.ia_idx" :value="agent.ia_idx">{{agent.ia_name}}</option>
                   </select>
                 </div>
               </div>
               <div class="field is-narrow">
-                <input class="input" type="text" placeholder="이름, 닉네임, 아이디로 검색"/>
+                <input class="input" type="text" v-model="keyword" placeholder="이름, 닉네임, 아이디로 검색"/>
               </div>
               <div class="field is-narrow">
-                <input class="input" type="date" v-model="date" placeholder="검색내용" />
+                <input class="input" type="date" v-model="fromdate" placeholder="검색내용" />
               </div>
               <div class="field is-narrow">
-                <input class="input" type="date" v-model="date" placeholder="검색내용" />
+                <input class="input" type="date" v-model="todate" placeholder="검색내용" />
               </div>
               <div class="field is-narrow">
-                <button type="button" class="button is-info">
+                <button type="button" @click="sendData" class="button is-info">
                   <i class="mdi mdi-account-search"></i>검색
                 </button>
               </div>
@@ -49,7 +50,19 @@
                 <th>적립후</th>
               </tr>
             </thead>
-            <tbody></tbody>
+            <tbody>
+                <tr v-for="log in feelogs" :key="log.if_idx">
+                  <td>{{log.if_idx}}</td>
+                  <td>{{log.username}}</td>
+                  <td>{{log.iu_nickname}}</td>
+                  <td>{{log.ia_name}}</td>
+                  <td>{{log.if_amount}}원</td>
+                  <td>{{log.if_fee}}원</td>
+                  <td>{{log.if_datetime}}</td>
+                  <td>{{log.if_before}}원</td>
+                  <td>{{log.if_after}}원</td>
+                </tr>
+            </tbody>
           </table>
           <div class="is-flex" style="height: 500px">
             <div
@@ -64,16 +77,31 @@
           </div>
         </div>
       </div>
-    </div>
+    </div>  
     <div class="card-footer"></div>
   </div>
 </template>
 <script>
 export default {
-  props:['agents'],
+  props:['agents','feelogs','filterFunction'],
   data() {
     return {
-      date : new Date().toISOString().slice(0,10)
+      fromdate : new Date().toISOString().slice(0,10),
+      todate : new Date().toISOString().slice(0,10),
+      agent : '-1',
+      keyword : '',
+    }
+  },
+  methods: {
+    sendData(){
+      var data = {
+        agent :this.agent,
+        keyword : this.keyword,
+        fromdate : this.fromdate,
+        todate : this.todate
+      }
+      this.filterFunction(data);
+      // console.log(data);
     }
   },
 };

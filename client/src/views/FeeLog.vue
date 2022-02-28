@@ -4,7 +4,7 @@
     <div class="column">
       <!-- <div class="card"> -->
       <!-- <div class="card-content"> -->
-      <FeeLogs :agents="agents"/>
+      <FeeLogs :agents="agents" :feelogs="feelogs" :filterFunction="filterFunction"/>
       <!-- </div> 
       </div>-->
     </div>
@@ -14,22 +14,31 @@
 import Nav from "../components/Nav/Nav.vue";
 import FeeLogs from "../components/FeesManagement/FeeLogs.vue";
 import APIFilter from '../api/admin';
+import APIFees from '../api/feemanagement';
 export default {
   name: "FeeLog",
   components: { Nav, FeeLogs },
   data() {
     return {
-      agents : []
+      agents : [],
+      feelogs :[],
     }
   },
   methods: {
-    async getSelectAgent(){
+    async getData(){
       const res = await APIFilter.getSelectAgent();
       this.agents = res;
+      const fee = await APIFees.getFeelogs();
+      this.feelogs = fee;
+    },
+    async filterFunction(data) {
+      const res = await APIFees.getFilterFeelogs(data);
+      this.feelogs = res;
+      console.log(data);
     }
   },
   created() {
-    this.getSelectAgent();
+    this.getData();
   },
 };
 </script>
