@@ -93,13 +93,33 @@ module.exports = class API {
     }
     static async setBonus(req, res) {
         const num = req.body.num
-        const data_field1 = req.body.first_input_bonus_level_1;
+        const body = req.body;
         // const num = req.params.id;
         // const first_input_bonus_level_1 = body.first_input_bonus_level_1;
         try {
             const bonusset = await Bonus.update(
                 {
-                    first_input_bonus_level_1: data_field1,
+                    first_input_bonus_level_1: body.first_input_bonus_level_1,
+                    first_input_bonus_level_2: body.first_input_bonus_level_2,
+                    first_input_bonus_level_3: body.first_input_bonus_level_3,
+                    first_input_bonus_level_4: body.first_input_bonus_level_4,
+                    first_input_bonus_level_5: body.first_input_bonus_level_5,
+                    first_input_bonus_level_6: body.first_input_bonus_level_6,
+                    first_input_bonus_level_7: body.first_input_bonus_level_7,
+                    first_input_bonus_level_8: body.first_input_bonus_level_8,
+                    first_input_bonus_level_9: body.first_input_bonus_level_9,
+                    first_input_bonus_level_10: body.first_input_bonus_level_10,
+                    each_input_bonus_level_1: body.each_input_bonus_level_1,
+                    each_input_bonus_level_2: body.each_input_bonus_level_2,
+                    each_input_bonus_level_3: body.each_input_bonus_level_3,
+                    each_input_bonus_level_4: body.each_input_bonus_level_4,
+                    each_input_bonus_level_5: body.each_input_bonus_level_5,
+                    each_input_bonus_level_6: body.each_input_bonus_level_6,
+                    each_input_bonus_level_7: body.each_input_bonus_level_7,
+                    each_input_bonus_level_8: body.each_input_bonus_level_8,
+                    each_input_bonus_level_9: body.each_input_bonus_level_9,
+                    each_input_bonus_level_10: body.each_input_bonus_level_10,
+                    eday_input_bonus_cond: body.eday_input_bonus_cond,
                 },
                 {
                     where: {
@@ -107,7 +127,7 @@ module.exports = class API {
                     }
                 }
             );
-            // res.status(200).json(bonusset);
+            res.status(200).json(bonusset);
         } catch (error) {
             res.json({
                 message: error//"Cannot Change bonus 1",
@@ -116,21 +136,26 @@ module.exports = class API {
     }
     static async setConfig(req, res) {
         // const num = req.body.num
-        const data_field1 = req.body;
-        // const num = req.params.id;
-        // const first_input_bonus_level_1 = body.first_input_bonus_level_1;
+        const body = req.body;
+        const icg_idx = body.icg_idx;
         try {
-            // const bonusset = await Bonus.update(
-            //     {
-            //         first_input_bonus_level_1: data_field1,
-            //     },
-            //     {
-            //         where: {
-            //             num
-            //         }
-            //     }
-            // );
-            res.status(200).json(data_field1);
+            const bonusset = await Config.update(
+                {
+                    icg_bonus_max: body.icg_bonus_max,
+                    icg_tuesday_max_bonus: body.icg_tuesday_max_bonus,
+                    icg_wednesday_max_bonus: body.icg_wednesday_max_bonus,
+                    icg_thursday_max_bonus: body.icg_thursday_max_bonus,
+                    icg_friday_max_bonus: body.icg_friday_max_bonus,
+                    icg_saturday_max_bonus: body.icg_saturday_max_bonus,
+                    icg_sunday_max_bonus: body.icg_sunday_max_bonus,
+                },
+                {
+                    where: {
+                        icg_idx
+                    }
+                }
+            );
+            // res.status(200).json(body);
         } catch (error) {
             res.json({
                 message: error//"Cannot Change bonus 1",

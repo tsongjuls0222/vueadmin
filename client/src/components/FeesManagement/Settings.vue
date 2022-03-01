@@ -38,11 +38,11 @@
               <div class="field is-multiline mb-3">
                 <label for="">첫충 지급 조건</label>
                 <div class="field control is-flex mt-2 ml-5">
-                  <input type="radio" :checked="settings.eday_input_bonus_cond == '1'" name="radio1" id="" />
+                  <input type="radio" :checked="settings.eday_input_bonus_cond == '1'" v-model="settings.eday_input_bonus_cond" value="1" name="radio1" id="" />
                   <label for="radio1">항상 첫충 자동지급</label>
                 </div>
                 <div class="field control is-flex mt-2 ml-5">
-                  <input type="radio" :checked="settings.eday_input_bonus_cond == '2'" name="radio2" id="" />
+                  <input type="radio" :checked="settings.eday_input_bonus_cond == '2'" v-model="settings.eday_input_bonus_cond" value="2" name="radio2" id="" />
                   <label for="radio2"
                     >당일 환전이 없을시에만 자동지급
                     <br />
@@ -218,7 +218,7 @@
 
 <script>
 export default {
-  props:['settings','getData','setConfig','configvalue','saveSettings','config'],
+  props:['settings','getData','setConfig','saveSettings','config'],
   data() {
     return {
       tabClass1: "is-active",
@@ -231,7 +231,7 @@ export default {
       title: "월요일",
       currentTab:1,
       param: 'icg_bonus_max',
-      configval: 'null',
+      configval: '',
     };
   },
   methods: {
@@ -243,30 +243,43 @@ export default {
       this.tabClass5 = "";
       this.tabClass6 = "";
       this.tabClass7 = "";
-      if (param == "1") {this.tabClass1 = "is-active"; this.setConfig('icg_bonus_max'); this.param = 'icg_bonus_max'}
-      if (param == "4") {this.tabClass2 = "is-active"; this.setConfig('icg_tuesday_max_bonus'); this.param = 'icg_tuesday_max_bonus'}
-      if (param == "5") {this.tabClass3 = "is-active"; this.setConfig('icg_wednesday_max_bonus'); this.param = 'icg_wednesday_max_bonus'}
-      if (param == "6") {this.tabClass4 = "is-active"; this.setConfig('icg_thursday_max_bonus'); this.param = 'icg_thursday_max_bonus'}
-      if (param == "7") {this.tabClass5 = "is-active"; this.setConfig('icg_friday_max_bonus'); this.param = 'icg_friday_max_bonus'}
-      if (param == "8") {this.tabClass6 = "is-active"; this.setConfig('icg_saturday_max_bonus'); this.param = 'icg_saturday_max_bonus'}
-      if (param == "9") {this.tabClass7 = "is-active"; this.setConfig('icg_sunday_max_bonus'); this.param = 'icg_sunday_max_bonus'}
+      if (param == "1") {this.tabClass1 = "is-active";  this.param = 'icg_bonus_max'}
+      if (param == "4") {this.tabClass2 = "is-active";  this.param = 'icg_tuesday_max_bonus'}
+      if (param == "5") {this.tabClass3 = "is-active";  this.param = 'icg_wednesday_max_bonus'}
+      if (param == "6") {this.tabClass4 = "is-active";  this.param = 'icg_thursday_max_bonus'}
+      if (param == "7") {this.tabClass5 = "is-active";  this.param = 'icg_friday_max_bonus'}
+      if (param == "8") {this.tabClass6 = "is-active";  this.param = 'icg_saturday_max_bonus'}
+      if (param == "9") {this.tabClass7 = "is-active";  this.param = 'icg_sunday_max_bonus'}
       this.title = param2;
       this.getData(param);
       this.currentTab = param;
+      this.configval = this.configs;
     },
   },
+  computed:{
+    configs:{
+      get:function(){
+        return this.config[this.param];
+      }
+    }
+  },
   created(){
-    this.configval = this.config[this.param];
-    console.log(this.config);
+    // console.log(this.configs);
+    setTimeout(() => {
+      this.configval = this.config[this.param]
+    }, 200)
   },
   mounted(){
-    this.configval = this.config[this.param];
-    console.log(this.config);
+    // this.configval = this.config[this.param];
+    // console.log(this.configs);
   },
   watch:{
     configval: function(newValue,oldValue){
       this.$emit('settingconfigvalue',newValue,this.param);
-    }
+    },
+    // configvalue: function(){
+    //   this.configval = this.config[this.param];
+    // }
   }
 };
 </script>
