@@ -3,7 +3,7 @@
     <Nav />
     <div class="column">
       <div class="card">
-        <Settings :settings="settings" :getData="getData" :setConfig="setConfig" :saveSettings="saveSettings" :config="config"
+        <Settings :titles="'sports'" :settings="settings" :getData="getData" :saveSettings="saveSettings" :config="config"
         v-on:settingconfigvalue="changeconfigvalue"/>
       </div>
     </div>
@@ -32,11 +32,11 @@ export default {
     async getConfig(){
       const config = await APIFees.getConfig(1);
       this.config = config[0];
-      this.configvalue = this.config.icg_bonus_max;
+      // this.configvalue = this.config.icg_bonus_max;
     },
-    setConfig(param){
-      this.configvalue = this.config[param];
-    },
+    // setConfig(param){
+    //   this.configvalue = this.config[param];
+    // },
     changeconfigvalue(value,param){
       this.config[param] = value;
       this.param = {

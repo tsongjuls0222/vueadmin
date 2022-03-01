@@ -30,11 +30,12 @@ export default {
       this.agents = res;
       const fee = await APIFees.getFeelogs();
       this.feelogs = fee;
+      console.log(this.feelogs.length);
     },
     async filterFunction(data) {
       const res = await APIFees.getFilterFeelogs(data);
       this.feelogs = res;
-      console.log(data);
+      
     }
   },
   created() {

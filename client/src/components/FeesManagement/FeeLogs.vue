@@ -64,7 +64,7 @@
                 </tr>
             </tbody>
           </table>
-          <div class="is-flex" style="height: 500px">
+          <div class="is-flex" v-if="feelogs.length <= 0" style="height: 500px">
             <div
               class="m-auto is-flex is-flex-direction-column is-align-items-center has-text-grey-lighter"
             >

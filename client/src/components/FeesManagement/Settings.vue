@@ -4,25 +4,25 @@
       <div class="custom-card-header">
         <div class="tabs is-normal">
           <ul>
-            <li :class="tabClass1" @click="tabChange(1, '월요일')">
+            <li :class="tabClass1" @click="tabChange((titles == 'sports')?1:10, '월요일')">
               <a>월요일</a>
             </li>
-            <li :class="tabClass2" @click="tabChange(4, '화요일')">
+            <li :class="tabClass2" @click="tabChange((titles == 'sports')?4:11, '화요일')">
               <a>화요일</a>
             </li>
-            <li :class="tabClass3" @click="tabChange(5, '수요일')">
+            <li :class="tabClass3" @click="tabChange((titles == 'sports')?5:12, '수요일')">
               <a>수요일</a>
             </li>
-            <li :class="tabClass4" @click="tabChange(6, '목요일')">
+            <li :class="tabClass4" @click="tabChange((titles == 'sports')?6:13, '목요일')">
               <a>목요일</a>
             </li>
-            <li :class="tabClass5" @click="tabChange(7, '금요일')">
+            <li :class="tabClass5" @click="tabChange((titles == 'sports')?7:14, '금요일')">
               <a>금요일</a>
             </li>
-            <li :class="tabClass6" @click="tabChange(8, '토요일')">
+            <li :class="tabClass6" @click="tabChange((titles == 'sports')?8:15, '토요일')">
               <a>토요일</a>
             </li>
-            <li :class="tabClass7" @click="tabChange(9, '일요일')">
+            <li :class="tabClass7" @click="tabChange((titles == 'sports')?9:16, '일요일')">
               <a>일요일</a>
             </li>
           </ul>
@@ -218,7 +218,7 @@
 
 <script>
 export default {
-  props:['settings','getData','setConfig','saveSettings','config'],
+  props:['titles','settings','getData','saveSettings','config'],
   data() {
     return {
       tabClass1: "is-active",
@@ -243,13 +243,14 @@ export default {
       this.tabClass5 = "";
       this.tabClass6 = "";
       this.tabClass7 = "";
-      if (param == "1") {this.tabClass1 = "is-active";  this.param = 'icg_bonus_max'}
-      if (param == "4") {this.tabClass2 = "is-active";  this.param = 'icg_tuesday_max_bonus'}
-      if (param == "5") {this.tabClass3 = "is-active";  this.param = 'icg_wednesday_max_bonus'}
-      if (param == "6") {this.tabClass4 = "is-active";  this.param = 'icg_thursday_max_bonus'}
-      if (param == "7") {this.tabClass5 = "is-active";  this.param = 'icg_friday_max_bonus'}
-      if (param == "8") {this.tabClass6 = "is-active";  this.param = 'icg_saturday_max_bonus'}
-      if (param == "9") {this.tabClass7 = "is-active";  this.param = 'icg_sunday_max_bonus'}
+      if (param == "1" || param == "10") {this.tabClass1 = "is-active";  this.param = (param == '1')?'icg_bonus_max': 'icg_casino_monday_max_bonus';}
+      if (param == "4" || param == "11") {this.tabClass2 = "is-active";  this.param = (param == '4')?'icg_tuesday_max_bonus': 'icg_casino_tuesday_max_bonus';}
+      if (param == "5" || param == "12") {this.tabClass3 = "is-active";  this.param = (param == '5')?'icg_wednesday_max_bonus': 'icg_casino_wednesday_max_bonus';}
+      if (param == "6" || param == "13") {this.tabClass4 = "is-active";  this.param = (param == '6')?'icg_thursday_max_bonus': 'icg_casino_thursday_max_bonus';}
+      if (param == "7" || param == "14") {this.tabClass5 = "is-active";  this.param = (param == '7')?'icg_friday_max_bonus': 'icg_casino_friday_max_bonus';}
+      if (param == "8" || param == "15") {this.tabClass6 = "is-active";  this.param = (param == '8')?'icg_saturday_max_bonus': 'icg_casino_saturday_max_bonus';}
+      if (param == "9" || param == "16") {this.tabClass7 = "is-active";  this.param = (param == '9')?'icg_sunday_max_bonus': 'icg_casino_sunday_max_bonus';}
+
       this.title = param2;
       this.getData(param);
       this.currentTab = param;
@@ -266,6 +267,7 @@ export default {
   created(){
     // console.log(this.configs);
     setTimeout(() => {
+      this.param = (this.titles == 'sports')?'icg_bonus_max':'icg_casino_monday_max_bonus',
       this.configval = this.config[this.param]
     }, 200)
   },

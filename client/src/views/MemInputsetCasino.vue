@@ -3,7 +3,8 @@
     <Nav />
     <div class="column">
       <div class="card">
-        <Settings />
+        <Settings :titles="'casino'" :settings="settings" :getData="getData" :saveSettings="saveSettings" :config="config"
+        v-on:settingconfigvalue="changeconfigvalue"/>
       </div>
     </div>
   </div>
@@ -11,9 +12,46 @@
 <script>
 import Nav from "../components/Nav/Nav.vue";
 import Settings from "../components/FeesManagement/Settings.vue";
+import APIFees from '../api/feemanagement';
 export default {
   name: "MemInputsetCasino",
-  components: { Nav, Settings }
+  components: { Nav, Settings },
+  data() {
+    return {
+      num:10,
+      settings:[],
+      config:[],
+      param:[]
+    }
+  },
+  methods: {
+    async getData(num){
+      const res = await APIFees.getSettings(num);
+      this.settings = res[0];
+    },
+    async getConfig(){
+      const config = await APIFees.getConfig(1);
+      this.config = config[0];
+      // this.configvalue = this.config.icg_bonus_max;
+    },
+    changeconfigvalue(value,param){
+      this.config[param] = value;
+      this.param = {
+        param: param,
+        value: parseInt(value),
+      }
+    },
+    async saveSettings(){
+      const res = await APIFees.setSettings(this.settings);
+      const cons = await APIFees.setConfig(this.config);
+      console.log(cons);
+      // this.settings = res[0];
+    }
+  },
+  created(){
+    this.getData(this.num);
+    this.getConfig();
+  }
 };
 </script>
 

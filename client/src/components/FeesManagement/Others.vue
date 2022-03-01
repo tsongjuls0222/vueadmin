@@ -372,7 +372,7 @@
                 <div class="field is-multiline mb-5">
                   <div class="is-flex is-flex-direction-row">
                     <label for="">시간설정</label>
-                    <b-switch type="is-success"></b-switch>
+                    <b-switch class="is-success"></b-switch>
                   </div>
                 </div>
                 <div class="field is-multiline mb-5">
