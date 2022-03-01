@@ -18,7 +18,11 @@ export default class API {
         return res.data;
     }
     static async setSettings(data) {
-        const res = await axios.post(`${url}/feemanagement/setBonus`, data);
+        const res = await axios.put(`${url}/feemanagement/setBonus`, data);
+        return res.data;
+    }
+    static async setConfig(data) {
+        const res = await axios.put(`${url}/feemanagement/setConfig`, data);
         return res.data;
     }
 }

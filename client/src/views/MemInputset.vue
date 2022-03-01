@@ -3,7 +3,8 @@
     <Nav />
     <div class="column">
       <div class="card">
-        <Settings :settings="settings" :getData="getData" :setConfig="setConfig" :configvalue="configvalue" :saveSettings="saveSettings"/>
+        <Settings :settings="settings" :getData="getData" :setConfig="setConfig" :configvalue="configvalue" :saveSettings="saveSettings" :config="config"
+        v-on:settingconfigvalue="changeconfigvalue"/>
       </div>
     </div>
   </div>
@@ -21,6 +22,7 @@ export default {
       settings:[],
       config:[],
       configvalue:'',
+      param:[]
     }
   },
   methods: {
@@ -36,10 +38,17 @@ export default {
     setConfig(param){
       this.configvalue = this.config[param];
     },
+    changeconfigvalue(value,param){
+      this.configvalue = value;
+      this.param = {
+        param: param,
+        value: value,
+      }
+    },
     async saveSettings(){
       const res = await APIFees.setSettings(this.settings);
+      const cons = await APIFees.setConfig(this.param);
       // this.settings = res[0];
-      console.log(res);
     }
   },
   created(){

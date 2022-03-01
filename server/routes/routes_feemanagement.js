@@ -6,6 +6,7 @@ router.get("/feelogs", API.getFeelogs);
 router.post("/filterfeelogs", API.getFilterFeelogs);
 router.get("/getBonus:id", API.getBonus);
 router.get("/getConfig:id", API.getConfig);
-router.post("/setBonus", API.setBonus);
+router.put("/setBonus", API.setBonus);
+router.put("/setConfig", API.setConfig);
 
 module.exports = router;

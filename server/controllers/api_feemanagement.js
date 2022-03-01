@@ -92,23 +92,45 @@ module.exports = class API {
         }
     }
     static async setBonus(req, res) {
-        const body = req.body;
-        const icg_idx = body.icg_idx;
-        const first_input_bonus_level_1 = body.first_input_bonus_level_1;
+        const num = req.body.num
+        const data_field1 = req.body.first_input_bonus_level_1;
+        // const num = req.params.id;
+        // const first_input_bonus_level_1 = body.first_input_bonus_level_1;
         try {
-            const bonusset = await Bonus.update({
-                first_input_bonus_level_1
-            },
+            const bonusset = await Bonus.update(
+                {
+                    first_input_bonus_level_1: data_field1,
+                },
                 {
                     where: {
-                        icg_idx
+                        num
                     }
                 }
             );
+            // res.status(200).json(bonusset);
+        } catch (error) {
             res.json({
-                message: "Successfully Change bonus 1",
+                message: error//"Cannot Change bonus 1",
             });
-            // res.status(200).json(myquery);
+        }
+    }
+    static async setConfig(req, res) {
+        // const num = req.body.num
+        const data_field1 = req.body;
+        // const num = req.params.id;
+        // const first_input_bonus_level_1 = body.first_input_bonus_level_1;
+        try {
+            // const bonusset = await Bonus.update(
+            //     {
+            //         first_input_bonus_level_1: data_field1,
+            //     },
+            //     {
+            //         where: {
+            //             num
+            //         }
+            //     }
+            // );
+            res.status(200).json(data_field1);
         } catch (error) {
             res.json({
                 message: error//"Cannot Change bonus 1",
