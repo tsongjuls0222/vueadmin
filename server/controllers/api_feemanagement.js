@@ -1,6 +1,7 @@
 const db = require('../db_config.js');
 const Bonus = require('../models/chargeset_bonus.js');
 const Config = require('../models/info_config.js');
+const Daily = require('../models/info_user_withdrawal_set.js');
 const { QueryTypes } = require('sequelize');
 const { Op } = require("sequelize");
 const date = require('date-and-time');
@@ -160,6 +161,43 @@ module.exports = class API {
             res.json({
                 message: error//"Cannot Change bonus 1",
             });
+        }
+    }
+    static async setDaily(req, res) {
+        const body = req.body;
+        const num = body.num
+        try {
+            const temp = await Daily.update(
+                {
+                    available_time: body.available_time,
+                    withdraw_next_hour: body.withdraw_next_hour,
+                    withdraw_onetime: body.withdraw_onetime,
+                    withdraw_oneday: body.withdraw_oneday,
+                    withdraw_maxcnt: body.withdraw_maxcnt,
+                },
+                {
+                    where: {
+                        num
+                    }
+                },
+            );
+            // res.status(200).json(body);
+            // res.status(200).json(bonuset);
+        } catch (error) {
+            res.status(404).json({ message: error.message });
+        }
+    }
+    static async getDaily(req, res) {
+        try {
+            const temp = await Daily.findAll({
+                where: {
+                    num: 1
+                },
+            });
+            res.status(200).json(temp);
+            // res.status(200).json(bonuset);
+        } catch (error) {
+            res.status(404).json({ message: error.message });
         }
     }
 }

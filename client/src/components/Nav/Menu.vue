@@ -667,7 +667,7 @@ export default {
     },
     showSub(event) {
       var mainMenuID = event.currentTarget;
-      // console.log(mainMenuID);
+      // console.log(mainMenuID.dataset.id);
       if (mainMenuID.classList.contains("is-active")) {
         // mainMenuID.classList.remove("is-active");
       } else {

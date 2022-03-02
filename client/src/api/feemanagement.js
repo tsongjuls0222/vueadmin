@@ -25,4 +25,12 @@ export default class API {
         const res = await axios.put(`${url}/feemanagement/setConfig`, data);
         return res.data;
     }
+    static async getDailyMax() {
+        const res = await axios.get(`${url}/feemanagement/dailymax`);
+        return res.data;
+    }
+    static async setDailyMax(data) {
+        const res = await axios.put(`${url}/feemanagement/setdailymax`, data);
+        return res.data;
+    }
 }
