@@ -103,11 +103,12 @@
               <div class="tabs is-normal">
                 <ul>
                   <li 
-                  class="subtab-item"
                   v-for="tab in tabs2"
                   :key="tab.id"
                   :id="tab.id"
-                  @click="showSubTab"><a>{{tab.value}}</a></li>
+                  :class="{active: tab === subTab}"
+                  @click="subTab = tab">
+                  <a>{{tab.value}}</a></li>
                   <!-- <li><a>화요일</a></li>
                   <li><a>수요일</a></li>
                   <li><a>목요일</a></li>
@@ -1087,7 +1088,7 @@ export default {
       rightmm:0,
       rightss:0,
       currentTab: 1,
-      subTab: 1,
+      subTab: '',
       config:[],
       daily: [],
       burst:[],
@@ -1096,6 +1097,7 @@ export default {
   methods: {
     showSub(event) {
       var tabs = event.currentTarget;
+      console.log(tabs);
       this.currentTab = tabs.id;
       var elements = document.getElementsByClassName("tab-item");
       var subitems = document.getElementsByClassName("subitem");
@@ -1114,6 +1116,7 @@ export default {
     showSubTab(event){
       var tabs = event.currentTarget;
       this.subTab = tabs.id;
+      // console.log(event);
       var elements = document.getElementsByClassName("subtab-item");
       for(var element=0; element < elements.length; element++){
         elements[element].classList.remove("is-active");
@@ -1221,6 +1224,9 @@ export default {
 }
 
 .is-active {
+  border-bottom: 1px solid black;
+}
+.active {
   border-bottom: 1px solid black;
 }
 .input-group-text {
