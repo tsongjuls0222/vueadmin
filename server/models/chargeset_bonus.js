@@ -145,15 +145,15 @@ const User = db.define('info_user_charget_bonusset', {
 
     },
     sudden_bonus_date_from: {
-        type: Sequelize.DATE,
+        type: Sequelize.TIME,
 
     },
     sudden_bonus_date_to: {
-        type: Sequelize.DATE,
+        type: Sequelize.TIME,
 
     },
     sudden_event: {
-        type: Sequelize.DATE,
+        type: Sequelize.TINYINT,
 
     },
     sudden_event_unlimited: {

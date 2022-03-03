@@ -92,6 +92,21 @@ module.exports = class API {
             res.status(404).json({ message: error.message });
         }
     }
+    static async getBurstConfig(req, res) {
+        const id = req.params.id;
+        try {
+            const configset = await Config.findAll({
+                where: {
+                    icg_idx: id
+                },
+                attributes: ['icg_idx', 'icg_sudden_max_bonus', 'icg_sudden_max_bonus_tuesday', 'icg_sudden_max_bonus_wednesday', 'icg_sudden_max_bonus_thursday', 'icg_sudden_max_bonus_friday', 'icg_sudden_max_bonus_saturday', 'icg_sudden_max_bonus_sunday', 'icg_casino_payback_bonus', 'icg_payback_max_bonus', 'icg_recommender_payback_bonus']
+            });
+            res.status(200).json(configset);
+            // res.status(200).json(bonuset);
+        } catch (error) {
+            res.status(404).json({ message: error.message });
+        }
+    }
     static async setBonus(req, res) {
         const num = req.body.num
         const body = req.body;
@@ -129,6 +144,170 @@ module.exports = class API {
                 }
             );
             res.status(200).json(bonusset);
+        } catch (error) {
+            res.json({
+                message: error//"Cannot Change bonus 1",
+            });
+        }
+    }
+    static async setBurst(req, res) {
+        const num = req.body.num
+        const body = req.body;
+        // const num = req.params.id;
+        // const first_input_bonus_level_1 = body.first_input_bonus_level_1;
+        try {
+            const bonusset = await Bonus.update(
+                {
+                    first_input_bonus_level_1: body.first_input_bonus_level_1,
+                    first_input_bonus_level_2: body.first_input_bonus_level_2,
+                    first_input_bonus_level_3: body.first_input_bonus_level_3,
+                    first_input_bonus_level_4: body.first_input_bonus_level_4,
+                    first_input_bonus_level_5: body.first_input_bonus_level_5,
+                    first_input_bonus_level_6: body.first_input_bonus_level_6,
+                    first_input_bonus_level_7: body.first_input_bonus_level_7,
+                    first_input_bonus_level_8: body.first_input_bonus_level_8,
+                    first_input_bonus_level_9: body.first_input_bonus_level_9,
+                    first_input_bonus_level_10: body.first_input_bonus_level_10,
+                    sudden_bonus_date_from: body.sudden_bonus_date_from,
+                    sudden_bonus_date_to: body.sudden_bonus_date_to,
+                    sudden_event_unlimited: body.sudden_event_unlimited,
+                    sudden_event: body.sudden_event
+                },
+                {
+                    where: {
+                        num
+                    }
+                }
+            );
+            // res.status(200).json(body);
+        } catch (error) {
+            res.json({
+                message: error//"Cannot Change bonus 1",
+            });
+        }
+    }
+    static async setBurstConfig(req, res) {
+        // const num = req.body.num
+        const config = req.body.config;
+        const burst = req.body.burst;
+        const icg_idx = config.id;
+        const num = burst.num;
+        try {
+            const temo = await Bonus.update(
+                {
+                    first_input_bonus_level_1: burst.first_input_bonus_level_1,
+                    first_input_bonus_level_2: burst.first_input_bonus_level_2,
+                    first_input_bonus_level_3: burst.first_input_bonus_level_3,
+                    first_input_bonus_level_4: burst.first_input_bonus_level_4,
+                    first_input_bonus_level_5: burst.first_input_bonus_level_5,
+                    first_input_bonus_level_6: burst.first_input_bonus_level_6,
+                    first_input_bonus_level_7: burst.first_input_bonus_level_7,
+                    first_input_bonus_level_8: burst.first_input_bonus_level_8,
+                    first_input_bonus_level_9: burst.first_input_bonus_level_9,
+                    first_input_bonus_level_10: burst.first_input_bonus_level_10,
+                    sudden_bonus_date_from: burst.sudden_bonus_date_from,
+                    sudden_bonus_date_to: burst.sudden_bonus_date_to,
+                    sudden_event_unlimited: burst.sudden_event_unlimited,
+                    sudden_event: burst.sudden_event,
+                    time_loop: burst.time_loop
+                },
+                {
+                    where: {
+                        num
+                    }
+                }
+            );
+            if (config.param == "icg_sudden_max_bonus") {
+                const bonus = await Config.update({
+                    icg_sudden_max_bonus: config.value,
+                }, {
+                    where: {
+                        icg_idx
+                    }
+                });
+            }
+            else if (config.param == "icg_sudden_max_bonus_tuesday") {
+                const bonus = await Config.update({
+                    icg_sudden_max_bonus_tuesday: config.value,
+                }, {
+                    where: {
+                        icg_idx
+                    }
+                });
+            }
+            else if (config.param == "icg_sudden_max_bonus_wednesday") {
+                const bonus = await Config.update({
+                    icg_sudden_max_bonus_wednesday: config.value,
+                }, {
+                    where: {
+                        icg_idx
+                    }
+                });
+            }
+            else if (config.param == "icg_sudden_max_bonus_thursday") {
+                const bonus = await Config.update({
+                    icg_sudden_max_bonus_thursday: config.value,
+                }, {
+                    where: {
+                        icg_idx
+                    }
+                });
+            }
+            else if (config.param == "icg_sudden_max_bonus_friday") {
+                const bonus = await Config.update({
+                    icg_sudden_max_bonus_friday: config.value,
+                }, {
+                    where: {
+                        icg_idx
+                    }
+                });
+            }
+            else if (config.param == "icg_sudden_max_bonus_saturday") {
+                const bonus = await Config.update({
+                    icg_sudden_max_bonus_saturday: config.value,
+                }, {
+                    where: {
+                        icg_idx
+                    }
+                });
+            }
+            else if (config.param == "icg_sudden_max_bonus_sunday") {
+                const bonus = await Config.update({
+                    icg_sudden_max_bonus_sunday: config.value,
+                }, {
+                    where: {
+                        icg_idx
+                    }
+                });
+            }
+            else if (config.param == "icg_casino_payback_bonus") {
+                const bonus = await Config.update({
+                    icg_casino_payback_bonus: config.value,
+                }, {
+                    where: {
+                        icg_idx
+                    }
+                });
+            }
+            else if (config.param == "icg_payback_max_bonus") {
+                const bonus = await Config.update({
+                    icg_payback_max_bonus: config.value,
+                }, {
+                    where: {
+                        icg_idx
+                    }
+                });
+            }
+            else {
+                const bonus = await Config.update({
+                    icg_recommender_payback_bonus: config.value,
+                }, {
+                    where: {
+                        icg_idx
+                    }
+                });
+            }
+            res.status(200).json(burst);
         } catch (error) {
             res.json({
                 message: error//"Cannot Change bonus 1",

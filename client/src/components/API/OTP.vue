@@ -22,9 +22,27 @@
               <th>상태</th>
             </tr>
           </thead>
-          <tbody></tbody>
+          <tbody>
+            <tr v-for="row in otp" :key="row.otpid">
+              <td>{{row.otpid}}</td>
+              <td>{{row.mobile_number}}</td>
+              <td>{{row.OTP}}</td>
+              <td :class="setcolor">{{setstatus(row.iu_status)}}</td>
+              <td>{{row.datetime}}</td>
+              <td>{{row.datetime_check}}</td>
+              <td>{{row.ia_name}}</td>
+              <td>{{row.real_code}}</td>
+              <td>{{row.iu_level}}</td>
+              <td>{{row.username}}</td>
+              <td>{{row.iu_nickname}}</td>
+              <td>{{row.iu_name}}</td>
+              <td>{{row.iu_recommend}}</td>
+              <td>{{row.iu_reg_ip}}</td>
+              <td>{{row.iu_memtype}}</td>
+            </tr>
+          </tbody>
         </table>
-        <div class="is-flex" style="height: 500px">
+        <div v-if="otp.length < 1" class="is-flex" style="height: 500px">
           <div
             class="m-auto is-flex is-flex-direction-column is-align-items-center has-text-grey-lighter"
           >
@@ -39,3 +57,45 @@
     </div>
   </div>
 </template>
+
+<script>
+export default {
+  props:['otp'],
+  methods: {
+    setstatus(status){
+      let val = ''
+      if(status == '1'){
+        val="가입완료";
+      }else if(status == '3'){
+        val="가입거부";
+      }else{
+        val="발송중";
+      }
+      return val;
+    },
+    setcolor(){
+      let val = ''
+      if(otp.iu_status == '1'){
+        val="pepe-blue";
+      }else if(otp.iu_status == '3'){
+        val="pepe-red";
+      }else{
+        val="pepe-green";
+      }
+      console.log(val);
+      return val;
+    }
+  },
+}
+</script>
+<style lang="scss" scoped>
+.pepe-blue{
+  color: blue;
+}
+.pepe-red{
+  color: red;
+}
+.pepe-green{
+  color: green;
+}
+</style>

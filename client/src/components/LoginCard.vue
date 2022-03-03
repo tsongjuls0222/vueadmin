@@ -70,7 +70,7 @@ export default {
                 };
                 
                 const res = await API.getLoginWithToken(sendData);
-                // console.log(res.message)
+                console.log(res.account)
                 if(res.message == "OK"){
                     this.$store.commit("setAuthentication", true);
                     this.$store.commit("setUserToken", res.userinfo);

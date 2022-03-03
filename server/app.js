@@ -50,6 +50,9 @@ app.use("/api/userpopup", require("./routes/routes_userpopup"));
 // feelogs
 app.use("/api/feemanagement", require("./routes/routes_feemanagement"));
 
+// otp
+app.use("/api/otp", require("./routes/routes_otp"));
+
 
 
 //start server

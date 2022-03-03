@@ -8,7 +8,7 @@
         </div>
         <div class="card-content">
           <div class="content">
-            <OTP />
+            <OTP :otp="otp" />
           </div>
         </div>
       </div>
@@ -19,9 +19,24 @@
 import Nav from "../components/Nav/Nav.vue";
 import Filters from "../components/API/Filter.vue";
 import OTP from "../components/API/OTP.vue";
+import APIOTP from "../api/otp";
 export default {
   name: "OTPLogs",
-  components: { Nav, Filters, OTP }
+  components: { Nav, Filters, OTP },
+  data() {
+    return {
+      otp:[],
+    }
+  },
+  methods: {
+    async getotp(){
+      const otp = await APIOTP.getOTP();
+      this.otp = otp;
+    }
+  },
+  created() {
+    this.getotp();
+  },
 };
 </script>
 

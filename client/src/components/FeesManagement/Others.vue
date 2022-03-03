@@ -2,9 +2,9 @@
   <div class="column">
     <div class="card-custom-header">
       <div class="tabs is-normal">
-        <ul>
+        <ul class="tab-item">
           <li
-            class="mx-3 tab-item pb-2 is-clickable"
+            :class="{'is-active': currentTab == tab.id}"
             v-for="tab in tabs"
             :key="tab.id"
             :id="tab.id"
@@ -22,7 +22,7 @@
     </div>
     <div class="card-content">
       <div class="columns">
-        <div class="column subitem is-5">
+        <div v-if="currentTab == '1'" class="column subitem is-5">
           <div class="card" style="border: 1px solid rgb(231 227 227)">
             <div class="card-header">
               <div class="card-header-title">일일 최대금액</div>
@@ -97,7 +97,7 @@
             </div>
           </div>
         </div>
-        <div class="column subitem is-5 is-hidden">
+        <div v-else-if="currentTab == '2'" class="column subitem is-5">
           <div class="card">
             <div class="card-header">
               <div class="tabs is-normal">
@@ -106,8 +106,8 @@
                   v-for="tab in tabs2"
                   :key="tab.id"
                   :id="tab.id"
-                  :class="{active: tab === subTab}"
-                  @click="subTab = tab">
+                  :class="{isActive: tab.id === subTab}"
+                  @click="showSubTab">
                   <a>{{tab.value}}</a></li>
                   <!-- <li><a>화요일</a></li>
                   <li><a>수요일</a></li>
@@ -389,7 +389,7 @@
                         <input
                           class="input is-small"
                           type="number"
-                          v-model="config.icg_sudden_max_bonus"
+                          v-model="suddenconfig"
                         />
                         <label for="" class="input-group-text">P</label>
                       </div>
@@ -401,7 +401,7 @@
                   style="border: 1px solid rgb(231 227 227)"
                 >
                   <div class="card-footer-item is-centered">
-                    <button class="button is-info is-outlined is-centered">
+                    <button @click="saveBurstSetting" class="button is-info is-outlined is-centered">
                       설정 저장
                     </button>
                   </div>
@@ -410,7 +410,7 @@
             </div>
           </div>
         </div>
-        <div class="column subitem is-5 is-hidden">
+        <div v-else-if="currentTab == '3'" class="column subitem is-5">
           <div class="card">
             <div class="card-header">
               <div class="card-header-title">롤링포인트</div>
@@ -420,13 +420,39 @@
                 <div class="field is-multiline mb-5">
                   <div class="is-flex is-flex-direction-row">
                     <label for="">시간설정</label>
-                    <b-switch class="is-success"></b-switch>
+                    <b-switch v-model="switching" class="is-success"></b-switch>
                   </div>
                 </div>
                 <div class="field is-multiline mb-5">
                   <label for="">켜기 / 끄기</label>
                   <div class="mt-2 control">
-                    <input class="input is-small" type="time" />
+                    <input type="text" class="input is-small is-clickable" @click="showCustomRollingPicker" :value="burst.time_loop" readonly>
+                    <div v-if="rollingshow" class="custom-time">
+                      <div id="left" class="is-flex is-flex-direction-column">
+                        <div class="is-flex">
+                          <div class="mr-2 select is-small">
+                          <select v-model="rollingtime.hh" class="" name="" id="">
+                            <option v-for="(n,i) in 24" :key="n" :value="(i &lt; 10)? '0'+i: i">{{(i &lt; 10)? '0'+i: i}}</option>
+                          </select>
+                          </div>
+                          <div class="mr-2 select is-small">
+                            <select v-model="rollingtime.mm" class="" name="" id="">
+                              <option v-for="(n,i) in 60" :key="n" :value="(i &lt; 10)? '0'+i: i">{{(i &lt; 10)? '0'+i: i}}</option>
+                            </select>
+                          </div>
+                          <div class="mr-2 select is-small">
+                            <select v-model="rollingtime.ss" class="" name="" id="">
+                              <option v-for="(n,i) in 60" :key="n" :value="(i &lt; 10)? '0'+i: i">{{(i &lt; 10)? '0'+i: i}}</option>
+                            </select>
+                          </div>
+                        </div>
+                        <div class="is-flex mt-2">
+                          <input type="text" id="getval" class="input is-small" :value="burst.time_loop" readonly>
+                          <button class="mx-1 is-small button" @click="rollingshow=!rollingshow">Cancel</button>
+                          <button class="mx-1 is-small button is-info" @click="setCustomRollingPicker">Apply</button>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
                 <div class="field is-multiline mb-5">
@@ -441,7 +467,7 @@
                           <input
                             class="input is-small"
                             type="number"
-                            value="0"
+                            v-model="burst.first_input_bonus_level_1"
                           />
                           <label for="" class="input-group-text">%</label>
                           <label for="" class="input-group-text"
@@ -457,7 +483,7 @@
                           <input
                             class="input is-small"
                             type="number"
-                            value="0"
+                            v-model="burst.first_input_bonus_level_2"
                           />
                           <label for="" class="input-group-text">%</label>
                           <label for="" class="input-group-text"
@@ -473,7 +499,7 @@
                           <input
                             class="input is-small"
                             type="number"
-                            value="0"
+                            v-model="burst.first_input_bonus_level_3"
                           />
                           <label for="" class="input-group-text">%</label>
                           <label for="" class="input-group-text"
@@ -489,7 +515,7 @@
                           <input
                             class="input is-small"
                             type="number"
-                            value="0"
+                            v-model="burst.first_input_bonus_level_4"
                           />
                           <label for="" class="input-group-text">%</label>
                           <label for="" class="input-group-text"
@@ -505,7 +531,7 @@
                           <input
                             class="input is-small"
                             type="number"
-                            value="0"
+                            v-model="burst.first_input_bonus_level_5"
                           />
                           <label for="" class="input-group-text">%</label>
                           <label for="" class="input-group-text"
@@ -521,7 +547,7 @@
                           <input
                             class="input is-small"
                             type="number"
-                            value="0"
+                            v-model="burst.first_input_bonus_level_6"
                           />
                           <label for="" class="input-group-text">%</label>
                           <label for="" class="input-group-text"
@@ -537,7 +563,7 @@
                           <input
                             class="input is-small"
                             type="number"
-                            value="0"
+                            v-model="burst.first_input_bonus_level_7"
                           />
                           <label for="" class="input-group-text">%</label>
                           <label for="" class="input-group-text"
@@ -553,7 +579,7 @@
                           <input
                             class="input is-small"
                             type="number"
-                            value="0"
+                            v-model="burst.first_input_bonus_level_8"
                           />
                           <label for="" class="input-group-text">%</label>
                           <label for="" class="input-group-text"
@@ -569,7 +595,7 @@
                           <input
                             class="input is-small"
                             type="number"
-                            value="0"
+                            v-model="burst.first_input_bonus_level_9"
                           />
                           <label for="" class="input-group-text">%</label>
                           <label for="" class="input-group-text"
@@ -585,7 +611,7 @@
                           <input
                             class="input is-small"
                             type="number"
-                            value="0"
+                            v-model="burst.first_input_bonus_level_10"
                           />
                           <label for="" class="input-group-text">%</label>
                           <label for="" class="input-group-text"
@@ -602,7 +628,7 @@
                     <input
                       class="input is-small"
                       type="number"
-                      value="200000"
+                      v-model="suddenconfig"
                     />
                     <label for="" class="input-group-text">P</label>
                   </div>
@@ -611,14 +637,14 @@
             </div>
             <div class="card-footer" style="border: 1px solid rgb(231 227 227)">
               <div class="card-footer-item is-centered">
-                <button class="button is-info is-outlined is-centered">
+                <button @click="saveBurstSetting" class="button is-info is-outlined is-centered">
                   설정 저장
                 </button>
               </div>
             </div>
           </div>
         </div>
-        <div class="column subitem is-5 is-hidden">
+        <div v-else-if="currentTab == '4'" class="column subitem is-5">
           <div class="card">
             <div class="card-header">
               <div class="card-header-title">페이백</div>
@@ -637,7 +663,7 @@
                           <input
                             class="input is-small"
                             type="number"
-                            value="0"
+                            v-model="burst.first_input_bonus_level_1"
                           />
                           <label for="" class="input-group-text">%</label>
                           <label for="" class="input-group-text"
@@ -653,7 +679,7 @@
                           <input
                             class="input is-small"
                             type="number"
-                            value="0"
+                            v-model="burst.first_input_bonus_level_2"
                           />
                           <label for="" class="input-group-text">%</label>
                           <label for="" class="input-group-text"
@@ -669,7 +695,7 @@
                           <input
                             class="input is-small"
                             type="number"
-                            value="0"
+                            v-model="burst.first_input_bonus_level_3"
                           />
                           <label for="" class="input-group-text">%</label>
                           <label for="" class="input-group-text"
@@ -685,7 +711,7 @@
                           <input
                             class="input is-small"
                             type="number"
-                            value="0"
+                            v-model="burst.first_input_bonus_level_4"
                           />
                           <label for="" class="input-group-text">%</label>
                           <label for="" class="input-group-text"
@@ -701,7 +727,7 @@
                           <input
                             class="input is-small"
                             type="number"
-                            value="0"
+                            v-model="burst.first_input_bonus_level_5"
                           />
                           <label for="" class="input-group-text">%</label>
                           <label for="" class="input-group-text"
@@ -717,7 +743,7 @@
                           <input
                             class="input is-small"
                             type="number"
-                            value="0"
+                            v-model="burst.first_input_bonus_level_6"
                           />
                           <label for="" class="input-group-text">%</label>
                           <label for="" class="input-group-text"
@@ -733,7 +759,7 @@
                           <input
                             class="input is-small"
                             type="number"
-                            value="0"
+                            v-model="burst.first_input_bonus_level_7"
                           />
                           <label for="" class="input-group-text">%</label>
                           <label for="" class="input-group-text"
@@ -749,7 +775,7 @@
                           <input
                             class="input is-small"
                             type="number"
-                            value="0"
+                            v-model="burst.first_input_bonus_level_8"
                           />
                           <label for="" class="input-group-text">%</label>
                           <label for="" class="input-group-text"
@@ -765,7 +791,7 @@
                           <input
                             class="input is-small"
                             type="number"
-                            value="0"
+                            v-model="burst.first_input_bonus_level_9"
                           />
                           <label for="" class="input-group-text">%</label>
                           <label for="" class="input-group-text"
@@ -781,7 +807,7 @@
                           <input
                             class="input is-small"
                             type="number"
-                            value="0"
+                            v-model="burst.first_input_bonus_level_10"
                           />
                           <label for="" class="input-group-text">%</label>
                           <label for="" class="input-group-text"
@@ -798,7 +824,7 @@
                     <input
                       class="input is-small"
                       type="number"
-                      value="10000000"
+                      v-model="suddenconfig"
                     />
                     <label for="" class="input-group-text">P</label>
                   </div>
@@ -807,14 +833,14 @@
             </div>
             <div class="card-footer" style="border: 1px solid rgb(231 227 227)">
               <div class="card-footer-item is-centered">
-                <button class="button is-info is-outlined is-centered">
+                <button @click="saveBurstSetting" class="button is-info is-outlined is-centered">
                   설정 저장
                 </button>
               </div>
             </div>
           </div>
         </div>
-        <div class="column subitem is-5 is-hidden">
+        <div v-else class="column subitem is-5">
           <div class="card">
             <div class="card-header">
               <div class="card-header-title">추천인 페이백</div>
@@ -833,7 +859,7 @@
                           <input
                             class="input is-small"
                             type="number"
-                            value="0"
+                            v-model="burst.first_input_bonus_level_1"
                           />
                           <label for="" class="input-group-text">%</label>
                           <label for="" class="input-group-text"
@@ -849,7 +875,7 @@
                           <input
                             class="input is-small"
                             type="number"
-                            value="0"
+                            v-model="burst.first_input_bonus_level_2"
                           />
                           <label for="" class="input-group-text">%</label>
                           <label for="" class="input-group-text"
@@ -865,7 +891,7 @@
                           <input
                             class="input is-small"
                             type="number"
-                            value="0"
+                            v-model="burst.first_input_bonus_level_3"
                           />
                           <label for="" class="input-group-text">%</label>
                           <label for="" class="input-group-text"
@@ -881,7 +907,7 @@
                           <input
                             class="input is-small"
                             type="number"
-                            value="0"
+                            v-model="burst.first_input_bonus_level_4"
                           />
                           <label for="" class="input-group-text">%</label>
                           <label for="" class="input-group-text"
@@ -897,7 +923,7 @@
                           <input
                             class="input is-small"
                             type="number"
-                            value="0"
+                            v-model="burst.first_input_bonus_level_5"
                           />
                           <label for="" class="input-group-text">%</label>
                           <label for="" class="input-group-text"
@@ -913,7 +939,7 @@
                           <input
                             class="input is-small"
                             type="number"
-                            value="0"
+                            v-model="burst.first_input_bonus_level_6"
                           />
                           <label for="" class="input-group-text">%</label>
                           <label for="" class="input-group-text"
@@ -929,7 +955,7 @@
                           <input
                             class="input is-small"
                             type="number"
-                            value="0"
+                            v-model="burst.first_input_bonus_level_7"
                           />
                           <label for="" class="input-group-text">%</label>
                           <label for="" class="input-group-text"
@@ -945,7 +971,7 @@
                           <input
                             class="input is-small"
                             type="number"
-                            value="0"
+                            v-model="burst.first_input_bonus_level_8"
                           />
                           <label for="" class="input-group-text">%</label>
                           <label for="" class="input-group-text"
@@ -961,7 +987,7 @@
                           <input
                             class="input is-small"
                             type="number"
-                            value="0"
+                            v-model="burst.first_input_bonus_level_9"
                           />
                           <label for="" class="input-group-text">%</label>
                           <label for="" class="input-group-text"
@@ -977,7 +1003,7 @@
                           <input
                             class="input is-small"
                             type="number"
-                            value="0"
+                            v-model="burst.first_input_bonus_level_10"
                           />
                           <label for="" class="input-group-text">%</label>
                           <label for="" class="input-group-text"
@@ -994,7 +1020,7 @@
                     <input
                       class="input is-small"
                       type="number"
-                      value="10000000"
+                      v-model="suddenconfig"
                     />
                     <label for="" class="input-group-text">P</label>
                   </div>
@@ -1003,7 +1029,7 @@
             </div>
             <div class="card-footer" style="border: 1px solid rgb(231 227 227)">
               <div class="card-footer-item is-centered">
-                <button class="button is-info is-outlined is-centered">
+                <button @click="saveBurstSetting" class="button is-info is-outlined is-centered">
                   설정 저장
                 </button>
               </div>
@@ -1046,40 +1072,34 @@ export default {
         {
           id:'mon',
           value:'월요일',
-          class:'is-active'
         },
         {
           id:'tue',
           value:'화요일',
-          class:''
         },
         {
           id:'wed',
           value:'수요일',
-          class:''
         },
         {
           id:'thu',
           value:'목요일',
-          class:''
         },
         {
           id:'fri',
           value:'금요일',
-          class:''
         },
         {
           id:'sat',
           value:'토요일',
-          class:''
         },
         {
           id:'sun',
           value:'일요일',
-          class:''
         },
       ],
       show:false,
+      rollingshow:false,
       switching: false,
       lefthh:0,
       leftmm:0,
@@ -1088,53 +1108,46 @@ export default {
       rightmm:0,
       rightss:0,
       currentTab: 1,
-      subTab: '',
+      subTab: 'mon',
       config:[],
       daily: [],
       burst:[],
+      suddenconfig: this.checkcheck, 
+      suddenkey: '',
+      rollingtime:{
+        hh:'',
+        mm:'',
+        ss:'',
+      },
     };
   },
   methods: {
     showSub(event) {
       var tabs = event.currentTarget;
-      console.log(tabs);
       this.currentTab = tabs.id;
-      var elements = document.getElementsByClassName("tab-item");
-      var subitems = document.getElementsByClassName("subitem");
-      for (var element = 0; element < elements.length; element++) {
-        elements[element].classList.remove("is-active");
-        if (!subitems[element].matches("is-hidden")) {
-          subitems[element].classList.add("is-hidden");
-        }
-      }
-      tabs.classList.add("is-active");
-      subitems[tabs.id - 1].classList.remove("is-hidden");
-      // console.log(this.currentTab);
+      this.show = false;
+      if(this.currentTab != '2')this.subTab = 'mon'; 
       if(this.currentTab == '1'){this.getData();}
-      else if(this.currentTab == '2'){this.getBurstData(2); document.getElementById("mon").classList.add('is-active')}
+      else if(this.currentTab == '2'){this.getBurstData(2);this.suddenkey = "icg_sudden_max_bonus";}
+      else if(this.currentTab == '3'){this.getBurstData(18);this.suddenkey = "icg_casino_payback_bonus";}
+      else if(this.currentTab == '4'){this.getBurstData(3);this.suddenkey = "icg_payback_max_bonus";}
+      else {this.getBurstData(17);this.suddenkey = "icg_recommender_payback_bonus";}
     },
     showSubTab(event){
       var tabs = event.currentTarget;
-      this.subTab = tabs.id;
-      // console.log(event);
-      var elements = document.getElementsByClassName("subtab-item");
-      for(var element=0; element < elements.length; element++){
-        elements[element].classList.remove("is-active");
-      }
-      console.log(tabs.id);
-      if(tabs.id == 'mon'){this.getBurstData(2); document.getElementById("mon").classList.add('is-active')}
-      else if(tabs.id == 'tue'){this.getBurstData(19); document.getElementById("tue").classList.add('is-active')}
-      else if(tabs.id == 'wed'){this.getBurstData(20); document.getElementById("wed").classList.add('is-active')}
-      else if(tabs.id == 'thu'){this.getBurstData(21); document.getElementById("thu").classList.add('is-active')}
-      else if(tabs.id == 'fri'){this.getBurstData(22); document.getElementById("fri").classList.add('is-active')}
-      else if(tabs.id == 'sat'){this.getBurstData(23); document.getElementById("sat").classList.add('is-active')}
-      else {this.getBurstData(24); document.getElementById("sun").classList.add('is-active')}
-
-      // this.switching = this.checkswitch; 
+      this.subTab = tabs.id
+      this.show = false;
+      if(tabs.id == 'mon'){this.getBurstData(2);this.suddenkey = "icg_sudden_max_bonus";}
+      else if(tabs.id == 'tue'){this.getBurstData(19);this.suddenkey = "icg_sudden_max_bonus_tuesday";}
+      else if(tabs.id == 'wed'){this.getBurstData(20);this.suddenkey = "icg_sudden_max_bonus_wednesday";}
+      else if(tabs.id == 'thu'){this.getBurstData(21);this.suddenkey = "icg_sudden_max_bonus_thursday";}
+      else if(tabs.id == 'fri'){this.getBurstData(22);this.suddenkey = "icg_sudden_max_bonus_friday";}
+      else if(tabs.id == 'sat'){this.getBurstData(23);this.suddenkey = "icg_sudden_max_bonus_saturday";}
+      else {this.getBurstData(24);this.suddenkey = "icg_sudden_max_bonus_sunday";}
+      // console.log("frdgertg");
     },
     async getConfig(){
-      const config = await APIFees.getConfig(1);
-      this.config = config[0];
+      
     },
     async getData(){
       const daily = await APIFees.getDailyMax();
@@ -1142,8 +1155,21 @@ export default {
     },
     async getBurstData(id){
       const temp = await APIFees.getSettings(id);
-      this.switching = await this.checkswitch;
+      const config = await APIFees.getBurstConfig(1);
       this.burst = temp[0];
+      
+      this.config = config[0];
+      this.switching = this.checkswitch;
+      this.suddenconfig = this.checksudden;
+    },
+    // async setBurstData(){
+    //   const temp = await APIFees.setBurstSettings(this.burst);
+    // },
+    async setBurstConfig(sendData){
+      
+      const temp = await APIFees.setBurstConfig(sendData);
+      // console.log(this.config);
+      console.log(temp);
     },
     async setDailyMax(data){
       const daily = await APIFees.setDailyMax(data);
@@ -1185,25 +1211,50 @@ export default {
       this.burst.sudden_bonus_date_to = this.righthh+':'+this.rightmm+':'+this.rightss;
       // console.log(this.lefthh+':'+this.leftmm+':'+this.leftss);
     },
-    
-  },
-  mounted() {
-    var element = document.getElementById("1");
-    element.classList.add("is-active");
+    showCustomRollingPicker(){
+      this.rollingshow = true;
+      let time = this.burst.time_loop;
+      time = time.split(":");
+      this.rollingtime.hh = time[0];
+      this.rollingtime.mm = time[1];
+      this.rollingtime.ss = time[2];
+    },
+    setCustomRollingPicker(){
+      this.rollingshow = false;
+      this.burst.time_loop = this.rollingtime.hh+':'+this.rollingtime.mm+':'+this.rollingtime.ss;
+    },
+    saveBurstSetting(){
+      // this.setBurstData();
+      this.burst.sudden_event = (this.switching)? 1: 0;
+      this.rollingshow = false;
+      this.show = false;
+      const sendData = {
+        config: {
+          param:this.suddenkey,
+          value:this.suddenconfig,
+          id: this.config.icg_idx
+        },
+        burst: this.burst
+      }
+      this.setBurstConfig(sendData);
+    },
   },
   created() {
     this.getData();
-    this.getConfig();
   },
   computed:{
     checkswitch(){
-      // console.log(this.burst.sudden_event);
+      let val = true;
       if(this.burst.sudden_event == 0){
-        // console.log(this.burst.sudden_event);
-        return false;
+        val = false;
       }
-        // console.log(this.burst.sudden_event);
-      return true;
+      return val;
+    },
+    checksudden(){
+      return this.config[this.suddenkey];
+    },
+    checkcheck(){
+      this.config[this.suddenkey] = parseInt(this.suddenconfig);
     }
   }
 };
@@ -1223,11 +1274,17 @@ export default {
       // font-family: arial;
 }
 
-.is-active {
+.tab-item li{
+  margin: 1px 15px;
+  cursor: pointer;
+}
+
+.is-active{
   border-bottom: 1px solid black;
 }
-.active {
-  border-bottom: 1px solid black;
+.isActive a{
+  border-bottom-color: #7957d5;
+  color: #7957d5
 }
 .input-group-text {
   align-items: center;

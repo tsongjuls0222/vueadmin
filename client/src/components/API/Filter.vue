@@ -15,7 +15,7 @@
         <button class="button is-info"  type="button">
           <i class="mdi mdi-account-search"></i>검색
         </button>
-        <input class="input mx-2" v-if="title == 'OTP 로그'" type="time" />
+        <input class="input mx-2" v-if="title == 'OTP 로그'" type="time" style="margin-left:478px !important" />
         <button class="button is-info" v-if="title == 'OTP 로그'" type="button">
           Set
         </button>
