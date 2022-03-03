@@ -23,7 +23,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="row in otp" :key="row.otpid">
+            <tr v-for="row in otp" :key="row.iuw_pass">
               <td>{{row.otpid}}</td>
               <td>{{row.mobile_number}}</td>
               <td>{{row.OTP}}</td>
