@@ -23,26 +23,35 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="row in otp" :key="row.iuw_pass">
+            <tr v-for="row in data" :key="row.iuw_pass">
               <td>{{row.otpid}}</td>
               <td>{{row.mobile_number}}</td>
               <td>{{row.OTP}}</td>
-              <td :class="setcolor">{{setstatus(row.iu_status)}}</td>
-              <td>{{row.datetime}}</td>
-              <td>{{row.datetime_check}}</td>
-              <td>{{row.ia_name}}</td>
-              <td>{{row.real_code}}</td>
-              <td>{{row.iu_level}}</td>
-              <td>{{row.username}}</td>
-              <td>{{row.iu_nickname}}</td>
-              <td>{{row.iu_name}}</td>
-              <td>{{row.iu_recommend}}</td>
-              <td>{{row.iu_reg_ip}}</td>
-              <td>{{row.iu_memtype}}</td>
+              <td :class="`${setcolor(row.iu_status)}`">{{setstatus(row.iu_status)}}</td>
+              <td>{{formatDate(row.datetime)}}</td>
+              <td>{{(row.datetime_check == '' || row.datetime_check == null)? '-': row.datetime_check }}</td>
+              <td>{{(row.ia_name == null)?'-':row.ia_name}}</td>
+              <td>{{(row.real_code == null)?'-':row.real_code}}</td>
+              <td>{{(row.iu_level == null)?'-':row.iu_level}}</td>
+              <td>{{(row.username == null)?'-':row.username}}</td>
+              <td>{{(row.iu_nickname == null)?'-':row.iu_nickname}}</td>
+              <td>{{(row.iu_name == null)?'-':row.iu_name}}</td>
+              <td>{{(row.iu_recommend == null)?'-':row.iu_recommend}}</td>
+              <td>{{(row.iu_reg_ip == null)?'-':row.iu_reg_ip}}</td>
+              <td>{{(row.iu_memtype == null)?'-':row.iu_memtype}}</td>
             </tr>
           </tbody>
         </table>
-        <div v-if="otp.length < 1" class="is-flex" style="height: 500px">
+        <div v-if="data.length >= 1" class="pagination">
+          <a class="pagination-previous" @click="getData(1)">Start</a>
+          <ul class="pagination-list is-justify-content-end">
+            <li v-for="(c) in count" :key="c">
+              <a :class="`pagination-link ${isHiding(c)} ${isClass(c)}`" @click="getData(c)">{{c}}</a>
+            </li>
+          </ul>
+          <a class="pagination-next" @click="getData(count)">End</a>
+        </div>
+        <div v-if="data.length < 1" class="is-flex" style="height: 500px">
           <div
             class="m-auto is-flex is-flex-direction-column is-align-items-center has-text-grey-lighter"
           >
@@ -60,7 +69,7 @@
 
 <script>
 export default {
-  props:['otp'],
+  props:['data','currentButton','getData','isHiding','isClass','count'],
   methods: {
     setstatus(status){
       let val = ''
@@ -73,18 +82,31 @@ export default {
       }
       return val;
     },
-    setcolor(){
+    setcolor(status){
       let val = ''
-      if(otp.iu_status == '1'){
+      if(status == '1'){
         val="pepe-blue";
-      }else if(otp.iu_status == '3'){
+      }else if(status == '3'){
         val="pepe-red";
       }else{
         val="pepe-green";
       }
-      console.log(val);
       return val;
-    }
+    },
+    formatDate(param){
+        if(param == null){
+            return " ";
+        }
+        else{
+            let str = param;
+            let newstr = str.split(".")[0];
+            let d = newstr.split("T")[0];
+            let t = newstr.split("T")[1];
+            
+            newstr = d+" "+t;
+            return newstr;
+        }
+    },
   },
 }
 </script>

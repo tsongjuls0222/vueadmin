@@ -5,6 +5,7 @@
         <table>
           <thead>
             <tr>
+              <th>id</th>
               <th>신청일시</th>
               <th>총판</th>
               <th>코드</th>
@@ -17,9 +18,32 @@
               <th>보유금</th>
             </tr>
           </thead>
-          <tbody></tbody>
+          <tbody>
+            <tr v-for="row in data" :key="row.it_idx">
+              <td>{{row.it_idx}}</td>
+              <td>{{row.it_update_datetime}}</td>
+              <td>{{row.ia_name}}</td>
+              <td>{{row.real_code}}</td>
+              <td>{{row.iu_level}}</td>
+              <td>{{row.username}}</td>
+              <td>{{row.iu_nickname}}</td>
+              <td>{{row.iu_name}}</td>
+              <td>{{row.casino_name}}</td>
+              <td>{{row.it_amount}}</td>
+              <td>{{row.it_after_balance}}</td>
+            </tr>
+          </tbody>
         </table>
-        <div class="is-flex" style="height: 500px">
+        <div v-if="data.length >= 1" class="pagination">
+          <a class="pagination-previous" @click="getData(1)">Start</a>
+          <ul class="pagination-list is-justify-content-end">
+            <li v-for="(c) in count" :key="c">
+              <a :class="`pagination-link ${isHiding(c)} ${isClass(c)}`" @click="getData(c)">{{c}}</a>
+            </li>
+          </ul>
+          <a class="pagination-next" @click="getData(count)">End</a>
+        </div>
+        <div v-if="data.length < 1" class="is-flex" style="height: 500px">
           <div
             class="m-auto is-flex is-flex-direction-column is-align-items-center has-text-grey-lighter"
           >
@@ -34,3 +58,9 @@
     </div>
   </div>
 </template>
+
+<script>
+export default {
+   props:['data','currentButton','getData','isHiding','isClass','count'],
+}
+</script>

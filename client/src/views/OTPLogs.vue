@@ -2,41 +2,28 @@
   <div>
     <Nav />
     <div class="column">
-      <div class="card">
+      <Filters :title="'OTP 로그'"/>
+      <!-- <div class="card">
         <div class="card-header">
-          <div class="card-header-title"><Filters :title="'OTP 로그'" /></div>
+          <div class="card-header-title"></div>
         </div>
         <div class="card-content">
           <div class="content">
-            <OTP :otp="otp" />
+            <OTP :data="data" :getData="getData" :count="count" :currentButton="currentButton" :isHiding="isHiding" :isClass="isClass" />
           </div>
         </div>
-      </div>
+      </div> -->
     </div>
   </div>
 </template>
 <script>
 import Nav from "../components/Nav/Nav.vue";
 import Filters from "../components/API/Filter.vue";
-import OTP from "../components/API/OTP.vue";
-import APIOTP from "../api/otp";
+
+
 export default {
   name: "OTPLogs",
-  components: { Nav, Filters, OTP },
-  data() {
-    return {
-      otp:[],
-    }
-  },
-  methods: {
-    async getotp(){
-      const otp = await APIOTP.getOTP();
-      this.otp = otp;
-    }
-  },
-  created() {
-    this.getotp();
-  },
+  components: { Nav, Filters },
 };
 </script>
 

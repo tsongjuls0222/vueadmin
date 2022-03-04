@@ -2,10 +2,11 @@
   <div>
     <Nav />
     <div class="column">
-      <div class="card">
+      <Filters :title="'카지노 로그'" />
+      <!-- <div class="card">
         <div class="card-header">
           <div class="card-header-title">
-            <Filters :title="'카지노 로그'" />
+            
           </div>
         </div>
         <div class="card-content">
@@ -13,17 +14,16 @@
             <Casino />
           </div>
         </div>
-      </div>
+      </div> -->
     </div>
   </div>
 </template>
 <script>
 import Nav from "../components/Nav/Nav.vue";
 import Filters from "../components/API/Filter.vue";
-import Casino from "../components/API/Casino.vue";
 export default {
   name: "CasinoLogs",
-  components: { Nav, Filters, Casino }
+  components: { Nav, Filters }
 };
 </script>
 
