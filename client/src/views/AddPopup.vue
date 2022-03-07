@@ -2,16 +2,17 @@
   <div>
     <Nav />
     <div class="column">
-      <div class="card">
+      <Header :title="'팝업'" />
+      <!-- <div class="card">
         <div class="card-header">
-          <Header :title="'팝업'" />
+          
         </div>
         <div class="card-content">
           <div class="content">
             <Body />
           </div>
         </div>
-      </div>
+      </div> -->
     </div>
   </div>
 </template>
