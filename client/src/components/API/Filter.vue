@@ -33,7 +33,7 @@
             <OTP :data="data" :getData="getData" :count="count" :currentButton="currentButton" :isHiding="isHiding" :isClass="isClass" />
           </div>
           <div v-else>
-            <Casino :data="data" :getData="getData" :count="count" :currentButton="currentButton" :isHiding="isHiding" :isClass="isClass" />
+            <Casino :data="data" :getData="getData" :count="count" :currentButton="currentButton" :isHiding="isHiding" :isClass="isClass" :formatDate="formatDate"/>
           </div>
         </div>
       </div>
@@ -91,20 +91,25 @@ export default {
         keyword:this.keyword,
       }
       console.log(this.title);
-      if(this.title == 'OTP 로그'){
-          console.log("otp");
-        const otp = await APIOTP.getOTP(sendData);
-        this.data = otp.data;
-        this.count = parseInt(otp.count / 50) + 1;
-      }else{
-          console.log("casino");
+      // if(this.title == 'OTP 로그'){
+      //   console.log("otp");
+      //   const otp = await APIOTP.getOTP(sendData);
+      //   this.data = otp.data;
+        
+      //   this.count = parseInt(otp.count[0].counter / 50) ;
+      //   if(otp.count[0].counter % 50 > 0){
+      //     this.count + 1;
+      //   }
+      // }else{
+      //   console.log("casino");
         const casino = await APIOTP.getCasino(sendData);
         this.data = casino.data;
-        console.log(casino.data);
-        this.count = parseInt(casino.count[0].counter / 50) + 1;
-        
-      }
-      
+        console.log(casino);
+        this.count = parseInt(casino.count[0].counter / 50);
+        if(casino.count[0].counter % 50 > 0){
+          this.count + 1;
+        }
+      // }
     },
     isClass(param){
       var isclass ='';

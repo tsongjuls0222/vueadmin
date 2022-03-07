@@ -21,7 +21,7 @@
           <tbody>
             <tr v-for="row in data" :key="row.it_idx">
               <td>{{row.it_idx}}</td>
-              <td>{{row.it_update_datetime}}</td>
+              <td>{{formatDate(row.it_update_datetime)}}</td>
               <td>{{row.ia_name}}</td>
               <td>{{row.real_code}}</td>
               <td>{{row.iu_level}}</td>
@@ -61,6 +61,6 @@
 
 <script>
 export default {
-   props:['data','currentButton','getData','isHiding','isClass','count'],
+   props:['data','currentButton','getData','isHiding','isClass','count','formatDate'],
 }
 </script>

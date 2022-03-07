@@ -21,9 +21,25 @@
 <script>
 import Nav from "../components/Nav/Nav.vue";
 import Filters from "../components/API/Filter.vue";
+import APIOTP from "../api/otp";
 export default {
   name: "CasinoLogs",
-  components: { Nav, Filters }
+  components: { Nav, Filters },
+  methods: {
+    async getData(){
+      var sendData = {
+        start: 0,
+        fromDate:'2021-11-11',
+        toDate:'2022-03-07',
+        keyword:'',
+      }
+      const temp = await APIOTP.getCasino(sendData);
+      console.log(temp);
+    }
+  },
+  created() {
+    // this.getData();
+  },
 };
 </script>
 

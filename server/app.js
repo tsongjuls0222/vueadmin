@@ -53,6 +53,9 @@ app.use("/api/feemanagement", require("./routes/routes_feemanagement"));
 // otp
 app.use("/api/otp", require("./routes/routes_otp"));
 
+// events
+app.use("/api/event", require("./routes/routes_event"));
+
 
 
 //start server

@@ -24,6 +24,7 @@ import Filters from "../components/API/Filter.vue";
 export default {
   name: "OTPLogs",
   components: { Nav, Filters },
+  
 };
 </script>
 

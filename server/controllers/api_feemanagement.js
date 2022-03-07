@@ -20,13 +20,25 @@ module.exports = class API {
             from info_fee as a
             left join info_agent as b on a.if_partner=b.ia_idx
             left join info_user as c on a.if_user=c.id
-            where (date_format(a.if_datetime, '%Y-%m-%d %H:%i:%s') >= '${current}' and date_format(a.if_datetime, '%Y-%m-%d %H:%i:%s') <= '${to}')
-            order by a.if_idx desc limit 0 , 20`;
+            where a.if_partner in (224, 261, 277, 315, 311, 284, 285, 306, 301, 305, 290, 293, 316, 295, 262, 264, 265, 266, 268, 269, 270, 322, 321, 308, 319, 297, 299, 320, 302, 313, 309, 318, 294, 276, 283, 275, 282, 273, 272, 271, 292, 280, 286, 314, 279, 317, 274, 323, 312, 281, 296, 298, 291, 300, 287, 289, 303, 304, 288, 307, 310, 325) and (date_format(a.if_datetime, '%Y-%m-%d %H:%i:%s') >= '${current}' and date_format(a.if_datetime, '%Y-%m-%d %H:%i:%s') <= '${to}')
+            order by a.if_idx desc limit 0 , 50`;
+
+            const mycount = `Select  count(a.if_idx) as counter
+            from info_fee as a
+            left join info_agent as b on a.if_partner=b.ia_idx
+            left join info_user as c on a.if_user=c.id 
+            where a.if_partner in (224, 261, 277, 315, 311, 284, 285, 306, 301, 305, 290, 293, 316, 295, 262, 264, 265, 266, 268, 269, 270, 322, 321, 308, 319, 297, 299, 320, 302, 313, 309, 318, 294, 276, 283, 275, 282, 273, 272, 271, 292, 280, 286, 314, 279, 317, 274, 323, 312, 281, 296, 298, 291, 300, 287, 289, 303, 304, 288, 307, 310, 325)
+            order by a.if_idx`;
 
             const getalldata = await db.query(myquery, {
                 type: QueryTypes.SELECT
             });
-            res.status(200).json(getalldata);
+
+            const getcount = await db.query(mycount, {
+                type: QueryTypes.SELECT
+            });
+
+            res.status(200).json({ data: getalldata, count: getcount });
             // res.status(200).json(myquery);
         } catch (error) {
             res.status(404).json({ message: error.message });
@@ -34,6 +46,7 @@ module.exports = class API {
     }
     static async getFilterFeelogs(req, res) {
         const requestFilter = req.body;
+        const start = requestFilter.start;
         const agent = requestFilter.agent;
         const keyword = requestFilter.keyword;
         const fromdate = requestFilter.fromdate + " 00:00:00";
@@ -54,11 +67,22 @@ module.exports = class API {
             left join info_agent as b on a.if_partner=b.ia_idx
             left join info_user as c on a.if_user=c.id
             where (date_format(a.if_datetime, '%Y-%m-%d %H:%i:%s') >= '${fromdate}' and date_format(a.if_datetime, '%Y-%m-%d %H:%i:%s') <= '${todate}') ${cond}
-            order by a.if_idx desc limit 0 , 20`;
+            order by a.if_idx desc limit ${start} , 50`;
+
+            const mycount = `Select  count(a.if_idx) as counter
+            from info_fee as a
+            left join info_agent as b on a.if_partner=b.ia_idx
+            left join info_user as c on a.if_user=c.id
+            order by a.if_idx`;
+
             const getalldata = await db.query(myquery, {
                 type: QueryTypes.SELECT
             });
-            res.status(200).json(getalldata);
+            const getcount = await db.query(mycount, {
+                type: QueryTypes.SELECT
+            });
+
+            res.status(200).json({ data: getalldata, count: getcount });
             // res.status(200).json(myquery);
         } catch (error) {
             res.status(404).json({ message: error.message });
