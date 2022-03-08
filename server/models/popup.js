@@ -15,6 +15,7 @@ const popup = db.define('popup', {
     },
     created: {
         type: Sequelize.DATE,
+        // default: Date.now,
     },
     leftpx: {
         type: Sequelize.STRING,

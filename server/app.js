@@ -3,6 +3,7 @@ require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
+const path = require('path')
 
 // const mysql = require('mysql2');
 
@@ -56,6 +57,8 @@ app.use("/api/otp", require("./routes/routes_otp"));
 // events
 app.use("/api/event", require("./routes/routes_event"));
 
+// images
+app.use("/api/upload", express.static(path.join("./uploads")));
 
 
 //start server
