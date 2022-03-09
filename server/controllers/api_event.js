@@ -3,6 +3,7 @@ const { QueryTypes } = require('sequelize');
 const { Op } = require('sequelize');
 const popups = require('../models/popup');
 const Board = require('../models/info_board');
+const Reward = require('../models/rewards');
 const fs = require('fs');
 
 module.exports = class API {
@@ -250,10 +251,10 @@ module.exports = class API {
 
     static async addBoard(req, res) {
         const body = req.body;
-        const imagename = req.file.filename;
-        console.log(req.file.filename);
-        body.ibd_contents = imagename;
-        body.ibd_thumbnail = imagename;
+        const imagename1 = req.files.ibd_contents[0].filename;
+        const imagename2 = req.files.ibd_thumbnail[0].filename;
+        body.ibd_contents = imagename1;
+        body.ibd_thumbnail = imagename2;
         try {
             const temp = await Board.create(body);
             res.status(201).json({ message: 'added Board' });
@@ -265,21 +266,26 @@ module.exports = class API {
     static async editBoard(req, res) {
         const id = req.params.id;
         const body = req.body;
-        const imagename = req.file.filename;
+        const imagename1 = req.files.ibd_contents[0].filename;
+        const imagename2 = req.files.ibd_thumbnail[0].filename;
+
+
         const temp = await Board.findByPk(id);
-        if (temp.ibd_contents) {
+        if (temp.ibd_contents && temp.ibd_thumbnail) {
             try {
                 fs.unlinkSync('./upload/team_icon/' + temp.ibd_contents);
-                fs.unlinkSync('./upload/team_icon/' + result.ibd_thumbnail);
+                fs.unlinkSync('./upload/team_icon/' + temp.ibd_thumbnail);
             } catch (err) {
                 console.log(err);
             }
         }
-        body.ibd_contents = imagename;
+        body.ibd_contents = imagename1;
+        body.ibd_thumbnail = imagename2;
         try {
             await Board.update({
                 ibd_title: body.ibd_title,
                 ibd_contents: body.ibd_contents,
+                ibd_thumbnail: body.ibd_thumbnail,
                 ibd_status: body.ibd_status,
                 ibd_type: body.ibd_type,
                 ibd_fix: body.ibd_fix,
@@ -304,7 +310,7 @@ module.exports = class API {
                 }
             }
             await Board.destroy({ where: { ibd_idx: id } });
-            res.status(200).json({ message: 'deleted' });
+            res.status(200).json({ message: 'deleted Board' });
         } catch (err) {
             res.status(404).json({ message: err.message });
         }
@@ -324,6 +330,34 @@ module.exports = class API {
                 }
             );
             res.status(200).json(popup);
+        } catch (error) {
+            res.status(404).json({ message: error.message });
+        }
+    }
+
+    //attendance
+    static async getrewards(req, res) {
+        try {
+            const popup = await Reward.findAll();
+            res.status(200).json(popup);
+        } catch (error) {
+            res.status(404).json({ message: error.message });
+        }
+    }
+    static async saverewards(req, res) {
+        const body = req.body;
+        try {
+            const result = await Reward.update(
+                {
+                    lvl1_seven: body.lvl1_seven,
+                    lvl1_fifteen: body.lvl1_fifteen,
+                    lvl1_thirty: body.lvl1_thirty,
+                },
+                {
+                    where: { id: 1 }
+                }
+            );
+            res.status(200).json(result);
         } catch (error) {
             res.status(404).json({ message: error.message });
         }

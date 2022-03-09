@@ -87,4 +87,14 @@ export default class API {
         return res.data;
         // return 'kwekwek';
     }
+
+    // attendance
+    static async getrewards() {
+        const res = await axios.get(`${url}/event/getrewards`);
+        return res.data;
+    }
+    static async saverewards(data) {
+        const res = await axios.post(`${url}/event/saverewards`, data);
+        return res.data;
+    }
 }

@@ -51,17 +51,21 @@ router.post('/editnotice:id', upload2, API.editNotice);
 router.delete('/deletenotice:id', API.deleteNotice);
 router.post('/savesorting', API.savesorting);
 
-let storage3 = multer.diskStorage({
+const filestorage = multer.diskStorage({
     destination: function (req, file, cb) {
         cb(null, './upload/team_icon');
     },
     filename: function (req, file, cb) {
-        cb(null, (crypto.randomBytes(7).toString('hex') + '-' + currentDate.getTime() + path.extname(file.originalname)));
+        if (file.fieldname == 'ibd_contents') {
+            cb(null, (crypto.randomBytes(7).toString('hex') + 'contents' + currentDate.getTime() + path.extname(file.originalname)));
+        } else {
+            cb(null, (crypto.randomBytes(7).toString('hex') + 'thumbnail' + currentDate.getTime() + path.extname(file.originalname)));
+        }
     },
 });
 
 let upload3 = multer({
-    storage: storage3,
+    storage: filestorage,
 }).fields([
     {
         name: 'ibd_contents',
@@ -80,5 +84,9 @@ router.post("/setboardstatus", API.setBoardStatus);
 router.post('/addBoard', upload3, API.addBoard);
 router.post('/editBoard:id', upload3, API.editBoard);
 router.delete('/deleteBoard:id', API.deleteBoard);
+
+//attendance
+router.get('/getrewards', API.getrewards);
+router.post('/saverewards', API.saverewards);
 
 module.exports = router;

@@ -90,11 +90,11 @@ export default {
                 return;
             }
             if(this.toedit.id != null){
-                if(this.title=='이벤트 등록'){console.log('board');this.editpopup(this.contentfileSelected,this.toedit.id,this.thumbfileSelected);}
-                else{console.log('notice');this.editpopup(this.contentfileSelected,this.toedit.id);}
+                if(this.title=='이벤트 등록'){this.editpopup(this.contentfileSelected,this.toedit.id,this.thumbfileSelected);}
+                else{this.editpopup(this.contentfileSelected,this.toedit.id);}
             }else{
-                if(this.title=='이벤트 등록'){console.log('board');this.addpopup(this.contentfileSelected,this.thumbfileSelected);}
-                else{console.log('notice');this.addpopup(this.contentfileSelected);}
+                if(this.title=='이벤트 등록'){this.addpopup(this.contentfileSelected,this.thumbfileSelected);}
+                else{this.addpopup(this.contentfileSelected);}
             }
             this.closemodal();
         },

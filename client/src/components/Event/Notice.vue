@@ -246,9 +246,10 @@ export default {
       this.getData();
     },
     async deletepopup(event){
-      if(this.title == '공지 목록'){const res = await APIEvent.deletenotice(event.target.id);}
-      else{const res = await APIEvent.deleteboard(event.target.id);}
-      
+      var res = null;
+      if(this.title == '공지 목록'){res = await APIEvent.deletenotice(event.target.id);}
+      else{res = await APIEvent.deleteboard(event.target.id);}
+      console.log(res);
       this.getData();
     },
     showpopup(){

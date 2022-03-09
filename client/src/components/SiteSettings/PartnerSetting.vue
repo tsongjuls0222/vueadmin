@@ -34,6 +34,9 @@
                   <th>수수료율</th>
                 </tr>
               </thead>
+              <tbody>
+                
+              </tbody>
             </table>
             <div class="is-flex" style="height: 500px">
               <div
