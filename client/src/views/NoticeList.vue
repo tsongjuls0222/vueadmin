@@ -2,27 +2,16 @@
   <div>
     <Nav />
     <div class="column">
-      <Header :title="'공지 목록'" />
-      <!-- <div class="card">
-        <div class="card-header">
-          
-        </div>
-        <div class="card-content">
-          <div class="content">
-            <Body />
-          </div>
-        </div>
-      </div> -->
+      <Notice :title="'공지 목록'" />
     </div>
   </div>
 </template>
 <script>
 import Nav from "../components/Nav/Nav.vue";
-import Header from "../components/Event/Header.vue";
-import Body from "../components/Event/Body.vue";
+import Notice from "../components/Event/Notice.vue";
 export default {
   name: "NoticeList",
-  components: { Nav, Header, Body }
+  components: { Nav, Notice }
 };
 </script>
 <style scoped>

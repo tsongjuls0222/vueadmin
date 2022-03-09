@@ -3,26 +3,15 @@
     <Nav />
     <div class="column">
       <Header :title="'이벤트 등록'" />
-      <!-- <div class="card">
-        <div class="card-header">
-          
-        </div>
-        <div class="card-content">
-          <div class="content">
-            <Body />
-          </div>
-        </div>
-      </div> -->
     </div>
   </div>
 </template>
 <script>
 import Nav from "../components/Nav/Nav.vue";
-import Header from "../components/Event/Header.vue";
-import Body from "../components/Event/Body.vue";
+import Header from "../components/Event/Notice.vue";
 export default {
   name: "BoardList",
-  components: { Nav, Header, Body }
+  components: { Nav, Header }
 };
 </script>
 <style scoped>

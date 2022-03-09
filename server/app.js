@@ -58,7 +58,7 @@ app.use("/api/otp", require("./routes/routes_otp"));
 app.use("/api/event", require("./routes/routes_event"));
 
 // images
-app.use("/api/upload", express.static(path.join("./uploads")));
+app.use("/api/upload", express.static(path.join("./upload")));
 
 
 //start server
