@@ -2,9 +2,7 @@
   <div>
     <Nav />
     <div class="column">
-      <div class="card">
-        <div class="card-header"><CSHeader :title="'일반답변양식'" /></div>
-      </div>
+      <CSHeader :title="'일반답변양식'" />
     </div>
   </div>
 </template>

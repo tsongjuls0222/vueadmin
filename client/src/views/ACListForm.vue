@@ -2,18 +2,16 @@
   <div>
     <Nav />
     <div class="column">
-      <div class="card">
-        <div class="card-header"><CSHeader :title="'계좌답변양식'" /></div>
-      </div>
+      <Forms :title="'계좌답변양식'" />
     </div>
   </div>
 </template>
 <script>
 import Nav from "../components/Nav/Nav.vue";
-import CSHeader from "../components/CustomerService/CSHeader.vue";
+import Forms from "../components/CustomerService/Forms";
 export default {
   name: "ACListForm",
-  components: { Nav, CSHeader }
+  components: { Nav, Forms }
 };
 </script>
 <style scoped>

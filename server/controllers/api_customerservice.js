@@ -1,8 +1,9 @@
 const db = require('../db_config.js');
-const { QueryTypes } = require('sequelize');
+const { QueryTypes, where } = require('sequelize');
 const { Op } = require("sequelize");
 const Group = require('../models/macro_group');
 const List = require('../models/macro_list');
+const Board = require('../models/info_board');
 
 module.exports = class API {
     //group
@@ -147,6 +148,64 @@ module.exports = class API {
             res.status(200).json(body);
         } catch (error) {
             res.status(404).json({ message: error.message });
+        }
+    }
+
+    //forms
+    static async getforms(req, res) {
+        const body = req.body;
+        try {
+            var condition = '';
+            if (body.type == "form") { condition = ` a.ibd_type = 'form' and a.ibd_idx <= 10`; }
+            else { condition = ' a.ibd_type = "badform"'; }
+
+            const myquery = "SELECT * from info_board as a left join info_account as b on a.ibd_writer=b.id where" + condition + " order by a.ibd_idx asc";
+            const result = await db.query(myquery, { type: QueryTypes.SELECT });
+            res.status(200).json(result);
+        } catch (err) {
+            res.status(404).json({ message: err.message });
+        }
+    }
+    static async addforms(req, res) {
+        const body = req.body;
+        console.log(body);
+        try {
+            const result = await Board.create(body);
+            res.status(200).json(result);
+        } catch (err) {
+            res.status(404).json({ message: err.message });
+        }
+    }
+    static async getformsid(req, res) {
+        const id = req.params.id;
+        try {
+            const result = await Board.findByPk(id);
+            res.status(200).json(result);
+        } catch (err) {
+            res.status(404).json({ message: err.message });
+        }
+    }
+    static async editforms(req, res) {
+        const body = req.body;
+        const id = req.body.ibd_idx
+        try {
+            const result = await Board.update(
+                {
+                    ibd_contents: body.ibd_contents,
+                    ibd_writer: body.ibd_writer,
+                    ibd_title: body.ibd_title,
+                    form_group: body.form_group,
+                    ibd_type: body.ibd_type,
+                },
+                {
+                    where: {
+                        ibd_idx: id
+                    }
+                }
+            );
+            res.status(200).json(result);
+        } catch (err) {
+            res.status(404).json({ message: err.message });
         }
     }
 }

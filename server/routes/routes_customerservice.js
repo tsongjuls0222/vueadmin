@@ -21,6 +21,9 @@ router.post("/savelist", API.savelist);
 router.post("/savesortlist", API.savesortlist);
 
 // forms
-
+router.post("/getforms", API.getforms);
+router.post("/addforms", API.addforms);
+router.get("/getformsid:id", API.getformsid);
+router.post("/editforms", API.editforms);
 
 module.exports = router;

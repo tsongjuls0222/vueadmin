@@ -61,4 +61,22 @@ export default class API {
         const res = await axios.post(`${url}/savesortlist`, data);
         return res.data;
     }
+
+    //forms
+    static async getforms(data) {
+        const res = await axios.post(`${url}/getforms`, data);
+        return res.data;
+    }
+    static async addforms(data) {
+        const res = await axios.post(`${url}/addforms`, data);
+        return res.data;
+    }
+    static async getformsid(id) {
+        const res = await axios.get(`${url}/getformsid${id}`);
+        return res.data;
+    }
+    static async editforms(data) {
+        const res = await axios.post(`${url}/editforms`, data);
+        return res.data;
+    }
 }

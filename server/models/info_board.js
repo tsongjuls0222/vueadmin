@@ -70,6 +70,9 @@ const temp = db.define('info_board', {
     sort_julius: {
         type: Sequelize.INTEGER,
     },
+    form_group: {
+        type: Sequelize.INTEGER,
+    }
 
 }, {
     // options
