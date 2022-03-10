@@ -57,6 +57,9 @@ app.use("/api/otp", require("./routes/routes_otp"));
 // events
 app.use("/api/event", require("./routes/routes_event"));
 
+// partner
+app.use("/api/partner", require("./routes/routes_partner"));
+
 // images
 app.use("/api/upload", express.static(path.join("./upload")));
 

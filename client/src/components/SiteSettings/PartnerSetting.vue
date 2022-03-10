@@ -9,13 +9,13 @@
                 <span class="ml-4">파트너관리</span>
                 <div class="buttons">
                   <span class="icon mx-2"
-                    ><i class="fa-solid fa-angle-down"></i
+                    ><i class="mdi mdi-chevron-down"></i
+                  ></span>
+                  <span @click="refresh" class="icon mx-2"
+                    ><i class="mdi mdi-refresh"></i
                   ></span>
                   <span class="icon mx-2"
-                    ><i class="fa-solid fa-rotate"></i
-                  ></span>
-                  <span class="icon mx-2"
-                    ><i class="fa-solid fa-xmark"></i
+                    ><i class="mdi mdi-close"></i
                   ></span>
                 </div>
               </div>
@@ -158,6 +158,27 @@
     </div>
   </div>
 </template>
+
+<script>
+import API from '../../api/partner';
+export default {
+  data() {
+    return {
+      datas:[],
+    }
+  },
+  methods: {
+    async refresh(){
+      const res = await API.refresh();
+      console.log(res);
+    }
+  },
+  created(){
+    this.refresh();
+  }
+}
+</script>
+
 <style lang="scss" scoped>
 label {
   font-size: 20px;

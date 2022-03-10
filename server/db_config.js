@@ -2,6 +2,7 @@ const Sequelize = require('sequelize');
 module.exports = new Sequelize('vicsportlive', 'root', '', {
     host: 'localhost',
     dialect: 'mysql',
+    port: 3305,
     pool: {
         max: 5,
         min: 0,
