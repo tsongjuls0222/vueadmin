@@ -1,4 +1,4 @@
-const url = "http:/192.168.10.50/api/partner";
+const url = "http:/192.168.10.50:5000/api/partner";
 import axios from "axios";
 
 export default class API {

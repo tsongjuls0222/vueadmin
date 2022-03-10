@@ -400,7 +400,10 @@ export default {
             "cs-list&cdtype=0",
             "cslist-form",
             "aclist-form",
-            "badlist-form"
+            "badlist-form",
+            "macro-group",
+            "money-macro",
+            "bonus-macro",
           ],
           subItems: [
             {
@@ -432,7 +435,25 @@ export default {
               id: "badlist",
               to: "/admin/badlist-form",
               idto: "badlist-form"
-            }
+            },
+            {
+              subTitle: "macro-group",
+              id: "macro-group",
+              to: "/admin/macro-group",
+              idto: "macro-group"
+            },
+            {
+              subTitle: "머니매크로",
+              id: "money-macro",
+              to: "/admin/money-macro",
+              idto: "money-macro"
+            },
+            {
+              subTitle: "머니매크로",
+              id: "bonus-macro",
+              to: "/admin/bonus-macro",
+              idto: "bonus-macro"
+            },
           ]
         },
         {

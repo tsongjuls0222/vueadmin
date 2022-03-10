@@ -60,6 +60,9 @@ app.use("/api/event", require("./routes/routes_event"));
 // partner
 app.use("/api/partner", require("./routes/routes_partner"));
 
+// customer-service
+app.use("/api/cs", require("./routes/routes_customerservice"));
+
 // images
 app.use("/api/upload", express.static(path.join("./upload")));
 

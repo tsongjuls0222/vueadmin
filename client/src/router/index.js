@@ -28,6 +28,9 @@ import GeneralInquiry from '../views/GeneralInquiry.vue';
 import CSListForm from '../views/CSListForm.vue';
 import ACListForm from '../views/ACListForm.vue';
 import BadListForm from '../views/BadListForm.vue';
+import MacroGroup from '../views/MacroGroup.vue';
+import MoneyMacro from '../views/MoneyMacro.vue';
+import BonusMacro from '../views/BonusMacro.vue';
 import PartnerSettlement from '../views/PartnerSettlement.vue';
 import MemberHistory from '../views/MemberHistory.vue';
 import Deposit from '../views/Deposit.vue';
@@ -381,6 +384,45 @@ const routes = [
     path: '/admin/badlist-form',
     name: 'BadListForm',
     component: BadListForm,
+    beforeEnter: (to, from, next) => {
+      if (store.state.account.authenticated == false) {
+        next("/");
+      }
+      else {
+        next();
+      }
+    }
+  },
+  {
+    path: '/admin/macro-group',
+    name: 'MacroGroup',
+    component: MacroGroup,
+    beforeEnter: (to, from, next) => {
+      if (store.state.account.authenticated == false) {
+        next("/");
+      }
+      else {
+        next();
+      }
+    }
+  },
+  {
+    path: '/admin/money-macro',
+    name: 'MoneyMacro',
+    component: MoneyMacro,
+    beforeEnter: (to, from, next) => {
+      if (store.state.account.authenticated == false) {
+        next("/");
+      }
+      else {
+        next();
+      }
+    }
+  },
+  {
+    path: '/admin/bonus-macro',
+    name: 'BonusMacro',
+    component: BonusMacro,
     beforeEnter: (to, from, next) => {
       if (store.state.account.authenticated == false) {
         next("/");
