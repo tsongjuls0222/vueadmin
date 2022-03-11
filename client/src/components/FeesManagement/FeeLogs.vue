@@ -24,7 +24,7 @@
                 <input class="input" type="date" v-model="todate" placeholder="검색내용" />
               </div>
               <div class="field is-narrow">
-                <button type="button" @click="sendData" class="button is-info">
+                <button type="button" @click="sendData(1)" class="button is-info">
                   <i class="mdi mdi-account-search"></i>검색
                 </button>
               </div>
@@ -107,6 +107,7 @@ export default {
       if(param > 1){
         start = (param - 1) * 50;
       }
+      
       var data = {
         start: start,
         agent :this.agent,
@@ -154,6 +155,11 @@ export default {
         }
     },
   },
+  computed:{
+    // setcurrentbutton(){
+    //   return t
+    // }
+  }
 };
 </script>
 

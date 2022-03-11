@@ -35,8 +35,8 @@ export default {
       const fee = await APIFees.getFeelogs();
       this.feelogs = fee.data;
       this.count = parseInt(fee.count[0].counter / 50);
-      if(res.count[0].counter % 50 > 0){
-        this.count + 1;
+      if(fee.count[0].counter % 50 > 0){
+        this.count = this.count + 1;
       }
     },
     async filterFunction(data,param) {
@@ -51,7 +51,10 @@ export default {
           this.startButton = this.currentButton -2;
           this.endButton = this.currentButton +2;
           
-        }else if((this.count - this.currentButton) > 0){
+        // }else if((this.count - this.currentButton) > 0){
+        //   this.startButton = this.count -4;
+        //   this.endButton = this.currentButton +1;
+        }else{
           this.startButton = this.count -4;
           this.endButton = this.currentButton +1;
         }
@@ -60,7 +63,7 @@ export default {
       this.feelogs = res.data;
       this.count = parseInt(res.count[0].counter / 50);
       if(res.count[0].counter % 50 > 0){
-        this.count + 1;
+        this.count = this.count + 1;
       }
     }
   },

@@ -79,4 +79,16 @@ export default class API {
         const res = await axios.post(`${url}/editforms`, data);
         return res.data;
     }
+    static async deleteforms(id) {
+        const res = await axios.delete(`${url}/deleteforms${id}`);
+        return res.data;
+    }
+    static async saveboardgroup(data) {
+        const res = await axios.post(`${url}/saveboardgroup`, data);
+        return res.data;
+    }
+    static async savemacrosorting(data) {
+        const res = await axios.post(`${url}/savemacrosorting`, data);
+        return res.data;
+    }
 }

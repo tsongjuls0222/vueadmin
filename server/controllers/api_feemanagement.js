@@ -27,7 +27,7 @@ module.exports = class API {
             from info_fee as a
             left join info_agent as b on a.if_partner=b.ia_idx
             left join info_user as c on a.if_user=c.id 
-            where a.if_partner in (224, 261, 277, 315, 311, 284, 285, 306, 301, 305, 290, 293, 316, 295, 262, 264, 265, 266, 268, 269, 270, 322, 321, 308, 319, 297, 299, 320, 302, 313, 309, 318, 294, 276, 283, 275, 282, 273, 272, 271, 292, 280, 286, 314, 279, 317, 274, 323, 312, 281, 296, 298, 291, 300, 287, 289, 303, 304, 288, 307, 310, 325)
+            where a.if_partner in (224, 261, 277, 315, 311, 284, 285, 306, 301, 305, 290, 293, 316, 295, 262, 264, 265, 266, 268, 269, 270, 322, 321, 308, 319, 297, 299, 320, 302, 313, 309, 318, 294, 276, 283, 275, 282, 273, 272, 271, 292, 280, 286, 314, 279, 317, 274, 323, 312, 281, 296, 298, 291, 300, 287, 289, 303, 304, 288, 307, 310, 325) and (date_format(a.if_datetime, '%Y-%m-%d %H:%i:%s') >= '${current}' and date_format(a.if_datetime, '%Y-%m-%d %H:%i:%s') <= '${to}')
             order by a.if_idx`;
 
             const getalldata = await db.query(myquery, {
@@ -54,11 +54,14 @@ module.exports = class API {
         try {
             var cond = "";
             if (agent != "-1") {
-                cond += ` and a.if_partner = '${agent}'`
+                cond += ` and a.if_partner = '${agent}'`;
+                console.log("qwekqwek");
+
             }
 
-            if (keyword !== '') {
-                cond += ` and (c.username like '%${keyword}%' or c.iu_nickname like '%${keyword}%' or b.ia_name like '%${keyword}%' )`
+            if (keyword != '') {
+                cond += ` and (c.username like '%${keyword}%' or c.iu_nickname like '%${keyword}%' or b.ia_name like '%${keyword}%' )`;
+                console.log("lumpia");
             }
 
 
@@ -73,6 +76,7 @@ module.exports = class API {
             from info_fee as a
             left join info_agent as b on a.if_partner=b.ia_idx
             left join info_user as c on a.if_user=c.id
+            where a.if_partner in (224, 261, 277, 315, 311, 284, 285, 306, 301, 305, 290, 293, 316, 295, 262, 264, 265, 266, 268, 269, 270, 322, 321, 308, 319, 297, 299, 320, 302, 313, 309, 318, 294, 276, 283, 275, 282, 273, 272, 271, 292, 280, 286, 314, 279, 317, 274, 323, 312, 281, 296, 298, 291, 300, 287, 289, 303, 304, 288, 307, 310, 325) and (date_format(a.if_datetime, '%Y-%m-%d %H:%i:%s') >= '${fromdate}' and date_format(a.if_datetime, '%Y-%m-%d %H:%i:%s') <= '${todate}') ${cond}
             order by a.if_idx`;
 
             const getalldata = await db.query(myquery, {

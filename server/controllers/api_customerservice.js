@@ -156,7 +156,13 @@ module.exports = class API {
         const body = req.body;
         try {
             var condition = '';
-            if (body.type == "form") { condition = ` a.ibd_type = 'form' and a.ibd_idx <= 10`; }
+            if (body.type == "form") {
+                if (body.id != null) {
+                    condition = ` a.ibd_type = 'form' and a.ibd_idx > 10`;
+                } else {
+                    condition = ` a.ibd_type = 'form' and a.ibd_idx <= 10`;
+                }
+            }
             else { condition = ' a.ibd_type = "badform"'; }
 
             const myquery = "SELECT * from info_board as a left join info_account as b on a.ibd_writer=b.id where" + condition + " order by a.ibd_idx asc";
@@ -206,6 +212,45 @@ module.exports = class API {
             res.status(200).json(result);
         } catch (err) {
             res.status(404).json({ message: err.message });
+        }
+    }
+    static async deleteforms(req, res) {
+        const id = req.params.id;
+        try {
+            const result = await Board.destroy({ where: { ibd_idx: id } });
+            res.status(200).json(result);
+        } catch (err) {
+            res.status(404).json({ message: err.message });
+        }
+    }
+    static async saveboardgroup(req, res) {
+        const body = req.body;
+        console.log(body);
+        try {
+
+            for (const item in body) {
+                const temp = body[item];
+                await Board.update({ form_group: temp.form_group }, { where: { ibd_idx: temp.target } });
+
+            }
+            res.status(200).json(body);
+        } catch (error) {
+            res.status(404).json({ message: error.message });
+        }
+    }
+    static async savemacrosorting(req, res) {
+        const body = req.body;
+        console.log(body);
+        try {
+
+            for (const item in body) {
+                const temp = body[item];
+                await Group.update({ group_sorting: temp.group_sorting }, { where: { id: temp.target } });
+
+            }
+            res.status(200).json(body);
+        } catch (error) {
+            res.status(404).json({ message: error.message });
         }
     }
 }
