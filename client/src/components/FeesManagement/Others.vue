@@ -1157,6 +1157,27 @@ export default {
       const temp = await APIFees.getSettings(id);
       const config = await APIFees.getBurstConfig(1);
       this.burst = temp[0];
+      this.burst.first_input_bonus_new  = parseInt(this.burst.first_input_bonus_new);
+      this.burst.first_input_bonus_level_1  = parseInt(this.burst.first_input_bonus_level_1);
+      this.burst.first_input_bonus_level_2  = parseInt(this.burst.first_input_bonus_level_2);
+      this.burst.first_input_bonus_level_3  = parseInt(this.burst.first_input_bonus_level_3);
+      this.burst.first_input_bonus_level_4  = parseInt(this.burst.first_input_bonus_level_4);
+      this.burst.first_input_bonus_level_5  = parseInt(this.burst.first_input_bonus_level_5);
+      this.burst.first_input_bonus_level_6  = parseInt(this.burst.first_input_bonus_level_6);
+      this.burst.first_input_bonus_level_7  = parseInt(this.burst.first_input_bonus_level_7);
+      this.burst.first_input_bonus_level_8  = parseInt(this.burst.first_input_bonus_level_8);
+      this.burst.first_input_bonus_level_9  = parseInt(this.burst.first_input_bonus_level_9);
+      this.burst.first_input_bonus_level_10  = parseInt(this.burst.first_input_bonus_level_10);
+      this.burst.each_input_bonus_level_1  = parseInt(this.burst.each_input_bonus_level_1);
+      this.burst.each_input_bonus_level_2  = parseInt(this.burst.each_input_bonus_level_2);
+      this.burst.each_input_bonus_level_3  = parseInt(this.burst.each_input_bonus_level_3);
+      this.burst.each_input_bonus_level_4  = parseInt(this.burst.each_input_bonus_level_4);
+      this.burst.each_input_bonus_level_5  = parseInt(this.burst.each_input_bonus_level_5);
+      this.burst.each_input_bonus_level_6  = parseInt(this.burst.each_input_bonus_level_6);
+      this.burst.each_input_bonus_level_7  = parseInt(this.burst.each_input_bonus_level_7);
+      this.burst.each_input_bonus_level_8  = parseInt(this.burst.each_input_bonus_level_8);
+      this.burst.each_input_bonus_level_9  = parseInt(this.burst.each_input_bonus_level_9);
+      this.burst.each_input_bonus_level_10  = parseInt(this.burst.each_input_bonus_level_10);
       
       this.config = config[0];
       this.switching = this.checkswitch;
@@ -1237,6 +1258,12 @@ export default {
         burst: this.burst
       }
       this.setBurstConfig(sendData);
+      this.$buefy.toast.open({
+        duration: 3000,
+        position: "is-bottom",
+        message: 'Successfully Updated',
+        type: "is-success",
+      });
     },
   },
   created() {

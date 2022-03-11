@@ -143,6 +143,7 @@ module.exports = class API {
         try {
             const bonusset = await Bonus.update(
                 {
+                    first_input_bonus_new: body.first_input_bonus_new,
                     first_input_bonus_level_1: body.first_input_bonus_level_1,
                     first_input_bonus_level_2: body.first_input_bonus_level_2,
                     first_input_bonus_level_3: body.first_input_bonus_level_3,
@@ -171,10 +172,10 @@ module.exports = class API {
                     }
                 }
             );
-            res.status(200).json(bonusset);
+            res.status(200).json({ message: "Successfully Updated" });
         } catch (error) {
             res.json({
-                message: error//"Cannot Change bonus 1",
+                message: error.message//"Cannot Change bonus 1",
             });
         }
     }

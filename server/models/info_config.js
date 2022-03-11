@@ -117,6 +117,9 @@ const temp = db.define('info_config', {
     icg_sudden_max_bonus_sunday: {
         type: Sequelize.BIGINT,
     },
+    icg_otp_timer: {
+        type: Sequelize.BIGINT,
+    },
 
 }, {
     // options

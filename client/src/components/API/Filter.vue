@@ -13,16 +13,26 @@
                 placeholder="Mobile Number"
                 v-model="keyword"
               />
-              <input class="input mx-5" type="number" v-model="keyword" v-else placeholder="Username" />
+              <input class="input mx-5" type="text" v-model="keyword" v-else placeholder="Username" />
               <input class="input ml-6" v-model="fromDate" type="date" />
               <input class="input mx-2" v-model="toDate" type="date" />
               <button @click="getData(1)" class="button is-info"  type="button">
                 <i class="mdi mdi-account-search"></i>검색
               </button>
-              <input class="input mx-2" v-if="title == 'OTP 로그'" type="time" style="margin-left:478px !important" />
-              <button class="button is-info" v-if="title == 'OTP 로그'" type="button">
-                Set
-              </button>
+              <!-- <input class="input mx-2" v-if="title == 'OTP 로그'" type="time" style="margin-left:478px !important" /> -->
+              <div v-if="title == 'OTP 로그'" class="is-flex is-justify-content-space-between" style="margin-left:478px !important">
+                <div class="select control mr-2">
+                  <select v-model="minutes" class="" name="" id="">
+                    <option v-for="(count , index) in 59" :key="index" :value="(count &lt; 10)?'0'+count:count">{{(count &lt; 10)?'0'+count:count}}</option>
+                  </select>
+                </div>
+                <div class="select control mr-2">
+                  <select v-model="seconds" class="" name="" id="">
+                    <option v-for="(count , index) in 59" :key="index" :value="(count &lt; 10)?'0'+count:count">{{(count &lt; 10)?'0'+count:count}}</option>
+                  </select>
+                </div>
+              </div>
+              <button @click="settimer" class="button is-info" v-if="title == 'OTP 로그'" type="button">Set</button>
             </div>
           </div>
         </div>
@@ -60,6 +70,8 @@ export default {
       fromDate: '2021-11-11',
       toDate:new Date().toISOString().slice(0,10),
       keyword:'',
+      minutes:1,
+      seconds:1,
     }
   },
   methods: {
@@ -77,8 +89,7 @@ export default {
         if((this.count - this.currentButton) > 1){
           this.startButton = this.currentButton -2;
           this.endButton = this.currentButton +2;
-          
-        }else if((this.count - this.currentButton) > 0){
+        }else{
           this.startButton = this.count -4;
           this.endButton = this.currentButton +1;
         }
@@ -90,26 +101,46 @@ export default {
         toDate:this.toDate,
         keyword:this.keyword,
       }
-      console.log(this.title);
-      // if(this.title == 'OTP 로그'){
-      //   console.log("otp");
-      //   const otp = await APIOTP.getOTP(sendData);
-      //   this.data = otp.data;
+      if(this.title == 'OTP 로그'){
+        console.log("otp");
+        const otp = await APIOTP.getOTP(sendData);
+        console.log(otp);
+        this.data = otp.data;
         
-      //   this.count = parseInt(otp.count[0].counter / 50) ;
-      //   if(otp.count[0].counter % 50 > 0){
-      //     this.count + 1;
-      //   }
-      // }else{
-      //   console.log("casino");
+        this.count = parseInt(otp.count[0].counter / 50) ;
+        if(otp.count[0].counter % 50 > 0){
+          this.count = this.count + 1;
+        }
+        const timer = await APIOTP.gettimer();
+        if(timer.icg_otp_timer != null){
+          var times = timer.icg_otp_timer.split(':');
+          this.minutes = times[0];
+          this.seconds = times[1];
+        }
+        
+      }else{
+        console.log("casino");
         const casino = await APIOTP.getCasino(sendData);
         this.data = casino.data;
         console.log(casino);
         this.count = parseInt(casino.count[0].counter / 50);
         if(casino.count[0].counter % 50 > 0){
-          this.count + 1;
+          this.count = this.count + 1;
         }
-      // }
+      }
+    },
+    async settimer(){
+      const sendData = {
+        target: 1,
+        timer: this.minutes+':'+this.seconds,
+      }
+      const res = await APIOTP.settimer(sendData);
+      console.log(res);
+      this.$buefy.toast.open({
+        position: "is-bottom",
+        message: res.message,
+        type: "is-success",
+      });
     },
     isClass(param){
       var isclass ='';

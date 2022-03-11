@@ -58,26 +58,26 @@
                     <label for="">신규 첫충 보너스</label>
                     <div class="field is-multiline is-flex">
                       <span class="input-group-text">신규 첫충 보너스</span>
-                      <input class="input is-small" type="number" v-model="settings.first_input_bonus_new" />
+                      <input class="input is-small" type="number" v-model.number="settings.first_input_bonus_new" />
                       <span class="input-group-text">%</span>
                       <span class="input-group-text">자동지급</span>
                     </div>
                     <label for="">매일 첫 충전</label>
                     <div class="control mt-2 is-flex">
                       <span class="input-group-text">레벨 1 첫충 보너스</span>
-                      <input class="input is-small" type="number" v-model="settings.first_input_bonus_level_1" />
+                      <input class="input is-small" type="number" v-model.number="settings.first_input_bonus_level_1" />
                       <span class="input-group-text">%</span>
                       <span class="input-group-text">자동지급</span>
                     </div>
                     <div class="control mt-2 is-flex">
                       <span class="input-group-text">레벨 2 첫충 보너스</span>
-                      <input class="input is-small" type="number" v-model="settings.first_input_bonus_level_2" />
+                      <input class="input is-small" type="number" v-model.number="settings.first_input_bonus_level_2" />
                       <span class="input-group-text">%</span>
                       <span class="input-group-text">자동지급</span>
                     </div>
                     <div class="control mt-2 is-flex">
                       <span class="input-group-text">레벨 3 첫충 보너스</span>
-                      <input class="input is-small" type="number" v-model="settings.first_input_bonus_level_3" />
+                      <input class="input is-small" type="number" v-model.number="settings.first_input_bonus_level_3" />
                       <span class="input-group-text">%</span>
                       <span class="input-group-text">자동지급</span>
                     </div>
@@ -137,7 +137,7 @@
                     <label for="">매일 첫 충전</label>
                     <div class="control mt-2 is-flex">
                       <span class="input-group-text">레벨 1 매충 보너스</span>
-                      <input class="input is-small" type="number" v-model="settings.each_input_bonus_level_1" />
+                      <input class="input is-small" type="number" v-model.number="settings.each_input_bonus_level_1" />
                       <span class="input-group-text">%</span>
                       <span class="input-group-text">자동지급</span>
                     </div>
@@ -235,6 +235,9 @@ export default {
     };
   },
   methods: {
+    parsing(value){
+      return parseInt(value);
+    },
     tabChange(param, param2) {
       this.tabClass1 = "";
       this.tabClass2 = "";

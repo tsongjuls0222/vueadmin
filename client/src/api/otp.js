@@ -9,4 +9,12 @@ export default class API {
         const res = await axios.post(`${url}/otp/getcasino`, data);
         return res.data;
     }
+    static async gettimer() {
+        const res = await axios.get(`${url}/otp/gettimer`);
+        return res.data;
+    }
+    static async settimer(data) {
+        const res = await axios.post(`${url}/otp/settimer`, data);
+        return res.data;
+    }
 }
