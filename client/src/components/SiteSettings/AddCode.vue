@@ -33,3 +33,8 @@
         </div>
     </div>
 </template>
+<style lang="scss" scoped>
+.card{
+    height: auto !important;
+}
+</style>

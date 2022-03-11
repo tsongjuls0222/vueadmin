@@ -61,7 +61,7 @@
                   <button v-if="partnerinfo.ia_idx != 224" class="button is-danger is-centered mx-2">삭제</button>
                   <button v-if="partnerinfo.ia_idx != 224" class="button is-info is-centered mx-2">관리</button>
                   <button @click="showlogs=true" class="button is-primary is-centered mx-2">Logs</button>
-                  <button class="button is-success is-centered mx-2">하부생성</button>
+                  <button @click="subpartner" class="button is-success is-centered mx-2">하부생성</button>
                   <span class="icon mx-2"><i class="mdi mdi-chevron-down"></i></span>
                 </div>
               </div>
@@ -171,6 +171,7 @@ import Nodata from '../GlobalTemplate/Nodata.vue';
 import LogPopup from './LogPopup.vue';
 import AddAccount from './AddAccount.vue';
 import AddCode from './AddCode.vue';
+import SubPartner from './SubPartner';
 // import Tree from 'vuejs-tree'
 export default {
   data() {
@@ -183,7 +184,7 @@ export default {
       showlogs:false,
     }
   },
-  components:{Nodata,LogPopup,AddAccount,AddCode},
+  components:{Nodata,LogPopup,AddAccount,AddCode,SubPartner},
   methods: {
     async refresh(){
       // const res = await API.refresh();
@@ -199,6 +200,13 @@ export default {
     },
     addcode(){
       this.$modal.show(AddCode,{
+          width: "900px",
+          height: "auto",
+          maxHeight: 749,
+      });
+    },
+    subpartner(){
+      this.$modal.show(SubPartner,{
           width: "900px",
           height: "auto",
           maxHeight: 749,

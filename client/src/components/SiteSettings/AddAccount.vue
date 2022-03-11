@@ -25,8 +25,8 @@
                         <label for="">계정상태:</label>
                         <div class="select">
                             <select name="" id="">
-                                <option value="">정상</option>
-                                <option value="">이용불가</option>
+                                <option value="0">정상</option>
+                                <option value="1">이용불가</option>
                             </select>
                         </div>
                     </div>
