@@ -35,7 +35,7 @@
                 </tr>
               </thead>
               <tbody>
-                  <tr :style="{'color':(data.icd_status > 0)?'red':''}" @click="getinfo" v-for="data in datas" :id="data.key" :key="data.key" :data-set="data.ia_parent" :class="`is-clickable ${(data.key==clickedid)?'highlight':''}`" > 
+                  <tr :style="{'color':(data.icd_status > 0)?'red':''}" @click="getinfo" v-for="data in datas" :id="data.key" :key="data.key" :data-set="data.ia_parent" :class="`is-clickable ${(data.key==currentid)?'highlight':''}`" > 
                     <td class="partner-title" :style="{'padding-left':`${data.depth*20}px !important`}"><span :class="`${haschildren(data.children.length)}`"></span>{{data.title}}</td>
                     <td>{{data.member}}</td>
                     <td>{{Number(data.balance).toLocaleString()}}원</td>
@@ -59,9 +59,9 @@
                 <div class="is-flex is-align-items-center">
                   <button v-if="partnerinfo.ia_idx != 224" style="background-color:grey" class="button is-centered mx-2">편집</button>
                   <button v-if="partnerinfo.ia_idx != 224" class="button is-danger is-centered mx-2">삭제</button>
-                  <button v-if="partnerinfo.ia_idx != 224" class="button is-info is-centered mx-2">관리</button>
+                  <button @click="subpartner" v-if="partnerinfo.ia_idx != 224" class="button is-info is-centered mx-2">관리</button>
                   <button @click="showlogs=true" class="button is-primary is-centered mx-2">Logs</button>
-                  <button @click="subpartner" class="button is-success is-centered mx-2">하부생성</button>
+                  <button @click="setsubpartner" class="button is-success is-centered mx-2">하부생성</button>
                   <span class="icon mx-2"><i class="mdi mdi-chevron-down"></i></span>
                 </div>
               </div>
@@ -146,9 +146,9 @@
                       <td>{{code.icd_name}}</td>
                       <td>{{code.icd_code}}</td>
                       <td><span :style="{'color':(code.icd_status > 0)?'red':'blue'}">{{(code.icd_status > 0)?'stop':'normal'}}</span></td>
-                      <td>
-                        <span class="icon is-clickable is-normal"><i class="mdi mdi-pencil-box-outline"></i></span>
-                        <span class="mdi mdi-delete is-clickable"></span>
+                      <td :id="code.icd_idx">
+                        <span :id="code.icd_idx" @click="editcode" class="icon is-clickable is-normal"><i class="mdi mdi-pencil-box-outline"></i></span>
+                        <span @click="deletecode" class="mdi mdi-delete is-clickable"></span>
                       </td>
                     </tr>
                   </tbody>
@@ -177,11 +177,12 @@ export default {
   data() {
     return {
       datas:[],
-      clickedid:null,
+      currentid:null,
       partnerinfo:[],
       partnercode:[],
       partneraccount:[],
       showlogs:false,
+      ipaddress:null,
     }
   },
   components:{Nodata,LogPopup,AddAccount,AddCode,SubPartner},
@@ -199,18 +200,65 @@ export default {
       });
     },
     addcode(){
-      this.$modal.show(AddCode,{
+      this.$modal.show(AddCode,{ip:this.ipaddress,partnerinfo:this.partnerinfo,getpartner:this.getpartner,currentinfo:null},{
+          width: "600px",
+          height: "auto",
+          maxHeight: 749,
+      });
+    },
+    editcode(event){
+      const id = event.target.parentElement.id;
+      const codeinfo = this.partnercode.filter(code => code.icd_idx == id);
+      this.$modal.show(AddCode,{ip:this.ipaddress,partnerinfo:this.partnerinfo,getpartner:this.getpartner,currentinfo:codeinfo},{
           width: "900px",
           height: "auto",
           maxHeight: 749,
       });
     },
+    async deletecode(event){
+      const id = event.target.parentElement.id;
+      const codeinfo = this.partnercode.filter(code => code.icd_idx == id);
+      var sendData = {
+        params:{
+          icd_agent: codeinfo[0].icd_agent,
+          icd_idx: codeinfo[0].icd_idx
+        },
+        data:{
+          icd_status: 2,
+          status: 0,
+        }
+      }
+
+      if(confirm('정말 삭제하시겠습니까?')){
+        const res = await API.deletecode(sendData);
+        this.$buefy.toast.open({
+            duration: 3000,
+            position: "is-top",
+            message: res.message,
+            type: "is-success",
+        });
+
+        this.getpartner(codeinfo[0].icd_agent);
+      }
+      
+    },
     subpartner(){
-      this.$modal.show(SubPartner,{
+      this.$modal.show(SubPartner,{show: false},
+        {
+          width: "600px",
+          height: "auto",
+          maxHeight: 749,
+        }
+      );
+    },
+    setsubpartner(){
+      this.$modal.show(SubPartner,{show: true},
+        {
           width: "900px",
           height: "auto",
           maxHeight: 749,
-      });
+        }
+      );
     },
     haschildren(value){
       if(value > 0){
@@ -219,7 +267,7 @@ export default {
       return 'pr-4';
     },
     getinfo(event){
-      this.clickedid = event.target.parentElement.id;
+      this.currentid = event.target.parentElement.id;
       this.getpartner(event.target.parentElement.id);
       
     },
@@ -231,13 +279,21 @@ export default {
       this.partnerinfo =res.agent;
       this.partnercode =res.code;
       this.partneraccount =res.account;
-    }
+    },
+    async getip(){
+      await fetch('https://api.ipify.org?format=json')
+      .then(x => x.json())
+      .then(({ ip }) => {
+          this.ipaddress = ip;
+      });
+    },
   },
   computed:{
   },
   created(){
     this.refresh();
     this.getpartner(224);
+    this.getip();
   }
 }
 </script>

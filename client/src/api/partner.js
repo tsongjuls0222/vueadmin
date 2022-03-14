@@ -10,4 +10,20 @@ export default class API {
         const res = await axios.get(`${url}/getpartnerinfo${id}`);
         return res.data;
     }
+    static async addcode(data) {
+        const res = await axios.post(`${url}/addcode`, data);
+        return res.data;
+    }
+    static async editcode(id, data) {
+        const res = await axios.post(`${url}/editcode${id}`, data);
+        return res.data;
+    }
+    static async editcode(id, data) {
+        const res = await axios.post(`${url}/editcode${id}`, data);
+        return res.data;
+    }
+    static async deletecode(data) {
+        const res = await axios.post(`${url}/deletecode`, data);
+        return res.data;
+    }
 }

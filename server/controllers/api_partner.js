@@ -4,6 +4,7 @@ const { Op } = require('sequelize');
 const Agent = require('../models/agent');
 const Code = require('../models/code');
 const Account = require('../models/account');
+const { param } = require('../routes/routes_partner.js');
 
 module.exports = class API {
     static async getpartnertree(req, res) {
@@ -55,6 +56,7 @@ module.exports = class API {
                                 if (oneonechild.length > 0) {
                                     for (var t in oneonechild.children) {
                                         var two = oneonechild.children[t];
+                                        console.log(two);
                                         data.push(two);
                                     }
                                 }
@@ -77,6 +79,60 @@ module.exports = class API {
             const coderesult = await Code.findAll({ where: { icd_agent: id, icd_status: { [Op.lt]: 2 } } });
             const accountresult = await Account.findAll({ where: { iac_agent: id, iac_status: { [Op.lt]: 2 } }, order: [['iac_name', 'asc']] });
             res.status(200).json({ agent: agentresult, code: coderesult, account: accountresult });
+        } catch (err) {
+            res.status(404).json({ message: err.message });
+        }
+    }
+
+    static async addcode(req, res) {
+        const body = req.body;
+        try {
+            const coderesult = await Code.findAll({ where: { icd_code: body.icd_code } });
+            var msg = "";
+            var stats = 0;
+            if (coderesult.length > 0) {
+                msg = "Code Already Exist!";
+            } else {
+                const code = await Code.create(body);
+                msg = "Code Successfully Added";
+                stats = 1;
+            }
+
+            res.status(200).json({ message: msg, status: stats });
+        } catch (err) {
+            res.status(404).json({ message: err.message });
+        }
+    }
+
+    static async editcode(req, res) {
+        const body = req.body;
+        const id = req.params.id;
+        try {
+            const coderesult = await Code.findAll({ where: { icd_code: body.icd_code } });
+            var msg = "";
+            var stats = 0;
+            if (coderesult.length > 0) {
+                msg = "Code Already Exist!";
+            } else {
+                const code = await Code.update(body, { where: { icd_idx: id, icd_agent: body.icd_agent } });
+                console.log(code);
+                msg = "Code Successfully Updated";
+                stats = 1;
+            }
+
+            res.status(200).json({ message: msg, status: stats });
+        } catch (err) {
+            res.status(404).json({ message: err.message });
+        }
+    }
+    static async deletecode(req, res) {
+        const body = req.body.data;
+        const params = req.body.params;
+        try {
+            const code = await Code.update(body, { where: { icd_idx: params.icd_idx, icd_agent: params.icd_agent } });
+            const msg = "Code Successfully Deleted";
+
+            res.status(200).json({ message: msg });
         } catch (err) {
             res.status(404).json({ message: err.message });
         }
@@ -109,7 +165,6 @@ async function getmasterdata(id) {
             'expanded': true,
             'children': [],
             'depth': 1,
-            'sorting': 1,
             'parent': 1
         }
     }
@@ -119,7 +174,7 @@ async function getmasterdata(id) {
     // return resagentdata;
 }
 
-async function geteachdata(id, depth, sorting) {
+async function geteachdata(id, depth) {
     const getagentdata = "SELECT ia_idx,ia_balance,ia_fee,ia_loosing,ia_rate,ia_status,ia_name,ia_code,ia_parent from info_agent where ia_parent=" + id + " and status=1";
 
     var trees = [];
@@ -143,7 +198,6 @@ async function geteachdata(id, depth, sorting) {
             'expanded': true,
             'children': [],
             'depth': depth,
-            'sorting': count + 1,
             'parent': body.ia_parent
         }
         trees[count] = tree;
@@ -151,7 +205,4 @@ async function geteachdata(id, depth, sorting) {
 
     return trees;
 }
-
-
-
 

@@ -11,9 +11,11 @@
                         <label for="">파트너코드 (구분용):</label>
                         <input class="input" type="text" placeholder="아이디를 입력해주세요">
                     </div>
-                    <div class="column p-3">
-                        <label for="">파트너명:</label>
-                        <input class="input" type="text" placeholder="비밀번호를 입력해주세요.">
+                    <div  class="column p-3">
+                        <div v-show="!show">
+                            <label for="">파트너명:</label>
+                            <input class="input" type="text" placeholder="비밀번호를 입력해주세요.">
+                        </div>
                     </div>
                 </div>
                 <div class="columns">
@@ -115,3 +117,9 @@
         </div>
     </div>
 </template>
+
+<script>
+export default {
+    props:['show'],
+}
+</script>

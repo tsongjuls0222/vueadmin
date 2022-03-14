@@ -39,3 +39,11 @@
         </div>
     </div>
 </template>
+
+<script>
+import global from '../../globalfunction/paging';
+import API from '../../api/partner';
+export default {
+    props:['ip','partnerinfo','getpartner','currentinfo'],
+}
+</script>
