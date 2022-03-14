@@ -26,6 +26,7 @@ module.exports = class API {
                 a.username,
                 a.iu_nickname,
                 a.iu_name,
+                a.iu_status,
                 a.iu_recommend,
                 a.iu_reg_ip,
                 a.id,

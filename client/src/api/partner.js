@@ -26,4 +26,16 @@ export default class API {
         const res = await axios.post(`${url}/deletecode`, data);
         return res.data;
     }
+    static async addaccount(data) {
+        const res = await axios.post(`${url}/addaccount`, data);
+        return res.data;
+    }
+    static async editaccount(data) {
+        const res = await axios.post(`${url}/editaccount`, data);
+        return res.data;
+    }
+    static async deleteaccount(data) {
+        const res = await axios.post(`${url}/deleteaccount`, data);
+        return res.data;
+    }
 }

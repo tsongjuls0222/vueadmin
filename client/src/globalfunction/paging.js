@@ -64,7 +64,7 @@ export default {
             }
 
             return year + '-' + month + '-' + day + ' ' + hours + ':' + minutes + ':' + seconds;
-        }
+        },
     },
 
 }

@@ -4,7 +4,10 @@ const { Op } = require('sequelize');
 const Agent = require('../models/agent');
 const Code = require('../models/code');
 const Account = require('../models/account');
-const { param } = require('../routes/routes_partner.js');
+const User = require('../models/user');
+
+
+var crypto = require('crypto');
 
 module.exports = class API {
     static async getpartnertree(req, res) {
@@ -103,7 +106,6 @@ module.exports = class API {
             res.status(404).json({ message: err.message });
         }
     }
-
     static async editcode(req, res) {
         const body = req.body;
         const id = req.params.id;
@@ -131,6 +133,121 @@ module.exports = class API {
         try {
             const code = await Code.update(body, { where: { icd_idx: params.icd_idx, icd_agent: params.icd_agent } });
             const msg = "Code Successfully Deleted";
+
+            res.status(200).json({ message: msg });
+        } catch (err) {
+            res.status(404).json({ message: err.message });
+        }
+    }
+    static async addaccount(req, res) {
+        const body = req.body;
+        const code = body.parentagent;
+        try {
+            var msg = "";
+            var stats = 0;
+
+            if (body.password.length < 4 || body.password == '' || body.username == '') {
+                if (body.password.length < 4) {
+                    msg = "Password must be at least 4 characters";
+                } else {
+                    msg = "Username or Password must be at least 4 characters";
+                }
+            } else {
+                const coderesult = await Code.findAll({ where: { icd_agent: code, icd_status: 0 }, attributes: ['icd_code'] });
+
+                if (coderesult.length < 1) {
+                    msg = "Please register a code!";
+                    console.log(coderesult);
+                } else {
+                    msg = "Account successfully added!";
+                    stats = 1;
+
+                    body.password = makeHash(body.password);
+                    const wpass = makeHash('1234');
+                    var userset = {
+                        username: body.username,
+                        password: body.password,
+                        real_code: coderesult[0].icd_code,
+                        iu_name: body.name,
+                        iu_nickname: body.name,
+                        iu_partner: body.parentagent,
+                        iu_reg_datetime: body.datenow,
+                        iu_reg_ip: body.ip,
+                        iu_wpass: wpass,
+                        iu_memtype: '총판전용아이디',
+                        iu_status: 1,
+                    }
+                    var accountset = {
+                        iac_agent: body.parentagent,
+                        iac_name: body.name,
+                        username: body.username,
+                        password: body.password,
+                        temp_password: body.password,
+                        iac_status: body.status,
+                        iac_ip: body.reg_ip,
+                        iac_reg_datetime: body.datenow,
+                        iac_reg_ip: body.ip,
+                        iac_action: body.action,
+                    }
+
+                    const accres = await Account.create(accountset);
+                    const userres = await User.create(userset);
+                }
+            }
+
+            res.status(200).json({ message: msg, status: stats });
+        } catch (err) {
+            res.status(404).json({ message: err.message });
+        }
+    }
+    static async editaccount(req, res) {
+        const body = req.body;
+
+        try {
+            var msg = "";
+            var stats = 0;
+
+            if (body.password.length < 4 || body.password == '' || body.username == '') {
+                if (body.password.length < 4) {
+                    msg = "Password must be at least 4 characters";
+                } else {
+                    msg = "Username or Password must be at least 4 characters";
+                }
+            } else {
+                const temppass = body.password;
+                body.password = makeHash(body.password);
+                var edit = {
+                    iac_name: body.name,
+                    username: body.username,
+                    iac_status: body.status,
+                    iac_ip: body.reg_ip,
+                    password: body.password,
+                    temp_password: temppass,
+                };
+
+                if (body.status == 1) {
+                    const coderes = await Code.update({ icd_status: body.status, status: body.status }, { where: { icd_idx: body.parentagent } });
+                    const agentres = await Agent.update({ ia_status: body.status }, { where: { ia_idx: body.parentagent } });
+                    console.log(coderes);
+                    console.log(agentres);
+                }
+
+                stats = 1;
+                msg = "Account updated successfully!";
+                const accres = await Account.update(edit, { where: { id: body.id, iac_agent: body.parentagent } });
+            }
+
+            res.status(200).json({ message: msg, status: stats });
+        } catch (err) {
+            res.status(404).json({ message: err.message });
+        }
+    }
+    static async deleteaccount(req, res) {
+        const body = req.body;
+        try {
+            const code = await Account.destroy({ where: { iac_agent: body.agent, id: body.id } });
+            console.log(code);
+            const msg = "Account Successfully Deleted";
 
             res.status(200).json({ message: msg });
         } catch (err) {
@@ -204,5 +321,17 @@ async function geteachdata(id, depth) {
     }
 
     return trees;
+}
+
+function getRndInteger(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+function makeHash(param) {
+    var param = param;
+    if (param.length < 4) {
+        param = getRndInteger(11, 99) + '' + getRndInteger(11, 99) + '' + getRndInteger(11, 99) + '' + getRndInteger(11, 99) + '' + getRndInteger(11, 99) + '' + getRndInteger(11, 99);
+    }
+    return crypto.createHash('sha256').update(param).digest('base64');
 }
 

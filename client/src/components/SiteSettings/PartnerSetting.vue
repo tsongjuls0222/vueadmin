@@ -110,9 +110,9 @@
                       <td>{{acc.username}}</td>
                       <td><span :style="{'color':(acc.iac_status > 0)?'red':'blue'}">{{(acc.iac_status > 0)?'stop':'normal'}}</span></td>
                       <td>{{acc.temp_password}}</td>
-                      <td>
-                        <span class="mdi mdi-pencil-box-outline"></span>
-                        <span class="mdi mdi-delete"></span>
+                      <td :id="acc.id">
+                        <span :id="acc.id" @click="editpartneraccount" class="is-clickable mdi mdi-pencil-box-outline"></span>
+                        <span :id="acc.id" @click="deletepartneraccount" class="mdi is-clickable mdi-delete"></span>
                       </td>
                     </tr>
                   </tbody>
@@ -189,15 +189,44 @@ export default {
   methods: {
     async refresh(){
       // const res = await API.refresh();
-      // console.log(res.data);
       // this.datas = res.data;
     },
     addpartneraccount(){
-      this.$modal.show(AddAccount,{
-          width: "900px",
+      this.$modal.show(AddAccount,{ip:this.ipaddress,partnerinfo:this.partnerinfo,getpartner:this.getpartner,currentinfo:null},{
+          width: "600px",
           height: "auto",
           maxHeight: 749,
       });
+    },
+    editpartneraccount(event){
+      const id = event.target.id;
+      const accountinfo = this.partneraccount.filter(account => account.id == id);
+      this.$modal.show(AddAccount,{ip:this.ipaddress,partnerinfo:this.partnerinfo,getpartner:this.getpartner,currentinfo:accountinfo},{
+          width: "600px",
+          height: "auto",
+          maxHeight: 749,
+      });
+    },
+    async deletepartneraccount(event){
+      const id = event.target.id;
+      const accountinfo = this.partneraccount.filter(account => account.id == id);
+      const agent = accountinfo[0].iac_agent;
+      var sendData = {
+          agent: accountinfo[0].iac_agent,
+          id: accountinfo[0].id
+      }
+      if(confirm('정말 삭제하시겠습니까?')){
+        const res = await API.deleteaccount(sendData);
+        this.$buefy.toast.open({
+            duration: 3000,
+            position: "is-top",
+            message: res.message,
+            type: "is-success",
+        });
+
+        this.getpartner(agent);
+      }
+      
     },
     addcode(){
       this.$modal.show(AddCode,{ip:this.ipaddress,partnerinfo:this.partnerinfo,getpartner:this.getpartner,currentinfo:null},{
@@ -210,7 +239,7 @@ export default {
       const id = event.target.parentElement.id;
       const codeinfo = this.partnercode.filter(code => code.icd_idx == id);
       this.$modal.show(AddCode,{ip:this.ipaddress,partnerinfo:this.partnerinfo,getpartner:this.getpartner,currentinfo:codeinfo},{
-          width: "900px",
+          width: "600px",
           height: "auto",
           maxHeight: 749,
       });
@@ -254,7 +283,7 @@ export default {
     setsubpartner(){
       this.$modal.show(SubPartner,{show: true},
         {
-          width: "900px",
+          width: "600px",
           height: "auto",
           maxHeight: 749,
         }
