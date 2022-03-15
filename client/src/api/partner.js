@@ -38,4 +38,32 @@ export default class API {
         const res = await axios.post(`${url}/deleteaccount`, data);
         return res.data;
     }
+    static async addagent(data) {
+        const res = await axios.post(`${url}/addagent`, data);
+        return res.data;
+    }
+    static async editagent(data) {
+        const res = await axios.post(`${url}/editagent`, data);
+        return res.data;
+    }
+    static async deleteagent(data) {
+        const res = await axios.post(`${url}/deleteagent`, data);
+        return res.data;
+    }
+    static async gettransferagentcodes() {
+        const res = await axios.get(`${url}/gettransferagentcodes`);
+        return res.data;
+    }
+    static async getmemberagentcodes() {
+        const res = await axios.get(`${url}/getmemberagentcodes`);
+        return res.data;
+    }
+    static async transferpartner(data) {
+        const res = await axios.post(`${url}/transferpartner`, data);
+        return res.data;
+    }
+    static async transfermember(data) {
+        const res = await axios.post(`${url}/transfermember`, data);
+        return res.data;
+    }
 }

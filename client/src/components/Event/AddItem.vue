@@ -66,6 +66,7 @@ export default {
             this.closemodal();
         },
         onfileselected(event){
+            console.log(event.target.files[0]);
             this.fileselected =  event.target.files[0];
         }
     },

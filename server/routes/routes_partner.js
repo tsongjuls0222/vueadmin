@@ -11,6 +11,13 @@ router.post("/deletecode", API.deletecode);
 router.post("/addaccount", API.addaccount);
 router.post("/editaccount", API.editaccount);
 router.post("/deleteaccount", API.deleteaccount);
+router.post("/addagent", API.addagent);
+router.post("/editagent", API.editagent);
+router.post("/deleteagent", API.deleteagent);
+router.get("/gettransferagentcodes", API.gettransferagentcodes);
+router.get("/getmemberagentcodes", API.getmemberagentcodes);
+router.post("/transferpartner", API.transferpartner);
+router.post("/transfermember", API.transfermember);
 
 
 module.exports = router;

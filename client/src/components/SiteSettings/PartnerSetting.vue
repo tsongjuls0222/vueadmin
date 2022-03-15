@@ -36,7 +36,7 @@
               </thead>
               <tbody>
                   <tr :style="{'color':(data.icd_status > 0)?'red':''}" @click="getinfo" v-for="data in datas" :id="data.key" :key="data.key" :data-set="data.ia_parent" :class="`is-clickable ${(data.key==currentid)?'highlight':''}`" > 
-                    <td class="partner-title" :style="{'padding-left':`${data.depth*20}px !important`}"><span :class="`${haschildren(data.children.length)}`"></span>{{data.title}}</td>
+                    <td :class="`partner-title ${hascolor(data.status)}`" :style="{'padding-left':`${data.depth*20}px !important`}"><span :class="`${haschildren(data.children.length)}`"></span>{{data.title}}</td>
                     <td>{{data.member}}</td>
                     <td>{{Number(data.balance).toLocaleString()}}원</td>
                     <td>{{Number(data.fee).toLocaleString()}}원</td>
@@ -57,11 +57,11 @@
               <div class="is-flex is-justify-content-space-between my-3">
                 <span class="ml-3">파트너 정보</span>
                 <div class="is-flex is-align-items-center">
-                  <button v-if="partnerinfo.ia_idx != 224" style="background-color:grey" class="button is-centered mx-2">편집</button>
-                  <button v-if="partnerinfo.ia_idx != 224" class="button is-danger is-centered mx-2">삭제</button>
-                  <button @click="subpartner" v-if="partnerinfo.ia_idx != 224" class="button is-info is-centered mx-2">관리</button>
+                  <button @click="showtransfer" v-if="partnerinfo.ia_idx != 224" style="background-color:grey" class="button is-centered mx-2">편집</button>
+                  <button @click="deletepartner" v-if="partnerinfo.ia_idx != 224" class="button is-danger is-centered mx-2">삭제</button>
+                  <button @click="setsubpartner" v-if="partnerinfo.ia_idx != 224" class="button is-info is-centered mx-2">관리</button>
                   <button @click="showlogs=true" class="button is-primary is-centered mx-2">Logs</button>
-                  <button @click="setsubpartner" class="button is-success is-centered mx-2">하부생성</button>
+                  <button @click="subpartner" class="button is-success is-centered mx-2">하부생성</button>
                   <span class="icon mx-2"><i class="mdi mdi-chevron-down"></i></span>
                 </div>
               </div>
@@ -160,7 +160,7 @@
       </div>
     </div>
     <div v-if="showlogs" class="logpopup">
-      <LogPopup :close="close"/>
+      <LogPopup :close="close" :partnerlogs="partnerlogs" :partnername="partnerinfo.ia_name" />
     </div>
   </div>
 </template>
@@ -172,6 +172,7 @@ import LogPopup from './LogPopup.vue';
 import AddAccount from './AddAccount.vue';
 import AddCode from './AddCode.vue';
 import SubPartner from './SubPartner';
+import Transfer from './Transfer';
 // import Tree from 'vuejs-tree'
 export default {
   data() {
@@ -181,15 +182,17 @@ export default {
       partnerinfo:[],
       partnercode:[],
       partneraccount:[],
+      partnerlogs:[],
       showlogs:false,
       ipaddress:null,
+      position:null,
     }
   },
-  components:{Nodata,LogPopup,AddAccount,AddCode,SubPartner},
+  components:{Nodata,LogPopup,AddAccount,AddCode,SubPartner,Transfer},
   methods: {
     async refresh(){
-      // const res = await API.refresh();
-      // this.datas = res.data;
+      const res = await API.refresh();
+      this.datas = res.data;
     },
     addpartneraccount(){
       this.$modal.show(AddAccount,{ip:this.ipaddress,partnerinfo:this.partnerinfo,getpartner:this.getpartner,currentinfo:null},{
@@ -272,22 +275,31 @@ export default {
       
     },
     subpartner(){
-      this.$modal.show(SubPartner,{show: false},
-        {
-          width: "600px",
-          height: "auto",
-          maxHeight: 749,
-        }
-      );
+      this.$modal.show(SubPartner,{show:true,ipaddress:this.ipaddress,partnerinfo:this.partnerinfo,refresh:this.refresh,currentinfo:null},{
+        width: "600px",
+        height: "auto",
+        maxHeight: 749,
+      });
     },
     setsubpartner(){
-      this.$modal.show(SubPartner,{show: true},
-        {
+     this.$modal.show(SubPartner,{show:false,ipaddress:this.ipaddress,partnerinfo:this.partnerinfo,refresh:this.refresh,currentinfo:this.partnerinfo},{
           width: "600px",
           height: "auto",
           maxHeight: 749,
-        }
-      );
+      });
+    },
+    async deletepartner(){
+      const id = this.partnerinfo.ia_idx;
+      if(confirm("do you want to delete this partner?")){
+        const res = await API.deleteagent({target:id});
+        this.$buefy.toast.open({
+            duration: 3000,
+            position: "is-top",
+            message: res.message,
+            type: "is-danger",
+        });
+        this.refresh();
+      }
     },
     haschildren(value){
       if(value > 0){
@@ -295,19 +307,37 @@ export default {
       }
       return 'pr-4';
     },
+    hascolor(temp){
+      if(temp > 0){
+        return 'has-text-danger';
+      }
+      return '';
+    },
     getinfo(event){
-      this.currentid = event.target.parentElement.id;
-      this.getpartner(event.target.parentElement.id);
-      
+      if(event.target.parentElement.id != ''){
+        this.currentid = event.target.parentElement.id;
+        this.getpartner(event.target.parentElement.id);
+      }
     },
     close(){
       this.showlogs = false;
+    },
+    showtransfer(){
+      const partnerbalance = this.partnerlogs.filter(log => log.logs_status == 1);
+      var amount = (partnerbalance == '')?0:partnerbalance[0].amount;
+      this.$modal.show(Transfer,{partnerinfo:this.partnerinfo,refresh:this.refresh,balance:amount,position:this.position},{
+          width: "600px",
+          height: "auto",
+          maxHeight: 749,
+      });
     },
     async getpartner(id){
       const res = await API.getpartnerinfo(id);
       this.partnerinfo =res.agent;
       this.partnercode =res.code;
       this.partneraccount =res.account;
+      this.partnerlogs = res.logs;
+      this.position = res.position
     },
     async getip(){
       await fetch('https://api.ipify.org?format=json')

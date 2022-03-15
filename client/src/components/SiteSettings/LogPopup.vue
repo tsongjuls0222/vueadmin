@@ -23,7 +23,8 @@
                     </div>
                     <div class="card-content">
                         <div class="content">
-                            <table v-if="currentid==1">
+                            <div v-if="currentid==1">
+                            <table >
                                 <thead>
                                     <tr>
                                         <th>Name</th>
@@ -33,9 +34,20 @@
                                         <th>Amount</th>
                                     </tr>
                                 </thead>
-                                <tbody></tbody>
+                                <tbody>
+                                    <tr v-for="logs in partnerlogs" :key="logs.id">
+                                        <td>{{partnername}}</td>
+                                        <td>{{formatDate(logs.date_from)}}</td>
+                                        <td>{{formatDate(logs.date_to)}}</td>
+                                        <td>{{formatDate(logs.date_save)}}</td>
+                                        <td>{{logs.amount}}</td>
+                                    </tr>
+                                </tbody>
                             </table>
-                            <table v-else>
+                            <Nodata v-if="partnerlogs.length < 1"/>
+                            </div>
+                            <div v-else>
+                            <table>
                                 <thead>
                                     <tr>
                                         <th>Name</th>
@@ -49,6 +61,7 @@
                                 <tbody></tbody>
                             </table>
                             <Nodata v-if="datas.length < 1"/>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -58,8 +71,9 @@
 </template>
 <script>
 import Nodata from '../GlobalTemplate/Nodata.vue';
+import global from '../../globalfunction/paging';
 export default {
-    props:['close'],
+    props:['close','partnerlogs','partnername'],
     data() {
         return {
             header:[
@@ -85,6 +99,12 @@ export default {
         },
         closethis(){
             this.close();
+        },
+        formatDate(){
+            return global.methods.formatDateAndTime();
+        },
+        computedUserInfo(){
+            return this.$store.getters.getUserInfo;
         },
     },
     created(){
