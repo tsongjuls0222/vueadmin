@@ -160,7 +160,7 @@
       </div>
     </div>
     <div v-if="showlogs" class="logpopup">
-      <LogPopup :close="close" :partnerlogs="partnerlogs" :partnername="partnerinfo.ia_name" />
+      <LogPopup :close="close" :partnerlogs="partnerlogs" :partnername="partnerinfo.ia_name" :partnerid="currentid"/>
     </div>
   </div>
 </template>
@@ -325,7 +325,7 @@ export default {
     showtransfer(){
       const partnerbalance = this.partnerlogs.filter(log => log.logs_status == 1);
       var amount = (partnerbalance == '')?0:partnerbalance[0].amount;
-      this.$modal.show(Transfer,{partnerinfo:this.partnerinfo,refresh:this.refresh,balance:amount,position:this.position},{
+      this.$modal.show(Transfer,{partnerinfo:this.partnerinfo,refresh:this.refresh,balance:amount,position:this.position,getpartner:this.getpartner},{
           width: "600px",
           height: "auto",
           maxHeight: 749,

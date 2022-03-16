@@ -66,4 +66,44 @@ export default class API {
         const res = await axios.post(`${url}/transfermember`, data);
         return res.data;
     }
+    static async transferbalance(data) {
+        const res = await axios.post(`${url}/transferbalance`, data);
+        return res.data;
+    }
+    static async transferlogs(id) {
+        const res = await axios.get(`${url}/transferlogs${id}`);
+        return res.data;
+    }
+    static async getinfosportsconfig() {
+        const res = await axios.get(`${url}/getinfosportsconfig`);
+        return res.data;
+    }
+    static async updateinfosportsconfig(data) {
+        const res = await axios.post(`${url}/updateinfosportsconfig`, data);
+        return res.data;
+    }
+    static async getbanklist() {
+        const res = await axios.get(`${url}/getbanklist`);
+        return res.data;
+    }
+    static async addbank(data) {
+        const res = await axios.post(`${url}/addbank`, data);
+        return res.data;
+    }
+    static async findbank(id) {
+        const res = await axios.get(`${url}/findbank${id}`);
+        return res.data;
+    }
+    static async editbank(id, data) {
+        const res = await axios.post(`${url}/editbank${id}`, data);
+        return res.data;
+    }
+    static async deletebank(id) {
+        const res = await axios.delete(`${url}/deletebank${id}`);
+        return res.data;
+    }
+    static async bankstatus(data) {
+        const res = await axios.post(`${url}/bankstatus`, data);
+        return res.data;
+    }
 }

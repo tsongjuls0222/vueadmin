@@ -4,7 +4,7 @@
             <div class="card-header-title">
                 <div class="tabs p-2 is-clickable">
                     <ul>
-                        <li class="px-5" v-for="head in header" :id="head.id" :key="head.id">{{head.name}}</li>
+                        <li :class="`px-5 ${setselected(head.id)}`" @click="calllogs" v-for="head in header" :id="head.id" :key="head.id">{{head.name}}</li>
                     </ul>
                 </div>
             </div>
@@ -58,7 +58,16 @@
                                         <th>Date Save</th>
                                     </tr>
                                 </thead>
-                                <tbody></tbody>
+                                <tbody>
+                                    <tr v-for="data in datas" :key="data.id">
+                                        <td>{{data.agent_name}}</td>
+                                        <td>{{data.from_agent}}</td>
+                                        <td>{{data.transfer_amount}}</td>
+                                        <td>{{data.beforeBalance}}</td>
+                                        <td>{{data.afterBalance}}</td>
+                                        <td>{{formatD(data.date_save)}}</td>
+                                    </tr>
+                                </tbody>
                             </table>
                             <Nodata v-if="datas.length < 1"/>
                             </div>
@@ -72,8 +81,9 @@
 <script>
 import Nodata from '../GlobalTemplate/Nodata.vue';
 import global from '../../globalfunction/paging';
+import API from '../../api/partner';
 export default {
-    props:['close','partnerlogs','partnername'],
+    props:['close','partnerlogs','partnername','partnerid'],
     data() {
         return {
             header:[
@@ -103,8 +113,22 @@ export default {
         formatDate(){
             return global.methods.formatDateAndTime();
         },
+        formatD(value){
+            return global.methods.formatDate(value);
+        },
         computedUserInfo(){
             return this.$store.getters.getUserInfo;
+        },
+        setselected(id){
+            if(this.currentid == id){
+                return 'is-active';
+            }
+            return '';
+        },
+        async calllogs(event){
+            this.currentid = event.target.id;
+            const res = await API.transferlogs(this.partnerid);
+            this.datas = res;
         },
     },
     created(){
@@ -112,3 +136,10 @@ export default {
     },
 }
 </script>
+
+<style lang="scss" scoped>
+.is-active{
+    color: blue;
+    border-bottom: 1px solid blue;
+}
+</style>

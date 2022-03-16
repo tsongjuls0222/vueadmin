@@ -5,13 +5,17 @@ const Agent = require('../models/agent');
 const Code = require('../models/code');
 const Account = require('../models/account');
 const User = require('../models/user');
+const Bank = require('../models/banklist');
 const PCL = require('../models/partner_claim_logs');
+const Transfer = require('../models/partner_claim_transfer_logs');
+const fs = require('fs');
 
 
 var crypto = require('crypto');
 const e = require('express');
 
 module.exports = class API {
+    //partner list
     static async getpartnertree(req, res) {
         try {
             var masterid = '224';
@@ -657,6 +661,255 @@ module.exports = class API {
             res.status(200).json({ message: msg, status: stats });
         } catch (err) {
             res.status(404).json({ message: err.message });
+        }
+    }
+    static async transferbalance(req, res) {
+        const body = req.body;
+        try {
+            var msg = "";
+            var stats = 0;
+            if (body.transfer_to == 0 || body.transfer_to == body.target_partner) {
+                if (body.transfer_to == 0) {
+                    msg = "Select agent first to transfer!";
+                } else {
+                    msg = "Balance cannot transfer to itself!";
+                }
+            } else {
+                if (body.partnerbalance < 1) {
+                    msg = "Cannot transfer 0 balance";
+                } else {
+                    const result = await PCL.findOne({ where: { agent_id: body.transfer_to }, attributes: ['logs_status', 'id', 'amount'] });
+
+                    if (result) {
+                        if (result.logs_status == 1) {
+                            msg = "Partner balance has been claimed already.";
+                        } else {
+                            var newbalance = parseInt(result.amount) + parseInt(body.partnerbalance);
+                            console.log(newbalance);
+
+                            const updatelogs = await PCL.update({ amout: newbalance }, { where: { id: result.id } });
+
+                            if (updatelogs.length > 0) {
+                                const logresult = await PCL.findOne({ where: { agent_id: body.target_partner }, attributes: ['id'] });
+                                const updatelog = await PCL.update({ amount: 0 }, { where: { id: logresult.id } });
+                                const inserttransferlog = await Transfer.create(
+                                    {
+                                        from_agent: body.target_partner,
+                                        transfer_amount: body.partnerbalance,
+                                        agent_id: body.transfer_to,
+                                        beforeBalance: result.amount,
+                                        afterBalance: newbalance,
+                                        logs_status: 0,
+                                        date_save: body.datenow,
+                                    }
+                                );
+
+                                if (inserttransferlog) {
+                                    msg = "처리 되었습니다."
+                                    stats = 1;
+                                }
+                            } else {
+                                msg = "Error transferring balance.";
+                            }
+                        }
+                    } else {
+                        msg = "Error finding new partner balance.";
+                    }
+                }
+            }
+
+            res.status(200).json({ message: msg, status: stats });
+        } catch (error) {
+            res.status(404).json({ message: error.message });
+        }
+    }
+    static async transferlogs(req, res) {
+        const id = req.params.id;
+        try {
+            const myquery = "select c.ia_name as from_agent, b.ia_name as agent_name, a.transfer_amount, a.beforeBalance, a.afterBalance, a.date_save from partner_claim_transfer_logs as a left join info_agent as b on a.agent_id=b.ia_idx left join info_agent as c on a.from_agent=c.ia_idx where a.agent_id=" + id + " order by id desc";
+            const result = await db.query(myquery, { type: QueryTypes.SELECT });
+            res.status(200).json(result);
+        } catch (error) {
+            res.status(404).json({ message: error.message });
+        }
+    }
+    //config sports settings
+    static async getinfosportsconfig(req, res) {
+        try {
+            const myquery = "SELECT * FROM info_sports_config WHERE isc_idx=1";
+            const result = await db.query(myquery, { type: QueryTypes.SELECT });
+            res.status(200).json(result);
+        } catch (error) {
+            res.status(404).json({ message: error.message });
+        }
+    }
+    static async updateinfosportsconfig(req, res) {
+        const body = req.body;
+
+        try {
+            var msg = "";
+            var stats = "";
+            if (body != null) {
+                const myquery = `update info_sports_config set isc_cross_handi_stop_odds=  '${body.isc_cross_handi_stop_odds}',
+                isc_cross_ou_stop_odds=  '${body.isc_cross_ou_stop_odds}',
+                isc_special_handi_stop_odds=  '${body.isc_special_handi_stop_odds}',
+                isc_special_ou_stop_odds=  '${body.isc_special_ou_stop_odds}',
+                isc_cross_start_type=  '${body.isc_cross_start_type}',
+                isc_cross_handi_type=  '${body.isc_cross_handi_type}',
+                isc_special_start_type=  '${body.isc_special_start_type}',
+                isc_special_handi_type=  '${body.isc_special_handi_type}',
+                isc_realtime_start_type=  '${body.isc_realtime_start_type}',
+                isc_realtime_handi_type=  '${body.isc_realtime_handi_type}',
+                isc_folder_type= '${body.isc_folder_type}',
+                isc_cross_open= '${body.isc_cross_open}',
+                isc_cross_odds_type=  '${body.isc_cross_odds_type}',
+                isc_cross_timer= '${body.isc_cross_timer}',
+                isc_cross_max_odds= '${body.isc_cross_max_odds}',
+                isc_cross_min_folder=  '${body.isc_cross_min_folder}',
+                isc_cross_max_folder=  '${body.isc_cross_max_folder}',
+                isc_cross_cancel=  '${body.isc_cross_cancel}',
+                isc_cross_cancel_timer=  '${body.isc_cross_cancel_timer}',
+                isc_cross_dup_bet=  '${body.isc_cross_dup_bet}',
+                isc_cross_bonus_use=  '${body.isc_cross_bonus_use}',
+                isc_cross_bonus_min=  '${body.isc_cross_bonus_min}',
+                isc_cross_bonus_3=  '${body.isc_cross_bonus_3}',
+                isc_cross_bonus_5=  '${body.isc_cross_bonus_5}',
+                isc_special_open=  '${body.isc_special_open}',
+                isc_special_odds_type=   '${body.isc_special_odds_type}',
+                isc_special_timer=  '${body.isc_special_timer}',
+                isc_special_max_odds=  '${body.isc_special_max_odds}',
+                isc_special_min_folder=  '${body.isc_special_min_folder}',
+                isc_special_max_folder=  '${body.isc_special_max_folder}',
+                isc_special_cancel= '${body.isc_special_cancel}',
+                isc_special_cancel_timer=  '${body.isc_special_cancel_timer}',
+                isc_special_dup_bet=  '${body.isc_special_dup_bet}',
+                isc_special_bonus_use=   '${body.isc_special_bonus_use}',
+                isc_special_bonus_min=   '${body.isc_special_bonus_min}',
+                isc_special_bonus_3=  '${body.isc_special_bonus_3}',
+                isc_special_bonus_5=  '${body.isc_special_bonus_5}',
+                isc_realtime_open=  '${body.isc_realtime_open}',
+                isc_realtime_odds_type=  '${body.isc_realtime_odds_type}',
+                isc_realtime_timer= '${body.isc_realtime_timer}',
+                isc_realtime_max_odds=   '${body.isc_realtime_max_odds}',
+                isc_realtime_min_folder=  '${body.isc_realtime_min_folder}',
+                isc_realtime_max_folder=  '${body.isc_realtime_max_folder}',
+                isc_realtime_cancel=  '${body.isc_realtime_cancel}',
+                isc_realtime_cancel_timer=  '${body.isc_realtime_cancel_timer}',
+                isc_realtime_dup_bet=  '${body.isc_realtime_dup_bet}',
+                isc_realtime_bonus_use=  '${body.isc_realtime_bonus_use}',
+                isc_realtime_bonus_min=  '${body.isc_realtime_bonus_min}',
+                isc_realtime_bonus_3=  '${body.isc_realtime_bonus_3}',
+                isc_special_cancel_timer_2= '${body.isc_special_cancel_timer_2}',
+                isc_special_cancel_limit=  '${body.isc_special_cancel_limit}',
+                4_folder_minimum=  '${body['4_folder_minimum']}',
+                6_folder_minimum=  '${body['6_folder_minimum']}',
+                playing_type_odds=  '${body.playing_type_odds}',
+                playing_type_min_folder=  '${body.playing_type_min_folder}',
+                isc_realtime_bonus_5=  '${body.isc_realtime_bonus_5}' where isc_idx=1`;
+                const result = await db.query(myquery, { type: QueryTypes.UPDATE });
+                console.log(result);
+                if (result.length > 0) {
+                    msg = "Successfully Updated";
+                    stats = 1;
+                } else {
+                    msg = "System error";
+                }
+            }
+
+            res.status(200).json({ message: msg, status: stats });
+        } catch (error) {
+            res.status(404).json({ message: error.message });
+        }
+    }
+    //bank list
+    static async getbanklist(req, res) {
+        try {
+            const result = await Bank.findAll({ order: [['id', 'ASC']] });
+            res.status(200).json(result);
+        } catch (error) {
+            res.status(404).json({ message: error.message });
+        }
+    }
+    static async addbank(req, res) {
+        const body = req.body;
+        body.bank_image = req.file.filename;
+        try {
+            var msg = "System Error";
+            var stats = 0;
+            if (body != null || body != '') {
+                const result = await Bank.create(body);
+                stats = 1;
+                msg = "Bank Successfully added";
+            }
+
+            res.status(200).json({ message: msg, status: stats });
+        } catch (error) {
+            res.status(404).json({ message: error.message });
+        }
+    }
+    static async editbank(req, res) {
+        const id = req.params.id;
+        const body = req.body;
+        body.bank_image = req.file.filename;
+        const temp = await Bank.findByPk(id);
+        var msg = 'Bank Updated';
+        var stats = 1;
+        if (temp.bank_image) {
+            try {
+                fs.unlinkSync('./upload/bank_logo/' + temp.bank_image);
+            } catch (err) {
+                console.log(err);
+            }
+        } else {
+            msg = "Error uploading image!";
+            stats = 0;
+        }
+        try {
+            await Bank.update(body, { where: { id: id } });
+            res.status(200).json({ message: msg, status: stats });
+        } catch (error) {
+            res.status(400).json({ message: error.message });
+        }
+    }
+    static async findbank(req, res) {
+        const id = req.params.id;
+        try {
+            const result = await Bank.findOne({ where: { id: id } });
+            res.status(200).json(result);
+        } catch (error) {
+            res.status(404).json({ message: error.message });
+        }
+    }
+    static async deletebank(req, res) {
+        const id = req.params.id;
+        try {
+            var msg = "Bank Deleted!";
+            const result = await Bank.findByPk(id);
+            if (result.bank_image) {
+                try {
+                    fs.unlinkSync('./upload/bank_logo/' + result.bank_image);
+                } catch (error) {
+                    // console.log(error);
+                    msg = error;
+                }
+            } else {
+                msg = "No Image!";
+            }
+            await Bank.destroy({ where: { id: id } });
+            res.status(200).json({ message: msg, status: 0 });
+        } catch (err) {
+            res.status(404).json({ message: err.message });
+        }
+    }
+    static async bankstatus(req, res) {
+        const body = req.body;
+        console.log(body);
+        try {
+            await Bank.update({ bank_status: body.status }, { where: { id: body.target } }
+            );
+            res.status(200).json({ message: `Bank Successfully ${(body.status > 0) ? 'on' : 'off'}`, status: body.status });
+        } catch (error) {
+            res.status(404).json({ message: error.message });
         }
     }
 }

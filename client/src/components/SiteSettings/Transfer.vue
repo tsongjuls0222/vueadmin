@@ -55,13 +55,13 @@
                             <div class="column">
                                 <label for="">To</label>
                                 <div class="select" style="width:100%">
-                                    <select name="" id="" style="width:100%">
+                                    <select v-model="targeting_partner" name="" id="" style="width:100%">
                                         <option value="0">파트너 선택</option>
-                                        <option v-for="opt in agents" :key="opt.ia_idx" :value="opt.ia_idx">{{opt.ia_name}}</option>
+                                        <option v-for="opt in memberagents" :key="opt.ia_idx" :value="opt.ia_idx">{{opt.ia_name}}</option>
                                     </select>
                                 </div>
                             </div>
-                            <div class="column is-one-fifth mt-5"><button class="button is-info">수정</button></div>
+                            <div @click="transferbalance" class="column is-one-fifth mt-5"><button class="button is-info">수정</button></div>
                         </div>
                     </div>
                 </div>
@@ -74,7 +74,7 @@
 import global from '../../globalfunction/paging';
 import API from '../../api/partner';
 export default {
-    props:['ip','partnerinfo','refresh','balance','position'],
+    props:['ip','partnerinfo','refresh','balance','position','getpartner'],
     data() {
         return {
             partnername:'',
@@ -83,6 +83,7 @@ export default {
             transfer_to:0,
             memberagents:[],
             target_partner:0,
+            targeting_partner:0,
         }
     },
     methods: {
@@ -136,6 +137,26 @@ export default {
             });
             if(res.status > 0){
                 this.refresh();
+                this.$emit('close');
+            }
+        },
+        async transferbalance(){
+            var sendData = {
+                target_partner:this.partnerinfo.ia_idx,
+                partnerbalance:this.partnerbalance,
+                transfer_to:this.targeting_partner,
+                datenow: this.formatDate(),
+            }
+            console.log(sendData);
+            const res = await API.transferbalance(sendData);
+            this.$buefy.toast.open({
+                duration: 3000,
+                position: "is-top",
+                message: res.message,
+                type: (res.status < 1)?"is-danger":"is-success",
+            });
+            if(res.status > 0){
+                this.getpartner(this.partnerinfo.ia_idx);
                 this.$emit('close');
             }
         }

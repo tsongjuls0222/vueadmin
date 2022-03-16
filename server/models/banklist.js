@@ -6,33 +6,22 @@ const BankList = db.define('bank_list', {
         type: Sequelize.INTEGER,
         autoIncrement: true,
         primaryKey: true,
-        validate : {
-            allowNull: false
-        }
     },
     bank_name: {
         type: Sequelize.STRING(255),
-        validate : {
-            allowNull: true
-        }
     },
     bank_image: {
         type: Sequelize.STRING(255),
-        validate : {
-            allowNull: true
-        }
     },
     bank_status: {
         type: Sequelize.INTEGER,
-        validate : {
-            allowNull: true
-        }
     }
 }, {
     // options
+    timestamps: false
 });
 
-BankList.removeAttribute('createdAt');
-BankList.removeAttribute('updatedAt');
+// BankList.removeAttribute('createdAt');
+// BankList.removeAttribute('updatedAt');
 
 module.exports = BankList;
