@@ -1,0 +1,1 @@
+a:1:{i:0;a:10:{s:12:"game_section";s:2:"16";s:10:"league_idx";s:6:"211823";s:11:"league_name";s:16:"KBO 프리시즌";s:14:"league_korname";s:16:"KBO 프리시즌";s:11:"league_area";s:12:"대한민국";s:14:"league_korArea";s:12:"대한민국";s:18:"league_countrycode";s:3:"417";s:12:"country_sort";s:1:"2";s:11:"league_sort";s:1:"1";s:11:"leagueImage";N;}}

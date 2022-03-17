@@ -75,6 +75,27 @@ module.exports = class API {
             res.status(404).json({ message: err.message });
         }
     }
+    // static async getpartnertree(req, res) {
+    //     try {
+    //         var masterid = 224;
+    //         var temp = [];
+    //         const alldata = await Agent.findAll({ where: { status: 1 }, attributes: ['ia_parent', 'ia_idx', 'ia_balance', 'ia_fee', 'ia_loosing', 'ia_rate', 'ia_status', 'ia_name', 'ia_code'] });
+    //         // console.log(alldata);
+    //         // const maindata = alldata.filter(function (element) { return element.ia_parent == 224 });
+    //         // temp = maindata;
+    //         // for (const key in temp) {
+    //         //     const tempdata = temp[key];
+    //         //     console.log(tempdata);
+    //         //     const tempchild = all.filter(data => data.ia_parent == element.ia_idx);
+    //         //     maindata.splice(maindata.indexOf(element.ia_idx), 0, tempchild);
+    //         // }
+
+    //         res.status(200).json(alldata);
+    //     } catch (err) {
+    //         res.status(404).json({ message: err.message });
+    //     }
+    // }
+
 
     static async getpartnerinfo(req, res) {
         const id = req.params.id;

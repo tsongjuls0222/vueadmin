@@ -1,0 +1,1 @@
+a:1:{i:0;a:10:{s:12:"game_section";s:2:"18";s:10:"league_idx";s:6:"179696";s:11:"league_name";s:12:"유로리그";s:14:"league_korname";s:12:"유로리그";s:11:"league_area";s:12:"국제경기";s:14:"league_korArea";s:12:"국제경기";s:18:"league_countrycode";s:3:"100";s:12:"country_sort";s:2:"10";s:11:"league_sort";s:2:"10";s:11:"leagueImage";N;}}

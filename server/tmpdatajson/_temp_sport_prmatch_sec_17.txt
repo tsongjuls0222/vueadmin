@@ -1,0 +1,1 @@
+a:1:{i:0;a:10:{s:12:"game_section";s:2:"17";s:10:"league_idx";s:6:"156614";s:11:"league_name";s:19:"매그너스 리그";s:14:"league_korname";s:19:"매그너스 리그";s:11:"league_area";s:9:"프랑스";s:14:"league_korArea";s:9:"프랑스";s:18:"league_countrycode";s:3:"279";s:12:"country_sort";s:2:"13";s:11:"league_sort";s:1:"2";s:11:"leagueImage";N;}}

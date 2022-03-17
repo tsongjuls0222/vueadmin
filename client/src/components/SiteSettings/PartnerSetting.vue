@@ -36,7 +36,7 @@
               </thead>
               <tbody>
                   <tr :style="{'color':(data.icd_status > 0)?'red':''}" @click="getinfo" v-for="data in datas" :id="data.key" :key="data.key" :data-set="data.ia_parent" :class="`is-clickable ${(data.key==currentid)?'highlight':''}`" > 
-                    <td :class="`partner-title ${hascolor(data.status)}`" :style="{'padding-left':`${data.depth*20}px !important`}"><span :class="`${haschildren(data.children.length)}`"></span>{{data.title}}</td>
+                    <!-- <td :class="`partner-title ${hascolor(data.status)}`" :style="{'padding-left':`${data.depth*20}px !important`}"><span :class="`${haschildren(data.children.length)}`"></span>{{data.title}}</td> -->
                     <td>{{data.member}}</td>
                     <td>{{Number(data.balance).toLocaleString()}}원</td>
                     <td>{{Number(data.fee).toLocaleString()}}원</td>
@@ -44,7 +44,7 @@
                   </tr>
                 </tbody>
             </table>
-            <Nodata v-if="datas == ''" />
+            <Nodata v-if="datas.length < 1" />
           </div>
         </div>
       </div>
@@ -193,6 +193,37 @@ export default {
     async refresh(){
       const res = await API.refresh();
       this.datas = res.data;
+      // const maindata = this.datas.filter((element,index) => console.log(element.ia_parent));// element[index].ia_parent == '224');
+      // console.log(maindata);
+      // const temp = maindata;
+
+      // temp.forEach(element => {
+      //     const tempchild = all.filter(data => data.ia_parent == element.ia_idx);
+      //     maindata.splice(maindata.indexOf(element.ia_idx), 0, tempchild);
+      // })
+      // const maindata = this.datas.filter(element => element.ia_parent == '224');
+      // var temp = maindata;
+      // // console.log(maindata);
+      // temp.forEach(element => {
+      //     // console.log(element.ia_idx);
+      //     const tempchild = this.datas.filter(data => data.ia_parent == element.ia_idx);
+          
+      //     if(tempchild.length > 0){
+      //       // console.log(tempchild);
+      //     //   // console.log(element.ia_idx);
+      //     //   // console.log(maindata.findIndex(tempo => tempo.ia_idx ==  element.ia_idx));
+      //       tempchild.forEach(tempelement =>{
+      //         // console.log(tempelement.ia_parent);
+      //         // console.log(maindata.findIndex(tempo => tempo.ia_idx ==  element.ia_idx) + "  index of this child in parent");
+      //         const index = maindata.findIndex(tempo => tempo.ia_idx ==  tempelement.ia_parent);
+      //         console.log(parsetInt(index) + 1);
+      //         // maindata.splice(index, 0, tempelement);
+      //       });
+            
+      //     }
+          
+      // })
+      // console.log(maindata);
     },
     addpartneraccount(){
       this.$modal.show(AddAccount,{ip:this.ipaddress,partnerinfo:this.partnerinfo,getpartner:this.getpartner,currentinfo:null},{

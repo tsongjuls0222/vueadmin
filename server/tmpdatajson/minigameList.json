@@ -1,0 +1,62 @@
+{
+    "6001": {
+      "sportsName": "Powerball",
+      "sportsKorName": "파워볼",
+      "game_section": 6001
+    },
+    "6002": {
+      "sportsName": "Speed Keno",
+      "sportsKorName": "스피드키노",
+      "game_section": 6002
+    },
+    "6011": {
+      "sportsName": "Power Freekick",
+      "sportsKorName": "파워프리킥",
+      "game_section": 6011
+    },
+    "6012": {
+      "sportsName": "Speed Homerun",
+      "sportsKorName": "스피드홈런",
+      "game_section": 6012
+    },
+    "6013": {
+      "sportsName": "Speed Dunk",
+      "sportsKorName": "스피드덩크",
+      "game_section": 6013
+    },
+    "6021": {
+      "sportsName": "Beteast Soccer",
+      "sportsKorName": "축구",
+      "game_section": 6021
+    },
+    "6022": {
+      "sportsName": "Beteast Cricket",
+      "sportsKorName": "크리켓",
+      "game_section": 6022
+    },
+    "6023": {
+      "sportsName": "Beteast Baseball",
+      "sportsKorName": "야구",
+      "game_section": 6023
+    },
+    "6031": {
+      "sportsName": "Speed Ladder",
+      "sportsKorName": "스피드사다리",
+      "game_section": 6031
+    },
+    "6032": {
+      "sportsName": "Daridari",
+      "sportsKorName": "다리다리",
+      "game_section": 6032
+    },
+    "6033": {
+      "sportsName": "Ladder",
+      "sportsKorName": "사다리",
+      "game_section": 6033
+    },
+    "6034": {
+      "sportsName": "Snail Racing",
+      "sportsKorName": "달팽이레이싱",
+      "game_section": 6034
+    }
+}

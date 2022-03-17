@@ -1,0 +1,52 @@
+{
+    "1": {
+      "sportsName": "Soccer",
+      "sportsKorName": "축구",
+      "game_section": 1
+    },
+    "2": {
+      "sportsName": "Baseball",
+      "sportsKorName": "야구",
+      "game_section": 16
+    },
+    "3": {
+      "sportsName": "Basketball",
+      "sportsKorName": "농구",
+      "game_section": 18
+    },
+    "4": {
+      "sportsName": "Volleyball",
+      "sportsKorName": "배구",
+      "game_section": 91
+    },
+    "5": {
+      "sportsName": "Ice Hockey",
+      "sportsKorName": "아이스 하키",
+      "game_section": 17
+    },
+    "6": {
+      "sportsName": "Football",
+      "sportsKorName": "미식 축구",
+      "game_section": 12
+    },
+    "10": {
+      "sportsName": "E-Sports",
+      "sportsKorName": "E-스포츠",
+      "game_section": 151
+    },
+    "8": {
+      "sportsName": "Handball",
+      "sportsKorName": "핸드볼",
+      "game_section": 78
+    },
+    "7": {
+      "sportsName": "Tennis",
+      "sportsKorName": "테니스",
+      "game_section": 13
+    },
+    "9": {
+      "sportsName": "Table Tennis",
+      "sportsKorName": "탁구",
+      "game_section": 2004
+    }
+}

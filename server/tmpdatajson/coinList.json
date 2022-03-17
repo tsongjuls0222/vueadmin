@@ -1,0 +1,18 @@
+{
+    "ETHUSDT": {
+      "coinName": "Ethereum USDT",
+      "code": "ETHUSDT"
+    },
+    "BNBUSDT": {
+      "coinName": "BNB USDT",
+      "code": "BNBUSDT"
+    },
+    "LINKUSDT": {
+      "coinName": "Chain Link USDT",
+      "code": "LINKUSDT"
+    },
+    "UNIUSDT": {
+      "coinName": "Uniswap USDT",
+      "code": "UNIUSDT"
+    }
+}

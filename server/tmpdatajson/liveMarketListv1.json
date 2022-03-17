@@ -1,0 +1,647 @@
+{
+  "1001": {
+    "korname": "축구",
+    "name": "Soccer",
+    "game_section": "1",
+    "market": [
+      {
+        "market_id": "1001701",
+        "name": "Full Time Result",
+        "korname": "승무패",
+        "main_code": "0",
+        "sub_code": "00"
+      },
+      {
+        "market_id": "1001702",
+        "name": "Half Time Result",
+        "korname": "승무패 전반전",
+        "main_code": "0",
+        "sub_code": "01"
+      },
+      {
+        "market_id": "1001703",
+        "name": "To Win 2nd Half ",
+        "korname": "승무패 후반전",
+        "main_code": "0",
+        "sub_code": "02"
+      },
+      {
+        "market_id": "1001704",
+        "name": "Draw No Bet ",
+        "korname": "승패",
+        "main_code": "0",
+        "sub_code": "08"
+      },
+      {
+        "market_id": "1001709",
+        "name": "Match Goals",
+        "korname": "오버/언더",
+        "main_code": "2",
+        "sub_code": "00"
+      },
+      {
+        "market_id": "1001710",
+        "name": "Alternative Match Goals",
+        "korname": "오버/언더 추가 기준점",
+        "main_code": "2",
+        "sub_code": "50"
+      },
+      {
+        "market_id": "1001711",
+        "name": "First Half Goals",
+        "korname": "오버/언더 전반전",
+        "main_code": "2",
+        "sub_code": "01"
+      },
+      {
+        "market_id": "1001712",
+        "name": "Team1 Goals",
+        "korname": "1팀 토탈 오버/언더",
+        "main_code": "2",
+        "sub_code": "08"
+      },
+      {
+        "market_id": "1001713",
+        "name": "Team2 Goals",
+        "korname": "2팀 토탈 오버/언더",
+        "main_code": "2",
+        "sub_code": "09"
+      },
+      {
+        "market_id": "1001716",
+        "name": "Goals Odd/Even",
+        "korname": "토탈 홀/짝",
+        "main_code": "5",
+        "sub_code": "00"
+      },
+      {
+        "market_id": "1001721",
+        "name": "Both Teams to Score",
+        "korname": "양팀 모두 득점",
+        "main_code": "7",
+        "sub_code": "16"
+      },
+      {
+        "market_id": "1001722",
+        "name": "Both Teams to Score in 1st Half",
+        "korname": "양팀 모두 득점 전반전",
+        "main_code": "7",
+        "sub_code": "10"
+      },
+      {
+        "market_id": "1001723",
+        "name": "Both Teams to Score in 2nd Half",
+        "korname": "양팀 모두 득점 후반전",
+        "main_code": "7",
+        "sub_code": "11"
+      },
+      {
+        "market_id": "1001725",
+        "name": "1st Goal",
+        "korname": "첫번째 득점 팀",
+        "main_code": "7",
+        "sub_code": "02"
+      },
+      {
+        "market_id": "1001726",
+        "name": "Last Team to Score",
+        "korname": "마지막 득점 팀",
+        "main_code": "7",
+        "sub_code": "03"
+      }
+    ]
+  },
+  "1002": {
+    "korname": "야구",
+    "name": "Baseball",
+    "game_section": "16",
+    "market": [
+      {
+        "market_id": "1002701",
+        "name": "Money Line",
+        "korname": "승패",
+        "main_code": "0",
+        "sub_code": "08"
+      },
+      {
+        "market_id": "1002702",
+        "name": "Money Line 5 Innings",
+        "korname": "승패 (5이닝까지)",
+        "main_code": "0",
+        "sub_code": "59"
+      },
+      {
+        "market_id": "1002706",
+        "name": "Run Line",
+        "korname": "핸디캡",
+        "main_code": "1",
+        "sub_code": "00"
+      },
+      {
+        "market_id": "1002707",
+        "name": "Alternative Run Line",
+        "korname": "핸디캡 추가 기준점",
+        "main_code": "1",
+        "sub_code": "50"
+      },
+      {
+        "market_id": "1002708",
+        "name": "Run Line 3 Innings",
+        "korname": "핸디캡 (3이닝까지)",
+        "main_code": "1",
+        "sub_code": "57"
+      },
+      {
+        "market_id": "1002709",
+        "name": "Run Line 5 Innings",
+        "korname": "핸디캡 (5이닝까지)",
+        "main_code": "1",
+        "sub_code": "59"
+      },
+      {
+        "market_id": "1002710",
+        "name": "Run Line 7 Innings",
+        "korname": "핸디캡 (7이닝까지)",
+        "main_code": "1",
+        "sub_code": "61"
+      },
+      {
+        "market_id": "1002712",
+        "name": "Total",
+        "korname": "오버/언더",
+        "main_code": "2",
+        "sub_code": "00"
+      },
+      {
+        "market_id": "1002713",
+        "name": "Total 3 Innings",
+        "korname": "오버/언더 (3이닝까지)",
+        "main_code": "2",
+        "sub_code": "57"
+      },
+      {
+        "market_id": "1002714",
+        "name": "Total 5 Innings",
+        "korname": "오버/언더 (5이닝까지)",
+        "main_code": "2",
+        "sub_code": "59"
+      },
+      {
+        "market_id": "1002715",
+        "name": "Total 7 Innings",
+        "korname": "오버/언더 (7이닝까지)",
+        "main_code": "2",
+        "sub_code": "61"
+      },
+      {
+        "market_id": "1002716",
+        "name": "Alternative Game Total",
+        "korname": "오버/언더 추가 기준점",
+        "main_code": "2",
+        "sub_code": "50"
+      },
+      {
+        "market_id": "1002720",
+        "name": "Team Totals",
+        "korname": "팀 토탈 오버/언더",
+        "main_code": "2",
+        "sub_code": "23"
+      },
+      {
+        "market_id": "1002724",
+        "name": "To Go to Extra Innings",
+        "korname": "연장전 진행",
+        "main_code": "0",
+        "sub_code": "07"
+      }
+    ]
+  },
+  "1003": {
+    "korname": "농구",
+    "name": "Basketball",
+    "game_section": "18",
+    "market": [
+      {
+        "market_id": "1003701",
+        "name": "Money Line",
+        "korname": "승패",
+        "main_code": "0",
+        "sub_code": "08"
+      },
+      {
+        "market_id": "1003702",
+        "name": "1st Half Money Line",
+        "korname": "승패 전반",
+        "main_code": "0",
+        "sub_code": "01"
+      },
+      {
+        "market_id": "1003703",
+        "name": "1st Quarter Money Line",
+        "korname": "승패 1쿼터",
+        "main_code": "0",
+        "sub_code": "03"
+      },
+      {
+        "market_id": "1003704",
+        "name": "2nd Quarter Money Line",
+        "korname": "승패 2쿼터",
+        "main_code": "0",
+        "sub_code": "04"
+      },
+      {
+        "market_id": "1003705",
+        "name": "3rd Quarter Money Line",
+        "korname": "승패 3쿼터",
+        "main_code": "0",
+        "sub_code": "05"
+      },
+      {
+        "market_id": "1003706",
+        "name": "4th Quarter Money Line",
+        "korname": "승패 4쿼터",
+        "main_code": "0",
+        "sub_code": "06"
+      },
+      {
+        "market_id": "1003712",
+        "name": "Spread",
+        "korname": "핸디캡",
+        "main_code": "1",
+        "sub_code": "00"
+      },
+      {
+        "market_id": "1003713",
+        "name": "Alternative Totals",
+        "korname": "핸디캡 추가 기준점",
+        "main_code": "1",
+        "sub_code": "50"
+      },
+      {
+        "market_id": "1003714",
+        "name": "1st Half Spread",
+        "korname": "핸디캡 전반",
+        "main_code": "1",
+        "sub_code": "01"
+      },
+      {
+        "market_id": "1003715",
+        "name": "1st Quarter Spread",
+        "korname": "핸디캡 1쿼터",
+        "main_code": "1",
+        "sub_code": "03"
+      },
+      {
+        "market_id": "1003716",
+        "name": "2nd Quarter Spread",
+        "korname": "핸디캡 2쿼터",
+        "main_code": "1",
+        "sub_code": "04"
+      },
+      {
+        "market_id": "1003717",
+        "name": "3rd Quarter Spread",
+        "korname": "핸디캡 3쿼터",
+        "main_code": "1",
+        "sub_code": "05"
+      },
+      {
+        "market_id": "1003718",
+        "name": "4th Quarter Spread",
+        "korname": "핸디캡 4쿼터",
+        "main_code": "1",
+        "sub_code": "06"
+      },
+      {
+        "market_id": "1003720",
+        "name": "Total",
+        "korname": "오버/언더",
+        "main_code": "2",
+        "sub_code": "00"
+      },
+      {
+        "market_id": "1003721",
+        "name": "Alternative Totals",
+        "korname": "오버/언더 추가 기준점",
+        "main_code": "2",
+        "sub_code": "50"
+      },
+      {
+        "market_id": "1003722",
+        "name": "1st Half Total",
+        "korname": "오버/언더 전반",
+        "main_code": "2",
+        "sub_code": "01"
+      },
+      {
+        "market_id": "1003723",
+        "name": "1st Quarter Total",
+        "korname": "오버/언더 1쿼터",
+        "main_code": "2",
+        "sub_code": "03"
+      },
+      {
+        "market_id": "1003724",
+        "name": "2nd Quarter Total",
+        "korname": "오버/언더 2쿼터",
+        "main_code": "2",
+        "sub_code": "04"
+      },
+      {
+        "market_id": "1003725",
+        "name": "3rd Quarter Total",
+        "korname": "오버/언더 3쿼터",
+        "main_code": "2",
+        "sub_code": "05"
+      },
+      {
+        "market_id": "1003726",
+        "name": "4th Quarter Total",
+        "korname": "오버/언더 4쿼터",
+        "main_code": "2",
+        "sub_code": "06"
+      },
+      {
+        "market_id": "1003732",
+        "name": "Team Totals",
+        "korname": "팀 토탈 오버/언더",
+        "main_code": "2",
+        "sub_code": "23"
+      },
+      {
+        "market_id": "1003733",
+        "name": "1st Half - Team Totals",
+        "korname": "팀 토탈 오버/언더 전반",
+        "main_code": "2",
+        "sub_code": "24"
+      },
+      {
+        "market_id": "1003734",
+        "name": "1st Quarter Team Totals",
+        "korname": "팀 토탈 오버/언더 1쿼터",
+        "main_code": "2",
+        "sub_code": "24"
+      },
+      {
+        "market_id": "1003735",
+        "name": "2nd Quarter - Team Totals",
+        "korname": "팀 토탈 오버/언더 2쿼터",
+        "main_code": "2",
+        "sub_code": "27"
+      },
+      {
+        "market_id": "1003736",
+        "name": "3rd Quarter - Team Totals",
+        "korname": "팀 토탈 오버/언더 3쿼터",
+        "main_code": "2",
+        "sub_code": "28"
+      },
+      {
+        "market_id": "1003737",
+        "name": "4th Quarter - Team Totals",
+        "korname": "팀 토탈 오버/언더 4쿼터",
+        "main_code": "2",
+        "sub_code": "29"
+      },
+      {
+        "market_id": "1003755",
+        "name": "Highest Scoring Half",
+        "korname": "전/후반중 득점이 많은 곳",
+        "main_code": "3",
+        "sub_code": "41"
+      },
+      {
+        "market_id": "1003756",
+        "name": "Winning Margin",
+        "korname": "정확한 점수차이",
+        "main_code": "3",
+        "sub_code": "43"
+      },
+      {
+        "market_id": "1003754",
+        "name": "Odd/Even",
+        "korname": "토탈 홀/짝",
+        "main_code": "5",
+        "sub_code": "00"
+      }
+    ]
+  },
+  "1004": {
+    "korname": "배구",
+    "name": "Volleyball",
+    "game_section": "91",
+    "market": [
+      {
+        "market_id": "1004701",
+        "name": "Winner",
+        "korname": "승패",
+        "main_code": "0",
+        "sub_code": "08"
+      },
+      {
+        "market_id": "1004703",
+        "name": "Handicap",
+        "korname": "핸디캡",
+        "main_code": "1",
+        "sub_code": "00"
+      },
+      {
+        "market_id": "1004705",
+        "name": "Total",
+        "korname": "오버/언더",
+        "main_code": "2",
+        "sub_code": "00"
+      },
+      {
+        "market_id": "1004711",
+        "name": "Team Totals",
+        "korname": "팀 포인트 오버/언더",
+        "main_code": "2",
+        "sub_code": "23"
+      },
+      {
+        "market_id": "1004712",
+        "name": "Odd/Even",
+        "korname": "토탈 홀/짝",
+        "main_code": "5",
+        "sub_code": "00"
+      },
+      {
+        "market_id": "1004713",
+        "name": "Score After 2 Sets",
+        "korname": "2세트 이후 스코어 상황",
+        "main_code": "7",
+        "sub_code": "34"
+      },
+      {
+        "market_id": "1004714",
+        "name": "Score After 3 Sets",
+        "korname": " 3세트 이후 스코어 상황",
+        "main_code": "7",
+        "sub_code": "35"
+      }
+    ]
+  },
+  "1005": {
+    "korname": "아이스 하키",
+    "name": "Ice Hockey",
+    "game_section": "17",
+    "market": [
+      {
+        "market_id": "1005701",
+        "name": "Money Line",
+        "korname": "승패",
+        "main_code": "0",
+        "sub_code": "08"
+      },
+      {
+        "market_id": "1005706",
+        "name": "Line",
+        "korname": "핸디캡",
+        "main_code": "1",
+        "sub_code": "00"
+      },
+      {
+        "market_id": "1005709",
+        "name": "Over/Under",
+        "korname": "오버/언더",
+        "main_code": "2",
+        "sub_code": "00"
+      },
+      {
+        "market_id": "1005713",
+        "name": "Team1 Totals",
+        "korname": "1팀 토탈 오버/언더",
+        "main_code": "2",
+        "sub_code": "08"
+      },
+      {
+        "market_id": "1005714",
+        "name": "Team2 Totals",
+        "korname": "2팀 토탈 오버/언더",
+        "main_code": "2",
+        "sub_code": "09"
+      },
+      {
+        "market_id": "1005719",
+        "name": "Total - Odd/Even",
+        "korname": "토탈 홀/짝",
+        "main_code": "5",
+        "sub_code": "00"
+      },
+      {
+        "market_id": "1005726",
+        "name": "Will Match go to Overtime",
+        "korname": "연장전 진행",
+        "main_code": "0",
+        "sub_code": "07"
+      }
+    ]
+  },
+  "1006": {
+    "korname": "미식 축구",
+    "name": "Football",
+    "game_section": "12",
+    "market": [
+      {
+        "market_id": "1006701",
+        "name": "Money Line",
+        "korname": "승패",
+        "main_code": "0",
+        "sub_code": "08"
+      },
+      {
+        "market_id": "1006702",
+        "name": "Money Line",
+        "korname": "승패 전반",
+        "main_code": "0",
+        "sub_code": "01"
+      },
+      {
+        "market_id": "1006704",
+        "name": "Spread",
+        "korname": "핸디캡",
+        "main_code": "1",
+        "sub_code": "00"
+      },
+      {
+        "market_id": "1006706",
+        "name": "Spread",
+        "korname": "핸디캡 전반",
+        "main_code": "1",
+        "sub_code": "01"
+      },
+      {
+        "market_id": "1006708",
+        "name": "Total",
+        "korname": "오버/언더",
+        "main_code": "2",
+        "sub_code": "00"
+      },
+      {
+        "market_id": "1006710",
+        "name": "Total",
+        "korname": "오버/언더 전반",
+        "main_code": "2",
+        "sub_code": "01"
+      },
+      {
+        "market_id": "1006712",
+        "name": "Team1 Totals",
+        "korname": "1팀 토탈 오버/언더",
+        "main_code": "2",
+        "sub_code": "08"
+      },
+      {
+        "market_id": "1006713",
+        "name": "Team2 Totals",
+        "korname": "2팀 토탈 오버/언더",
+        "main_code": "2",
+        "sub_code": "09"
+      },
+      {
+        "market_id": "1006721",
+        "name": "Will Game Go to Overtime",
+        "korname": "연장전 진행",
+        "main_code": "0",
+        "sub_code": "07"
+      }
+    ]
+  },
+  "2001": {
+    "name": "E-Sports",
+    "korname": "e스포츠",
+    "game_section": 151,
+    "market": []
+  },
+  "2002": {
+      "name": "Handball",
+      "korname": "핸드볼",
+      "game_section": 78,
+      "market": []
+  },
+  "2003": {
+      "name": "Tennis",
+      "korname": "테니스",
+      "game_section": 13,
+      "market": []
+  },
+  "2004": {
+      "name": "Table Tennis",
+      "korname": "탁구",
+      "game_section": 2004,
+      "market": []
+  },
+  "2005": {
+      "name": "Badminton",
+      "korname": "배드민턴",
+      "game_section": 2005,
+      "market": []
+  },
+  "2006": {
+      "name": "Futsal",
+      "korname": "풋살",
+      "game_section": 2006,
+      "market":  []
+  }
+}

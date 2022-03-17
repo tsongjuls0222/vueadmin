@@ -1,0 +1,1 @@
+a:1:{i:0;a:10:{s:12:"game_section";s:2:"78";s:10:"league_idx";s:6:"290218";s:11:"league_name";s:15:"코리아리그";s:14:"league_korname";s:15:"코리아리그";s:11:"league_area";s:12:"대한민국";s:14:"league_korArea";s:12:"대한민국";s:18:"league_countrycode";s:3:"417";s:12:"country_sort";s:2:"16";s:11:"league_sort";s:1:"3";s:11:"leagueImage";N;}}

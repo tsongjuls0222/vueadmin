@@ -1,0 +1,38 @@
+{
+    "1": {
+      "sportsName": "Soccer",
+      "sportsKorName": "축구",
+      "game_section": 1,
+      "oddhost_v1": 1001
+    },
+    "2": {
+      "sportsName": "Baseball",
+      "sportsKorName": "야구",
+      "game_section": 16,
+      "oddhost_v1": 1002
+    },
+    "3": {
+      "sportsName": "Basketball",
+      "sportsKorName": "농구",
+      "game_section": 18,
+      "oddhost_v1": 1003
+    },
+    "4": {
+      "sportsName": "Volleyball",
+      "sportsKorName": "배구",
+      "game_section": 91,
+      "oddhost_v1": 1004
+    },
+    "5": {
+      "sportsName": "Ice Hockey",
+      "sportsKorName": "아이스 하키",
+      "game_section": 17,
+      "oddhost_v1": 1005
+    },
+    "6": {
+      "sportsName": "Football",
+      "sportsKorName": "미식 축구",
+      "game_section": 12,
+      "oddhost_v1": 1006
+    }
+}
