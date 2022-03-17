@@ -106,4 +106,20 @@ export default class API {
         const res = await axios.post(`${url}/bankstatus`, data);
         return res.data;
     }
+    static async getconfiglevel() {
+        const res = await axios.get(`${url}/getconfiglevel`);
+        return res.data;
+    }
+    static async updateconfiglevel(data) {
+        const res = await axios.post(`${url}/updateconfiglevel`, data);
+        return res.data;
+    }
+    static async getmaintenance() {
+        const res = await axios.get(`${url}/getmaintenance`);
+        return res.data;
+    }
+    static async setpages(data) {
+        const res = await axios.post(`${url}/setpages`, data);
+        return res.data;
+    }
 }

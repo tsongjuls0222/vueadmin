@@ -8,6 +8,8 @@ const User = require('../models/user');
 const Bank = require('../models/banklist');
 const PCL = require('../models/partner_claim_logs');
 const Transfer = require('../models/partner_claim_transfer_logs');
+const Level = require('../models/info_level');
+const Maintenance = require('../models/maintenance');
 const fs = require('fs');
 
 
@@ -821,6 +823,69 @@ module.exports = class API {
             res.status(404).json({ message: error.message });
         }
     }
+
+    //config level
+    static async getconfiglevel(req, res) {
+        try {
+            const result = await Level.findAll({ order: [['ilv_idx', 'ASC']] });
+            res.status(200).json(result);
+        } catch (error) {
+            res.status(404).json({ message: error.message });
+        }
+    }
+    static async updateconfiglevel(req, res) {
+        const body = req.body;
+        try {
+            for (var temp in body) {
+                const tempo = body[temp];
+                const result = await Level.update(tempo, { where: { ilv_idx: parseInt(temp + 1) } });
+                console.log(result);
+            }
+            res.status(200).json({ message: "Successfully Updated", status: 1 });
+        } catch (error) {
+            res.status(404).json({ message: error.message });
+        }
+    }
+
+    //maintenance
+    static async getmaintenance(req, res) {
+        try {
+            const pages = await Maintenance.findAll({ where: { id: { [Op.lt]: 10 } } });
+            const minigame = await Maintenance.findAll({ where: { id: { [Op.between]: [10, 18] } } });
+            const casino = await Maintenance.findAll({ where: { [Op.or]: [{ id: { [Op.between]: [19, 22] } }, { id: { [Op.in]: [32, 33] } }] } });
+            const slot = await Maintenance.findAll({ where: { id: { [Op.between]: [23, 30] } } });
+            res.status(200).json({ pages: pages, casino: casino, minigame: minigame, slot: slot });
+        } catch (error) {
+            res.status(404).json({ message: error.message });
+        }
+    }
+    static async setpages(req, res) {
+        const body = req.body;
+        try {
+            var msg = '';
+            var stats = 0;
+            const temp = await Maintenance.findAll({ attributes: ['id', 'maintenance'] });
+            await Maintenance.update({ maintenance: 0 }, { where: { id: body.tozero, }, });
+            if (body.toone.length < 1) {
+                const tempo = temp.filter(function (val) { return val.maintenance != 0 });
+                if (tempo.length > 0) {
+                    msg = "Updated Successfully";
+                    stats = 1;
+                } else {
+                    msg = "No page to be updated!";
+                }
+            } else {
+
+                await Maintenance.update({ maintenance: 1 }, { where: { id: body.toone, }, });
+                msg = "Updated Successfully";
+                stats = 1;
+            }
+            res.status(200).json({ message: msg, status: stats });
+        } catch (error) {
+            res.status(404).json({ message: error.message });
+        }
+    }
+
     //bank list
     static async getbanklist(req, res) {
         try {

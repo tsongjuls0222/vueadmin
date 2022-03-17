@@ -26,6 +26,14 @@ router.get("/transferlogs:id", API.transferlogs);
 router.get("/getinfosportsconfig", API.getinfosportsconfig);
 router.post("/updateinfosportsconfig", API.updateinfosportsconfig);
 
+//config level
+router.get("/getconfiglevel", API.getconfiglevel);
+router.post("/updateconfiglevel", API.updateconfiglevel);
+
+//maintenance
+router.get("/getmaintenance", API.getmaintenance);
+router.post("/setpages", API.setpages);
+
 let storage = multer.diskStorage({
     destination: function (req, file, cb) {
         cb(null, './upload/bank_logo');

@@ -2,302 +2,66 @@
   <div class="columns">
     <div class="column">
       <div class="box">
-        <div
-          class="header is-flex is-justify-content-space-between is-bordered"
-        >
+        <div class="header is-flex is-justify-content-space-between is-bordered">
           <span class="mt-3">점검</span>
-          <button class="mb-3 button is-info">선택수정</button>
+          <button @click="setpages" class="mb-3 button is-info">선택수정</button>
         </div>
-        <div>
+        <div class="">
           <div class="columns header ml-4 my-4">
             <div class="column is-1">
-              <input class="check" type="checkbox" />
+              <input class="check" type="checkbox" v-model="selectAll"/>
             </div>
             <div class="column">
               <span><b>Page Name</b> </span>
             </div>
           </div>
         </div>
-        <div>
-          <div class="columns ml-4">
-            <div class="column is-1">
-              <input class="check" type="checkbox" />
-            </div>
-            <div class="column">
-              <span>해외스포츠</span>
-            </div>
-          </div>
-        </div>
-        <div>
-          <div class="columns ml-4">
-            <div class="column is-1">
-              <input class="check" type="checkbox" />
-            </div>
-            <div class="column">
-              <span>국내스포츠</span>
-            </div>
-          </div>
-        </div>
-        <div>
-          <div class="columns ml-4">
-            <div class="column is-1">
-              <input class="check" type="checkbox" />
-            </div>
-            <div class="column">
-              <span> 라이브</span>
-            </div>
-          </div>
-        </div>
-        <div>
-          <div class="columns header ml-4">
-            <div class="column is-1">
-              <input class="check" type="checkbox" />
-            </div>
-            <div class="column">
-              <span>미니게임</span>
-              <span class="icon"><i class="fas fa-home"></i> </span>
-            </div>
-          </div>
-          <div class="body">
-            <div class="columns">
-              <div class="column is-offset-1">
-                <input class="check" type="checkbox" />
+        <div v-for="page in pages" :key="page.id">
+          <div>
+            <div :class="`columns ml-4 mb-2 ${(page.id == 4 || page.id == 5 || page.id == 6)?'header is-clickable':''}`">
+              <div class="column is-1">
+                <input :id="page.id" @click="checker" class="check" type="checkbox" v-model="selected" :value="page.id" />
               </div>
-              <div class="column is-10">
-                <span>파워볼</span>
-              </div>
-            </div>
-            <div class="columns">
-              <div class="column is-offset-1">
-                <input class="check" type="checkbox" />
-              </div>
-              <div class="column is-10">
-                <span>스피드키노</span>
-              </div>
-            </div>
-            <div class="columns">
-              <div class="column is-offset-1">
-                <input class="check" type="checkbox" />
-              </div>
-              <div class="column is-10">
-                <span>파워사다리</span>
-              </div>
-            </div>
-            <div class="columns">
-              <div class="column is-offset-1">
-                <input class="check" type="checkbox" />
-              </div>
-              <div class="column is-10">
-                <span>키노사다리</span>
-              </div>
-            </div>
-            <div class="columns">
-              <div class="column is-offset-1">
-                <input class="check" type="checkbox" />
-              </div>
-              <div class="column is-10">
-                <span>파워프리킥</span>
-              </div>
-            </div>
-            <div class="columns">
-              <div class="column is-offset-1">
-                <input class="check" type="checkbox" />
-              </div>
-              <div class="column is-10">
-                <span>스피드홈런</span>
-              </div>
-            </div>
-            <div class="columns">
-              <div class="column is-offset-1">
-                <input class="check" type="checkbox" />
-              </div>
-              <div class="column is-10">
-                <span>탈출사다리</span>
-              </div>
-            </div>
-            <div class="columns">
-              <div class="column is-offset-1">
-                <input class="check" type="checkbox" />
-              </div>
-              <div class="column is-10">
-                <span>망치망치</span>
-              </div>
-            </div>
-            <div class="columns">
-              <div class="column is-offset-1">
-                <input class="check" type="checkbox" />
-              </div>
-              <div class="column is-10">
-                <span>패널티킥</span>
+              <div class="column">
+                <span>{{page.page_kor}}</span>
+                <span v-if="page.id == 4 || page.id == 5 || page.id == 6" class="mdi mdi-chevron-down"></span>
               </div>
             </div>
           </div>
-        </div>
-        <div>
-          <div class="columns header ml-4">
-            <div class="column is-1">
-              <input class="check" type="checkbox" />
-            </div>
-            <div class="column">
-              <span>카지노</span>
-              <span class="icon"><i class="fas fa-home"></i> </span>
-            </div>
-          </div>
-          <div class="body">
-            <div class="columns">
-              <div class="column is-offset-1">
-                <input class="check" type="checkbox" />
-              </div>
-              <div class="column is-10">
-                <span>에볼루션게이밍</span>
-              </div>
-            </div>
-            <div class="columns">
-              <div class="column is-offset-1">
-                <input class="check" type="checkbox" />
-              </div>
-              <div class="column is-10">
-                <span>마이크로게이밍</span>
-              </div>
-            </div>
-            <div class="columns">
-              <div class="column is-offset-1">
-                <input class="check" type="checkbox" />
-              </div>
-              <div class="column is-10">
-                <span>드림게이밍</span>
-              </div>
-            </div>
-            <div class="columns">
-              <div class="column is-offset-1">
-                <input class="check" type="checkbox" />
-              </div>
-              <div class="column is-10">
-                <span>비보게이밍</span>
-              </div>
-            </div>
-            <div class="columns">
-              <div class="column is-offset-1">
-                <input class="check" type="checkbox" />
-              </div>
-              <div class="column is-10">
-                <span>아시아게이밍</span>
-              </div>
-            </div>
-            <div class="columns">
-              <div class="column is-offset-1">
-                <input class="check" type="checkbox" />
-              </div>
-              <div class="column is-10">
-                <span>게임플레이</span>
+          <div v-if="page.id == 4">
+            <div v-for="mini in minigame" :key="mini.id">
+              <div class="columns child mb-2">
+                <div class="column is-1">
+                  <input :id="mini.id" @click="checker" class="check" type="checkbox" v-model="selected" :value="mini.id"/>
+                </div>
+                <div class="column">
+                  <span>{{mini.page_kor}}</span>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <div>
-          <div class="columns header ml-4">
-            <div class="column is-1">
-              <input class="check" type="checkbox" />
-            </div>
-            <div class="column">
-              <span>슬롯</span>
-              <span class="icon"><i class="fas fa-home"></i> </span>
-            </div>
-          </div>
-          <div class="body">
-            <div class="columns">
-              <div class="column is-offset-1">
-                <input class="check" type="checkbox" />
-              </div>
-              <div class="column is-10">
-                <span>Pragmatic</span>
-              </div>
-            </div>
-            <div class="columns">
-              <div class="column is-offset-1">
-                <input class="check" type="checkbox" />
-              </div>
-              <div class="column is-10">
-                <span>Habanero</span>
-              </div>
-            </div>
-            <div class="columns">
-              <div class="column is-offset-1">
-                <input class="check" type="checkbox" />
-              </div>
-              <div class="column is-10">
-                <span>Boongo</span>
-              </div>
-            </div>
-            <div class="columns">
-              <div class="column is-offset-1">
-                <input class="check" type="checkbox" />
-              </div>
-              <div class="column is-10">
-                <span>PlayNGo</span>
-              </div>
-            </div>
-            <div class="columns">
-              <div class="column is-offset-1">
-                <input class="check" type="checkbox" />
-              </div>
-              <div class="column is-10">
-                <span>Maverick</span>
-              </div>
-            </div>
-            <div class="columns">
-              <div class="column is-offset-1">
-                <input class="check" type="checkbox" />
-              </div>
-              <div class="column is-10">
-                <span>Quickspin</span>
-              </div>
-            </div>
-            <div class="columns">
-              <div class="column is-offset-1">
-                <input class="check" type="checkbox" />
-              </div>
-              <div class="column is-10">
-                <span>Microgaming</span>
-              </div>
-            </div>
-            <div class="columns">
-              <div class="column is-offset-1">
-                <input class="check" type="checkbox" />
-              </div>
-              <div class="column is-10">
-                <span>CQ9</span>
+          <div v-else-if="page.id == 5">
+            <div v-for="casi in casino" :key="casi.id">
+              <div class="columns child mb-2">
+                <div class="column is-1">
+                  <input :id="casi.id" @click="checker" class="check" type="checkbox" v-model="selected" :value="casi.id"/>
+                </div>
+                <div class="column">
+                  <span>{{casi.page_kor}}</span>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <div>
-          <div class="columns ml-4">
-            <div class="column is-1">
-              <input class="check" type="checkbox" />
-            </div>
-            <div class="column">
-              <span>입금신청</span>
-            </div>
-          </div>
-        </div>
-        <div>
-          <div class="columns ml-4">
-            <div class="column is-1">
-              <input class="check" type="checkbox" />
-            </div>
-            <div class="column">
-              <span>출금신청</span>
-            </div>
-          </div>
-        </div>
-        <div>
-          <div class="columns ml-4">
-            <div class="column is-1">
-              <input class="check" type="checkbox" />
-            </div>
-            <div class="column">
-              <span>전체</span>
+          <div v-else-if="page.id == 6">
+            <div v-for="slut in slot" :key="slut.id">
+              <div class="columns child mb-2">
+                <div class="column is-1">
+                  <input :id="slut.id" @click="checker" class="check" type="checkbox" v-model="selected" :value="slut.id"/>
+                </div>
+                <div class="column">
+                  <span>{{slut.page_kor}}</span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -306,8 +70,7 @@
     <div class="column">
       <div class="box">
         <div
-          class="header is-flex is-justify-content-space-between is-bordered"
-        >
+          class="header is-flex is-justify-content-space-between is-bordered">
           <span class="mt-3">회원가입</span>
           <button class="mb-3 button is-info">선택수정</button>
         </div>
@@ -336,6 +99,152 @@
   </div>
 </template>
 
+<script>
+import API from '../../api/partner';
+export default {
+  data() {
+    return {
+      casino:[],
+      pages:[],
+      minigame:[],
+      slot:[],
+      selected:[],
+    }
+  },methods: {
+      async getData(){
+        const res = await API.getmaintenance();
+        this.casino = res.casino;
+        this.pages = res.pages;
+        this.minigame = res.minigame;
+        this.slot = res.slot;
+
+        this.checkers();
+      },
+      arrayRemove(arr, value) { 
+          return arr.filter(function(ele){ 
+              return ele != value; 
+          });
+      },
+      checker(event){
+        const id = event.target.id;
+        var selected = this.selected;
+        if(id == 4){
+          this.minigame.forEach(function (temp) {
+              const temp2 = selected.filter(value => value == temp.id);
+              if(temp2 != ''){
+                selected = selected.filter(value => value != temp.id );
+              }else{
+                selected.push(temp.id);
+              }
+          });
+        }else if(id == 5){
+          this.casino.forEach(function (temp) {
+              const temp2 = selected.filter(value => value == temp.id);
+              if(temp2 != ''){
+                selected = selected.filter(value => value != temp.id );
+              }else{
+                selected.push(temp.id);
+              }
+          });
+        }else if(id == 6){
+          this.slot.forEach(function (temp) {
+              const temp2 = selected.filter(value => value == temp.id);
+              if(temp2 != ''){
+                selected = selected.filter(value => value != temp.id );
+              }else{
+                selected.push(temp.id);
+              }
+          });
+        }else{
+          const temp2 = selected.filter(value => value == id);
+          if(temp2 != ''){
+            selected = selected.filter(value => value != id );
+          }else{
+            selected.push(parseInt(id));
+          }
+        }
+        this.selected = selected;
+      },
+      checkers(){
+        var selected = [];
+        this.pages.forEach(function (temp) {
+            if(temp.maintenance == 1){
+              selected.push(temp.id);
+            }
+        });
+        this.casino.forEach(function (temp) {
+            if(temp.maintenance == 1){
+              selected.push(temp.id);
+            }
+        });
+        this.minigame.forEach(function (temp) {
+            if(temp.maintenance == 1){
+              selected.push(temp.id);
+            }
+        });
+        this.slot.forEach(function (temp) {
+            if(temp.maintenance == 1){
+              selected.push(temp.id);
+            }
+        });
+
+        this.selected = selected
+      },
+      async setpages(){
+        var sendData = [];
+        this.pages.forEach(function (temp) {
+              sendData.push(temp.id);
+        });
+        this.casino.forEach(function (temp) {
+          sendData.push(temp.id);
+        });
+        this.minigame.forEach(function (temp) {
+              sendData.push(temp.id);
+        });
+        this.slot.forEach(function (temp) {
+              sendData.push(temp.id);
+        });
+        const res = await API.setpages({toone:this.selected,tozero:sendData});
+        this.$buefy.toast.open({
+            duration: 3000,
+            position: "is-top",
+            message: res.message,
+            type: (res.status < 1)?"is-danger":"is-success",
+        });
+        this.getData();
+      }
+  },
+  computed:{
+    selectAll: {
+        get: function () {
+            // return this.users ? this.selected.length == this.users.length : false;
+        },
+        set: function (value) {
+            var selected = [];
+            if (value) {
+                this.pages.forEach(function (temp) {
+                    selected.push(temp.id);
+                });
+                this.casino.forEach(function (temp) {
+                    selected.push(temp.id);
+                });
+                this.minigame.forEach(function (temp) {
+                    selected.push(temp.id);
+                });
+                this.slot.forEach(function (temp) {
+                    selected.push(temp.id);
+                });
+            }
+            this.selected = selected;
+        }
+    },
+  },
+  created(){
+    this.getData();
+  }
+}
+</script>
+
 <style lang="scss" scoped>
 .header {
   width: 100%;
@@ -347,5 +256,8 @@ input {
 }
 .column {
   padding: 0.5rem !important;
+}
+.child{
+  margin-left:90px;
 }
 </style>

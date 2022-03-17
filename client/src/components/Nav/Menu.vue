@@ -320,17 +320,26 @@ export default {
           title: "리그 관리",
           to: { name: "league-list" },
           id: "league-list",
+          checker: ['league-list','league-sorting','live-league-sorting'],
           subItems: [
             {
-              subTitle: "프리메치 경기목록",
+              subTitle: "리그목록",
               id: "league-list",
-              to: "member-list-test"
+              to: "/admin/league-list",
+              idto: "league-list"
             },
             {
-              subTitle: "국내스포츠",
-              id: "league-list",
-              to: "member-list-test"
-            }
+              subTitle: "스포츠 리그정렬",
+              id: "league-sorting",
+              to: "/admin/league-sorting",
+              idto: "league-sorting"
+            },
+            {
+              subTitle: "라이브 리그 정렬",
+              id: "live-league-sorting",
+              to: "/admin/live-league-sorting",
+              idto: "live-league-sorting"
+            },
           ]
         },
         {
