@@ -47,18 +47,22 @@
                 </thead>
                 <tbody>
                     <tr v-for="row in datas" :key="row.num" style="height:30px;">
+                      
                         <td><img width='25px' :src="`${pathing}/sports/${row.sports_id}a.png`" alt="">{{gamesec[row.sports_id+'']}}</td>
                         <td>{{(row.country_title == "")?row.team_country:row.country_title}}</td>
                         <td>
-                            <label for="file-input">
-                                <img width='25px' :src="`${pathing}/team_icon/${teamicon(row.teaming)}`" alt="">
-                            </label>
-                            <span class="mdi mdi-delete" style='width:45px'></span>
-                            <input id="file-input" type="file"/>
+                          <form action="" enctype="multipart/form-data">
+                              <label for="file-input">
+                                  <img class="is-clickable" width='25px' :src="`${pathing}/team_icon/${teamicon(row.teamimg)}`" alt="">
+                              </label>
+                              <span :class="`is-clickable ${settrash(row.teamimg)}`" @click="deleteme" :data-id="row.num" style='width:45px'></span>
+                              <input @change="onfilechange" style="display:none" id="file-input" type="file"/>
+                          </form>
                         </td>
                         <td class="text-center"><input type="text" :value="`${teamname(row.team_name_new,row.team_name)}`" style="width:80%;height:30px"></td>
                         <td><input type="text" :value="`${teamnamekor(row.team_name_kor_new,row.team_name_kor)}`" style="width:80%;height:30px"></td>
-                        <td><button class="button is-info is-small">Update</button></td>
+                        <td><button @click="setrow" :data-country="row.team_country" :data-id="row.num" class="button is-info is-small">Update</button></td>
+                        
                     </tr>
                 </tbody>
               </table>
@@ -100,7 +104,7 @@ export default {
             "2006": "풋살",
             "2005": "배드민턴",
             "151": "E-스포츠"
-          }
+          },
       }
   },
   methods: {
@@ -110,7 +114,7 @@ export default {
           const resevent = await API.getevent();
           this.event = resevent;
       },
-      async setnation(event){
+      async setnation(){
           const res = await API.getnations(this.selectedid);
           this.nation = res;
       },
@@ -121,8 +125,28 @@ export default {
               country:this.country,
           }
           const res = await API.getlist(sendData);
-          console.log(res);
           this.datas = res;
+      },
+      async deleteme(event){
+        const target = event.currentTarget.dataset;
+        var targetItem = this.datas.filter(data=>data.num==target.id);
+        targetItem = targetItem[0];
+        var sendData = {
+          sports_id: targetItem.sports_id,
+          team_id: targetItem.team_id,
+          country_id: targetItem.newCountryCode,
+        }
+        console.log(targetItem);
+        const res = await API.deleteimage(sendData);
+        this.$buefy.toast.open({
+            duration: 3000,
+            position: "is-top",
+            message: res.message,
+            type: (res.status < 1)?"is-danger":"is-success",
+        });
+        if(res.status > 0){
+          this.getlist();
+        }
       },
       teamicon(param){
           if(param == '' || param == null){
@@ -141,6 +165,66 @@ export default {
               return param2;
           }
           return param1;
+      },
+      settrash(param){
+        if(param == '' || param == null){
+              return '';
+          }
+          return 'mdi mdi-delete';
+      },
+      async setrow(event){
+        var imageupload = event.currentTarget.parentElement.parentElement.children[2].querySelector('input').files;
+        var enname = event.currentTarget.parentElement.parentElement.children[3].querySelector('input').value;
+        var korname = event.currentTarget.parentElement.parentElement.children[4].querySelector('input').value;
+        const target = event.currentTarget.dataset;
+        const formData = new FormData();
+        var targetItem = this.datas.filter(data=>data.num==target.id);
+        targetItem = targetItem[0];
+        if(imageupload.length > 0){
+          imageupload = imageupload[0];
+        }else{
+          imageupload = null;
+        }
+
+        const sendData = {
+          sports_id: targetItem.sports_id,
+          team_id: targetItem.team_id,
+          country_id: targetItem.newCountryCode,
+          korname: korname,
+          enname: enname,
+          img_file : imageupload,
+          country : target.country,
+        }
+        formData.append("img_file",imageupload);
+        formData.append("sports_id",targetItem.sports_id);
+        formData.append("team_id",targetItem.team_id);
+        formData.append("country_id",targetItem.newCountryCode);
+        formData.append("korname",korname);
+        formData.append("enname",enname);
+        formData.append("country",target.country);
+
+        console.log(sendData);
+
+        const res = await API.setrow(formData);
+        this.$buefy.toast.open({
+            duration: 3000,
+            position: "is-top",
+            message: res.message,
+            type: (res.status < 1)?"is-danger":"is-success",
+        });
+        if(res.status > 0){
+          this.getlist();
+        }
+
+      },
+      onfilechange(event){
+        var imgsrc = event.currentTarget.files[0];
+        const inputfile = event.currentTarget.parentElement.firstChild.firstChild;
+        var reader = new FileReader();
+        reader.onload = function(e) {
+          inputfile.src = e.target.result;
+        }
+        reader.readAsDataURL(imgsrc);
       }
   },
   created() {

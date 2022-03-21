@@ -18,4 +18,16 @@ export default class API {
         const res = await axios.post(`${url}/getlist`, data);
         return res.data;
     }
+    static async setrow(data) {
+        const res = await axios.post(`${url}/setrow`, data);
+        return res.data;
+    }
+    static async deleteimage(data) {
+        const res = await axios.post(`${url}/deleteimage`, data);
+        return res.data;
+    }
+    static async getleaguesorting() {
+        const res = await axios.get(`${url}/getleaguesorting`);
+        return res.data;
+    }
 }
