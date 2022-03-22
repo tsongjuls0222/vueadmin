@@ -40,6 +40,7 @@ import Realtime from '../views/Realtime.vue';
 import Minigame from '../views/Minigame.vue';
 import LeagueList from '../views/LeagueList.vue';
 import LeagueSorting from '../views/LeagueSorting.vue';
+import LiveLeagueSorting from '../views/LiveLeagueSorting.vue';
 
 Vue.use(VueRouter)
 
@@ -542,6 +543,19 @@ const routes = [
     path: '/admin/league-sorting',
     name: 'LeagueSorting',
     component: LeagueSorting,
+    beforeEnter: (to, from, next) => {
+      if (store.state.account.authenticated == false) {
+        next("/");
+      }
+      else {
+        next();
+      }
+    }
+  },
+  {
+    path: '/admin/live-league-sorting',
+    name: 'LiveLeagueSorting',
+    component: LiveLeagueSorting,
     beforeEnter: (to, from, next) => {
       if (store.state.account.authenticated == false) {
         next("/");

@@ -52,11 +52,11 @@
                         <td>{{(row.country_title == "")?row.team_country:row.country_title}}</td>
                         <td>
                           <form action="" enctype="multipart/form-data">
-                              <label for="file-input">
+                              <label :for="`file-input${row.num}`">
                                   <img class="is-clickable" width='25px' :src="`${pathing}/team_icon/${teamicon(row.teamimg)}`" alt="">
                               </label>
                               <span :class="`is-clickable ${settrash(row.teamimg)}`" @click="deleteme" :data-id="row.num" style='width:45px'></span>
-                              <input @change="onfilechange" style="display:none" id="file-input" type="file"/>
+                              <input @change="onfilechange" style="display:none" :id="`file-input${row.num}`" type="file"/>
                           </form>
                         </td>
                         <td class="text-center"><input type="text" :value="`${teamname(row.team_name_new,row.team_name)}`" style="width:80%;height:30px"></td>

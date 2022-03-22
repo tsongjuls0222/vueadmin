@@ -283,11 +283,11 @@ export default {
         }
       }
     },
-    sorted(){
-      return this.datas.sort(function(a,b){
-        return a.sort_julius > b.sort_julius;
-      });
-    },
+    // sorted(){
+    //   return this.datas.sort(function(a,b){
+    //     return a.sort_julius > b.sort_julius;
+    //   });
+    // },
   },
   created() {
     this.getData();

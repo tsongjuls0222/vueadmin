@@ -14,15 +14,6 @@
                 <div class="market-title">{{row.row.sportsKorName}}</div>
                 <div class="country-list" :data-id="row.row.game_section">
                   <List :list="row.data" :game_section="row.row.game_section" :swapping="swapping" :getleaguesorting="getleaguesorting"/>
-                  <!-- <List v-if="row.game_section == 16" :list="datas.baseball" :game_section="row.game_section" :swapping="swapping" :getleaguesorting="getleaguesorting"/>
-                  <List v-if="row.game_section == 18" :list="datas.basketball" :game_section="row.game_section" :swapping="swapping" :getleaguesorting="getleaguesorting"/>
-                  <List v-if="row.game_section == 91" :list="datas.volleyball" :game_section="row.game_section" :swapping="swapping" :getleaguesorting="getleaguesorting"/>
-                  <List v-if="row.game_section == 17" :list="datas.icehockey" :game_section="row.game_section" :swapping="swapping" :getleaguesorting="getleaguesorting"/>
-                  <List v-if="row.game_section == 12" :list="datas.football" :game_section="row.game_section" :swapping="swapping" :getleaguesorting="getleaguesorting"/>
-                  <List v-if="row.game_section == 151" :list="datas.esports" :game_section="row.game_section" :swapping="swapping" :getleaguesorting="getleaguesorting"/>
-                  <List v-if="row.game_section == 78" :list="datas.handball" :game_section="row.game_section" :swapping="swapping" :getleaguesorting="getleaguesorting"/>
-                  <List v-if="row.game_section == 13" :list="datas.tennis" :game_section="row.game_section" :swapping="swapping" :getleaguesorting="getleaguesorting"/>
-                  <List v-if="row.game_section == 2004" :list="datas.pingpong" :game_section="row.game_section" :swapping="swapping" :getleaguesorting="getleaguesorting"/> -->
                 </div>
               </div>
             </div>
@@ -36,10 +27,10 @@
 
 <script>
 import Nav from "../components/Nav/Nav.vue";
-import List from "../components/Leagues/CountryList.vue";
+import List from "../components/Leagues/LiveCountryList.vue";
 import API from "../api/league";
 export default {
-    name: "LeagueSorting",
+    name: "LiveLeagueSorting",
     components: { Nav,List },
     data() {
         return {
@@ -48,7 +39,7 @@ export default {
     },
     methods: {
       async getleaguesorting(){
-        const results = await API.getleaguesorting();
+        const results = await API.getliveleaguesorting();
         this.datas = results;
       },
       swapping(drag,drop,type){
@@ -57,11 +48,11 @@ export default {
       },
       swapitem(param,arr,drag,drop){
           const tempdata = arr;
-          const dragged = tempdata.findIndex(element=>element.sort_num == drag);
-          const dropped = tempdata.findIndex(element=>element.sort_num == drop);
+          const dragged = tempdata.findIndex(element=>element.sort_nums == drag);
+          const dropped = tempdata.findIndex(element=>element.sort_nums == drop);
           
-          tempdata[dragged].sort_num = parseInt(drop);
-          tempdata[dropped].sort_num = parseInt(drag);
+          tempdata[dragged].sort_nums = parseInt(drop);
+          tempdata[dropped].sort_nums = parseInt(drag);
 
           var temp = tempdata[dragged];
           tempdata[dragged] = tempdata[dropped];
@@ -71,14 +62,14 @@ export default {
             var temp1 = {
                 game_code: param,
                 country_code: tempdata[dragged].country_code,
-                sort: tempdata[dragged].sort_num,
-                type:'prematch',
+                sort: tempdata[dragged].sort_nums,
+                type:'live',
             }
             var temp2 = {
                 game_code: param,
                 country_code: tempdata[dropped].country_code,
-                sort: tempdata[dropped].sort_num,
-                type:'prematch',
+                sort: tempdata[dropped].sort_nums,
+                type:'live',
             }
 
             sendData.push(temp1);

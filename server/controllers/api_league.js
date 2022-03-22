@@ -4,6 +4,8 @@ const { Op } = require('sequelize');
 const fs = require('fs');
 const { resolve, parse } = require('path');
 const Teams = require('../models/teams_list');
+const League = require('../models/league_list');
+const Country = require('../models/country_sort');
 const { type } = require('os');
 
 
@@ -156,7 +158,6 @@ module.exports = class API {
     }
     static async deleteimage(req, res) {
         const body = req.body;
-        console.log(body);
         try {
             var stats = 0;
             var msg = 'Something went wrong';
@@ -172,39 +173,197 @@ module.exports = class API {
     }
     static async getleaguesorting(req, res) {
         try {
-            const soccer = "SELECT * FROM country_sort as a left join country_code as b on b.kname=a.country_title where game_section = 1 group by country_code order by sort_num asc";
-            const baseball = "SELECT * FROM country_sort as a left join country_code as b on b.kname=a.country_title where game_section = 16 group by country_code order by sort_num asc";
-            const basketball = "SELECT * FROM country_sort as a left join country_code as b on b.kname=a.country_title where game_section = 18 group by country_code order by sort_num asc";
-            const volleyball = "SELECT * FROM country_sort as a left join country_code as b on b.kname=a.country_title where game_section = 91 group by country_code order by sort_num asc";
-            const icehockey = "SELECT * FROM country_sort as a left join country_code as b on b.kname=a.country_title where game_section = 17 group by country_code order by sort_num asc";
-            const football = "SELECT * FROM country_sort as a left join country_code as b on b.kname=a.country_title where game_section = 12 group by country_code order by sort_num asc";
-            const esports = "SELECT * FROM country_sort as a left join country_code as b on b.kname=a.country_title where game_section = 151 group by country_code order by sort_num asc";
-            const handball = "SELECT * FROM country_sort as a left join country_code as b on b.kname=a.country_title where game_section = 78 group by country_code order by sort_num asc";
-            const tennis = "SELECT * FROM country_sort as a left join country_code as b on b.kname=a.country_title where game_section = 13 group by country_code order by sort_num asc";
-            const pingpong = "SELECT * FROM country_sort as a left join country_code as b on b.kname=a.country_title where game_section = 2004 group by country_code order by sort_num asc";
+            const myquery = JSON.parse(fs.readFileSync(resolve(__dirname, '../tmpdatajson/activeSports.json'), 'utf8'));
+            var sendData = [];
+            for (const key in myquery) {
+                const element = myquery[key];
+                const qwekqwek = "SELECT * FROM country_sort as a left join country_code as b on b.kname=a.country_title where game_section = " + element.game_section + " group by country_code order by sort_num asc";
+                const result = await db.query(qwekqwek, { type: QueryTypes.SELECT });
+                sendData.push({ row: element, data: result });
+            }
+            res.status(200).json(sendData);
+        } catch (err) {
+            res.status(404).json({ message: err.message });
+        }
+    }
+    static async getleagues(req, res) {
+        const body = req.body;
+        try {
+            var result = null;
+            if (body.type == 'live') {
+                result = await League.findAll({ where: { game_code: body.game_code, reg_countycode: body.reg_countrycode }, order: [['league_sorts', 'asc']] });
+            } else {
+                result = await League.findAll({ where: { game_code: body.game_code, reg_countycode: body.reg_countrycode }, order: [['league_sort', 'asc']] });
+            }
+            res.status(200).json(result);
+        } catch (err) {
+            res.status(404).json({ message: err.message });
+        }
+    }
+    static async setleaguename(req, res) {
+        const body = req.body;
+        try {
+            var updateData = {};
+            if (body.type == "live") {
+                updateData = { leagu_names: body.leagu_name };
+            } else {
+                updateData = { leagu_name: body.leagu_name };
+            }
+            const result = await League.update(updateData, { where: { game_code: body.game_code, reg_countycode: body.reg_countrycode, leagu_id: body.leagu_id } });
+            res.status(200).json({ message: 'successfully updated' });
+        } catch (err) {
+            res.status(404).json({ message: err.message });
+        }
+    }
+    static async setcountryname(req, res) {
+        const body = req.body;
+        try {
+            var updateData = {};
+            if (body.type == "live") {
+                updateData = { country_titles: body.country_title };
+            } else {
+                updateData = { country_title: body.country_title };
+            }
+            const result = await Country.update(updateData, { where: { game_section: body.game_code, country_code: body.country_code } });
+            res.status(200).json({ message: 'successfully updated' });
+        } catch (err) {
+            res.status(404).json({ message: err.message });
+        }
+    }
+    static async setleaguebox(req, res) {
+        const body = req.body;
+        try {
+            var updateData = {};
+            if (body.type == "live") {
+                updateData = { statuss: body.status };
+            } else {
+                updateData = { status: body.status };
+            }
+            const result = await League.update(updateData, { where: { game_code: body.game_code, reg_countycode: body.country_code, leagu_id: body.leagu_id } });
+            res.status(200).json({ message: 'successfully updated' });
+        } catch (err) {
+            res.status(404).json({ message: err.message });
+        }
+    }
+    static async setcountrybox(req, res) {
+        const body = req.body;
+        try {
+            var updateData = {};
+            if (body.type == "live") {
+                updateData = { statuss: body.status };
+            } else {
+                updateData = { status: body.status };
+            }
+            const result = await Country.update(updateData, { where: { game_section: body.game_code, country_code: body.country_code } });
+            res.status(200).json({ message: 'successfully updated' });
+        } catch (err) {
+            res.status(404).json({ message: err.message });
+        }
+    }
+    static async setleaguesort(req, res) {
+        const body = req.body;
+        try {
+            for (var key in body) {
+                const element = body[key];
+                var updateData = {};
+                if (element.type == "live") {
+                    updateData = { league_sorts: element.sort };
+                } else {
+                    updateData = { league_sort: element.sort };
+                }
+                const result = await League.update(updateData, { where: { game_code: element.game_code, reg_countycode: element.country_code, leagu_id: element.leagu_id } });
+            }
 
-            const ressoccer = await db.query(soccer, { type: QueryTypes.SELECT });
-            const resbaseball = await db.query(baseball, { type: QueryTypes.SELECT });
-            const resbasketball = await db.query(basketball, { type: QueryTypes.SELECT });
-            const resvolleyball = await db.query(volleyball, { type: QueryTypes.SELECT });
-            const resicehockey = await db.query(icehockey, { type: QueryTypes.SELECT });
-            const resfootball = await db.query(football, { type: QueryTypes.SELECT });
-            const resesports = await db.query(esports, { type: QueryTypes.SELECT });
-            const reshandball = await db.query(handball, { type: QueryTypes.SELECT });
-            const restennis = await db.query(tennis, { type: QueryTypes.SELECT });
-            const respingpong = await db.query(pingpong, { type: QueryTypes.SELECT });
+            res.status(200).json({ message: 'successfully updated' });
+        } catch (err) {
+            res.status(404).json({ message: err.message });
+        }
+    }
+    static async setcountrysort(req, res) {
+        const body = req.body;
+        try {
+            for (var key in body) {
+                const element = body[key];
+                var updateData = {};
+                if (element.type == "live") {
+                    updateData = { sort_nums: element.sort };
+                } else {
+                    updateData = { sort_num: element.sort };
+                }
+                const result = await Country.update(updateData, { where: { game_section: element.game_code, country_code: element.country_code } });
+            }
 
-            const sendData = {
-                soccer: ressoccer,
-                baseball: resbaseball,
-                basketball: resbasketball,
-                volleyball: resvolleyball,
-                icehockey: resicehockey,
-                football: resfootball,
-                esports: resesports,
-                handball: reshandball,
-                tennis: restennis,
-                pingpong: respingpong,
+            res.status(200).json({ message: 'successfully updated' });
+        } catch (err) {
+            res.status(404).json({ message: err.message });
+        }
+    }
+    static async countryupload(req, res) {
+        const body = req.body;
+        const file = req.file;
+        console.log(body);
+        try {
+            var stats = 0;
+            var msg = '';
+            var seetrue = true;
+
+            if ((file !== null && file !== undefined && file !== '')) {
+                if (file.size > 1024 * 1024 * 2) {
+                    msg = 'File too large';
+                    seetrue = false;
+                    try {
+                        fs.unlinkSync('./upload/country_icon/' + file.filename);
+                    } catch (error) {
+                        msg = error;
+                    }
+                }
+                if (!(file.mimetype.includes('jpeg')) && !(file.mimetype.includes('png')) && !(file.mimetype.includes('jpg'))) {
+                    msg = "File not supported";
+                    seetrue = false;
+                    try {
+                        fs.unlinkSync('./upload/country_icon/' + file.filename);
+                    } catch (error) {
+                        msg = error;
+                    }
+                }
+            }
+
+            if (seetrue) {
+                body.img_file = file.filename;
+                var updateData = {};
+                if (body.type == "live") {
+                    updateData = { img_files: body.img_file };
+                } else {
+                    updateData = { img_file: body.img_file };
+                }
+                const result = await Country.update(updateData,
+                    {
+                        where: {
+                            game_section: body.game_section,
+                            country_code: body.country_code,
+                        }
+                    }
+                );
+
+                if (result.length > 0) {
+                    stats = 1;
+                    msg = "Successfully Updated";
+                }
+            }
+            res.status(200).json({ message: msg, status: stats });
+        } catch (err) {
+            res.status(404).json({ message: err.message });
+        }
+    }
+    static async getliveleaguesorting(req, res) {
+        try {
+            const myquery = JSON.parse(fs.readFileSync(resolve(__dirname, '../tmpdatajson/liveActiveSports.json'), 'utf8'));
+            var sendData = [];
+            for (const key in myquery) {
+                const element = myquery[key];
+                const qwekqwek = "SELECT * FROM country_sort as a left join country_code as b on b.kname=a.country_title where game_section = " + element.game_section + " group by country_code order by sort_nums asc";
+                const result = await db.query(qwekqwek, { type: QueryTypes.SELECT });
+                sendData.push({ row: element, data: result });
             }
             res.status(200).json(sendData);
         } catch (err) {

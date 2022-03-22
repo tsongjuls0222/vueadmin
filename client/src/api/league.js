@@ -30,4 +30,40 @@ export default class API {
         const res = await axios.get(`${url}/getleaguesorting`);
         return res.data;
     }
+    static async getleagues(data) {
+        const res = await axios.post(`${url}/getleagues`, data);
+        return res.data;
+    }
+    static async setleaguename(data) {
+        const res = await axios.post(`${url}/setleaguename`, data);
+        return res.data;
+    }
+    static async setcountryname(data) {
+        const res = await axios.post(`${url}/setcountryname`, data);
+        return res.data;
+    }
+    static async setleaguebox(data) {
+        const res = await axios.post(`${url}/setleaguebox`, data);
+        return res.data;
+    }
+    static async setcountrybox(data) {
+        const res = await axios.post(`${url}/setcountrybox`, data);
+        return res.data;
+    }
+    static async setleaguesort(data) {
+        const res = await axios.post(`${url}/setleaguesort`, data);
+        return res.data;
+    }
+    static async setcountrysort(data) {
+        const res = await axios.post(`${url}/setcountrysort`, data);
+        return res.data;
+    }
+    static async countryupload(data) {
+        const res = await axios.post(`${url}/countryupload`, data);
+        return res.data;
+    }
+    static async getliveleaguesorting() {
+        const res = await axios.get(`${url}/getliveleaguesorting`);
+        return res.data;
+    }
 }

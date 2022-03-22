@@ -1,20 +1,20 @@
 <template>
     <div>
         <div v-for="row in list" :key="row.id" :id="row.id" class="country-content">
-            <div class="country-title" @drop="droppablelist($event,row.sort_num)" @dragenter.prevent @dragstart="startDrag($event,row.sort_num)" @dragover.prevent draggable="true">
-                <input @change="setcountrybox" :data-code="row.country_code" class="nyeckbox" type="checkbox" v-model="row.status" :true-value="'open'" :false-value="'close'">
+            <div class="country-title" @drop="droppablelist($event,row.sort_nums)" @dragenter.prevent @dragstart="startDrag($event,row.sort_nums)" @dragover.prevent draggable="true">
+                <input @change="setcountrybox" :data-code="row.country_code" class="nyeckbox" type="checkbox" v-model="row.statuss" :true-value="'open'" :false-value="'close'">
                 <form action="" enctype="multipart/form-data">
                     <label :for="`file-input${row.id}`">
-                        <img width="16px" class="is-clickable" :src="`${pathing}/${setimage(row.img_file,row.a2code)}`" alt="">
+                        <img width="16px" class="is-clickable" :src="`${pathing}/${setimage(row.img_files,row.a2code)}`" alt="">
                     </label>
                 </form>
                 <input :data-code="row.country_code" @change="onfilechange" type="file" name="" :id="`file-input${row.id}`">
-                <input @focusout="setcountryname" :data-id="row.id" :data-code="row.country_code" @click="showleagues" class="input is-small" type="text" :value="row.country_title">
+                <input @focusout="setcountryname" :data-id="row.id" :data-code="row.country_code" @click="showleagues" class="input is-small" type="text" :value="row.country_titles">
             </div>
             <div class="league-list" v-if="datas.length > 0 && currentleague == row.id">
-                <div class="league-title" v-for="ruw in datas" :id="ruw.num" :key="ruw.num" :data-code="row.country_code" @drop="leagueDrop($event, ruw.league_sort)" @dragstart="leagueDrag($event, ruw.league_sort)" @dragover.prevent @dragenter.prevent draggable="true" :data-league="ruw.leagu_id">
-                    <input @change="setleaguebox" class="nyeckbox" v-model="ruw.status" type="checkbox" :true-value="'open'" :false-value="'close'">
-                    <input @focusout="setleaguename" @click="setcurrent" class="input is-small" type="text" :value="ruw.leagu_name">
+                <div class="league-title" v-for="ruw in datas" :id="ruw.num" :key="ruw.num" :data-code="row.country_code" @drop="leagueDrop($event, ruw.league_sorts)" @dragstart="leagueDrag($event, ruw.league_sorts)" @dragover.prevent @dragenter.prevent draggable="true" :data-league="ruw.leagu_id">
+                    <input @change="setleaguebox" class="nyeckbox" v-model="ruw.statuss" type="checkbox" :true-value="'open'" :false-value="'close'">
+                    <input @focusout="setleaguename" @click="setcurrent" class="input is-small" type="text" :value="ruw.leagu_names">
                 </div>
                 <!-- <div class="save-settings">
                     <button @click="savecountry" class="button is-info is-small">Save Country Settings</button>
@@ -62,7 +62,7 @@ export default {
             const sendData = {
                 game_code :this.game_section,
                 reg_countrycode :data_set.code,
-                type:'prematch',
+                type:'live',
             }
             if(this.currentleague != null){
                 const res = await API.getleagues(sendData);
@@ -78,7 +78,7 @@ export default {
                 game_code: this.game_section,
                 country_code: target.dataset.code,
                 status: (target.checked)?'open':'close',
-                type:'prematch',
+                type:'live',
             }
             // console.log(sendData);
             const res = await API.setcountrybox(sendData);
@@ -92,7 +92,7 @@ export default {
                 country_code: parent.dataset.code,
                 leagu_id: parent.dataset.league,
                 status: (target.checked)?'open':'close',
-                type:'prematch',
+                type:'live',
             }
             const res = await API.setleaguebox(sendData);
         },
@@ -108,7 +108,7 @@ export default {
                 reg_countrycode: parent.dataset.code,
                 leagu_id:parent.dataset.league,
                 leagu_name: target.value,
-                type:'prematch',
+                type:'live',
             }
 
             if(this.currentname != target.value){
@@ -121,7 +121,7 @@ export default {
                 game_code: this.game_section,
                 country_code: target.dataset.code,
                 country_title: target.value,
-                type:'prematch',
+                type:'live',
             }
             if(this.currentname != target.value){
                 const res = await API.setcountryname(sendData);
@@ -157,11 +157,11 @@ export default {
             const dragid = event.dataTransfer.getData('itemID');
             const dropid = drop;
 
-            const dragged = this.datas.findIndex(element=>element.league_sort == dragid);
-            const dropped = this.datas.findIndex(element=>element.league_sort == dropid);
-            
-            this.datas[dragged].league_sort = parseInt(dropid);
-            this.datas[dropped].league_sort = parseInt(dragid);
+            const dragged = this.datas.findIndex(element=>element.league_sorts == dragid);
+            const dropped = this.datas.findIndex(element=>element.league_sorts == dropid);
+
+            this.datas[dragged].league_sorts = parseInt(dropid);
+            this.datas[dropped].league_sorts = parseInt(dragid);
 
             var temp = this.datas[dragged];
             this.datas[dragged] = this.datas[dropped];
@@ -173,15 +173,15 @@ export default {
                 game_code: this.game_section,
                 country_code: this.datas[dragged].reg_countycode,
                 leagu_id:this.datas[dragged].leagu_id,
-                sort: this.datas[dragged].league_sort,
-                type:'prematch',
+                sort: this.datas[dragged].league_sorts,
+                type:'live',
             }
             var temp2 = {
                 game_code: this.game_section,
                 country_code: this.datas[dropped].reg_countycode,
                 leagu_id:this.datas[dropped].leagu_id,
-                sort: this.datas[dropped].league_sort,
-                type:'prematch',
+                sort: this.datas[dropped].league_sorts,
+                type:'live',
             }
 
             sendData.push(temp1);
@@ -204,7 +204,7 @@ export default {
             formData.append('img_file', imgsrc);
             formData.append('game_section', this.game_section);
             formData.append('country_code', event.currentTarget.dataset.code);
-            formData.append('type','prematch');
+            formData.append('type','live');
 
             const res = await API.countryupload(formData);
             this.$buefy.toast.open({
@@ -218,12 +218,12 @@ export default {
     computed:{
         sortcountry(){
             return this.list.sort(function(a,b){
-                return a.sort_num > b.sort_num;
+                return a.sort_nums > b.sort_nums;
             });
         },
         sortleague(){
             return this.datas.sort(function(a,b){
-                return a.league_sort > b.league_sort;
+                return a.league_sorts > b.league_sorts;
             });
         }
     },
