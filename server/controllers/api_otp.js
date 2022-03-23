@@ -21,25 +21,19 @@ module.exports = class API {
             }
 
 
-            const myquery = `Select *,b.id as userid,a.id as otpid from otp_logs a left join (select a.real_code,
-                a.iu_level,
-                a.username,
-                a.iu_nickname,
-                a.iu_name,
-                a.iu_status,
-                a.iu_recommend,
-                a.iu_reg_ip,
-                a.id,
-                a.iu_memtype, b.ia_name, CONCAT('82', SUBSTRING(a.iu_phone, 4, 11)) as newphone, c.username as recommender from info_user as a left join info_agent as b on a.iu_partner = b.ia_idx left join info_user as c on a.iu_recommend = c.id) as b on a.mobile_number = newphone where (date_format(a.datetime, '%Y-%m-%d %H:%i:%s') >= '${fromdate}' and date_format(a.datetime, '%Y-%m-%d %H:%i:%s') <= '${todate}') ${cond} order by a.id desc limit ${start},50`;
+            const myquery = `Select *,b.id as userid,a.id as otpid from otp_logs a left join (select a.real_code, a.iu_level, a.username, a.iu_nickname, a.iu_name, a.iu_status, a.iu_recommend, a.iu_reg_ip, a.id, a.iu_memtype, b.ia_name, CONCAT('82', SUBSTRING(a.iu_phone, 4, 11)) as newphone, c.username as recommender from info_user as a left join info_agent as b on a.iu_partner = b.ia_idx left join info_user as c on a.iu_recommend = c.id) as b on a.mobile_number = newphone where (date_format(a.datetime, '%Y-%m-%d %H:%i:%s') >= '${fromdate}' and date_format(a.datetime, '%Y-%m-%d %H:%i:%s') <= '${todate}') ${cond} order by a.id desc limit ${start},50`;
+            const qwekqwek = `Select a.*, b.*, ia.ia_name as name, b.id as userid, a.id as otpid from otp_logs as a left join (select a.iu_level, a.username, a.iu_status, a.iu_nickname, a.iu_name, a.iu_recommend, a.iu_reg_ip, a.id, a.iu_memtype, b.ia_name, b.ia_code, CONCAT('82', SUBSTRING(a.iu_phone, 4, 11)) as newphone, c.username as recommender from info_user as a left join info_agent as b on a.iu_partner = b.ia_idx left join info_user as c on a.iu_recommend = c.id) as b on a.mobile_number = newphone left JOIN info_agent ia on ia.ia_idx = a.otp_partner_id where (date_format(a.datetime, '%Y-%m-%d %H:%i:%s') >= '${fromdate}' and date_format(a.datetime, '%Y-%m-%d %H:%i:%s') <= '${todate}') ${cond} order by a.id desc limit ${start},50`;
 
             const mycount = `Select count(a.id) as counter from otp_logs a left join ( select a.id, b.ia_name, CONCAT('82', SUBSTRING(a.iu_phone, 4, 11)) as newphone, c.username as recommender from info_user as a left join info_agent as b on a.iu_partner = b.ia_idx left join info_user as c on a.iu_recommend = c.id) as b on a.mobile_number = newphone where (date_format(a.datetime, '%Y-%m-%d %H:%i:%s') >= '${fromdate}' and date_format(a.datetime, '%Y-%m-%d %H:%i:%s') <= '${todate}') ${cond}`;
-            const getalldata = await db.query(myquery, {
+            const qwekqwekcount = `Select count(a.id) as counter otp_logs as a left join (select a.iu_level, a.username, a.iu_status, a.iu_nickname, a.iu_name, a.iu_recommend, a.iu_reg_ip, a.id, a.iu_memtype, b.ia_name, b.ia_code, CONCAT('82', SUBSTRING(a.iu_phone, 4, 11)) as newphone, c.username as recommender from info_user as a left join info_agent as b on a.iu_partner = b.ia_idx left join info_user as c on a.iu_recommend = c.id) as b on a.mobile_number = newphone left JOIN info_agent ia on ia.ia_idx = a.otp_partner_id where (date_format(a.datetime, '%Y-%m-%d %H:%i:%s') >= '${fromdate}' and date_format(a.datetime, '%Y-%m-%d %H:%i:%s') <= '${todate}') ${cond}`;
+            const getalldata = await db.query(qwekqwek, {
                 type: QueryTypes.SELECT
             });
+
             const count = await db.query(mycount, {
                 type: QueryTypes.SELECT
             });
-
+            console.log(count);
             res.status(200).json({
                 data: getalldata,
                 count: count

@@ -35,6 +35,9 @@ const popup = db.define('popup', {
     settingsauto: {
         type: Sequelize.TINYINT,
     },
+    location: {
+        type: Sequelize.STRING,
+    },
 }, {
     // options
     timestamps: false

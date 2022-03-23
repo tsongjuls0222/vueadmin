@@ -8,21 +8,16 @@
               <div class="is-flex is-justify-content-space-between my-3">
                 <span class="ml-4">파트너관리</span>
                 <div class="buttons">
-                  <span class="icon mx-2"
-                    ><i class="mdi mdi-chevron-down"></i
-                  ></span>
-                  <span @click="refresh" class="icon mx-2"
-                    ><i class="mdi mdi-refresh"></i
-                  ></span>
-                  <span class="icon mx-2"
-                    ><i class="mdi mdi-close"></i
-                  ></span>
+                  <input @keyup="searchcode" type="text" name="" id="" placeholder="Code Search">
+                  <span @click="collapsii" id="qwekqwek" class="mdi mdi-chevron-down is-clickable mx-2"></span>
+                  <span @click="refresh" class="icon mx-2"><i class="is-clickable mdi mdi-refresh"></i></span>
+                  <span class="icon mx-2"><i class="mdi mdi-close"></i></span>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <div class="card-content">
+        <div class="card-content" id="qwekqwek2" style="display:block">
           <div class="content">
             <table>
               <thead>
@@ -35,8 +30,15 @@
                 </tr>
               </thead>
               <tbody>
-                  <tr :style="{'color':(data.icd_status > 0)?'red':''}" @click="getinfo" v-for="data in datas" :id="data.key" :key="data.key" :data-set="data.ia_parent" :class="`is-clickable ${(data.key==currentid)?'highlight':''}`" > 
-                    <!-- <td :class="`partner-title ${hascolor(data.status)}`" :style="{'padding-left':`${data.depth*20}px !important`}"><span :class="`${haschildren(data.children.length)}`"></span>{{data.title}}</td> -->
+                  <tr :style="{'color':(data.icd_status > 0)?'red':''}" @click="getinfo" v-for="data in datas" :id="data.key" :key="data.key" :data-set="data.parent" :class="`kwekwek${data.parent} is-clickable ${(data.key==currentid)?'highlight':''}`" > 
+                    <td :class="`partner-title ${hascolor(data.status)}`" :style="{'padding-left':`${data.depth*20}px !important`}">
+                      <span @click="collapsiitable" :data-set="data.key" :class="`${haschildren(data.children.length)} is-clickable`"></span>
+                      <span :class="`${hasfolder(data.children.length)} is-clickable`"></span>
+                      <span>{{data.title}}</span>
+                    <!-- <td :class="`partner-title ${hascolor(data.status)}`" :style="{'padding-left':`${data.depthvalue*20}px !important`}">
+                      <span :class="`${haschildren(data.children)}`"></span>
+                      <span>{{data.ia_name +" ("+data.ia_code+")"}}</span> -->
+                    </td>
                     <td>{{data.member}}</td>
                     <td>{{Number(data.balance).toLocaleString()}}원</td>
                     <td>{{Number(data.fee).toLocaleString()}}원</td>
@@ -50,7 +52,7 @@
       </div>
     </div>
     <div class="column is-5">
-      <div class="card">
+      <div class="card main-right">
         <div class="card-header">
           <div class="columns" style="width: 100%">
             <div class="column">
@@ -62,13 +64,13 @@
                   <button @click="setsubpartner" v-if="partnerinfo.ia_idx != 224" class="button is-info is-centered mx-2">관리</button>
                   <button @click="showlogs=true" class="button is-primary is-centered mx-2">Logs</button>
                   <button @click="subpartner" class="button is-success is-centered mx-2">하부생성</button>
-                  <span class="icon mx-2"><i class="mdi mdi-chevron-down"></i></span>
+                  <span @click="collapsii" id="rightcollapse" class="mdi mdi-chevron-down is-clickable icon mx-2"></span>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <div class="card-content">
+        <div class="card-content" id="rightcollapse2" style="display:block">
           <div class="content">
             <div class="is-flex is-flex-direction-column">
               <label><span class="partner-name">{{partnerinfo.ia_name}}</span> </label>
@@ -142,7 +144,7 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr v-for="code in partnercode" :key="code.icd_idx">
+                    <tr v-for="code in partnercode" :key="code.icd_idx" :id="`code`+code.icd_idx" :class="`${(code.icd_code==currentcode)?'highlight':''}`">
                       <td>{{code.icd_name}}</td>
                       <td>{{code.icd_code}}</td>
                       <td><span :style="{'color':(code.icd_status > 0)?'red':'blue'}">{{(code.icd_status > 0)?'stop':'normal'}}</span></td>
@@ -186,6 +188,10 @@ export default {
       showlogs:false,
       ipaddress:null,
       position:null,
+      delay: 1000,
+      targetvalue: '',
+      timeout:null,
+      currentcode:null,
     }
   },
   components:{Nodata,LogPopup,AddAccount,AddCode,SubPartner,Transfer},
@@ -193,37 +199,120 @@ export default {
     async refresh(){
       const res = await API.refresh();
       this.datas = res.data;
-      // const maindata = this.datas.filter((element,index) => console.log(element.ia_parent));// element[index].ia_parent == '224');
-      // console.log(maindata);
-      // const temp = maindata;
-
+      // const res = await API.refreshs();
+      // const tempingdata = res.data;
+      // const bubonsa = tempingdata.filter(element => element.parent == '224');
+      // const maindata = bubonsa;
+      // const mejang = [];
+      // const chongpan = [];
+      // var temp = bubonsa;
+      // var counter = 2;
       // temp.forEach(element => {
-      //     const tempchild = all.filter(data => data.ia_parent == element.ia_idx);
-      //     maindata.splice(maindata.indexOf(element.ia_idx), 0, tempchild);
-      // })
-      // const maindata = this.datas.filter(element => element.ia_parent == '224');
-      // var temp = maindata;
-      // // console.log(maindata);
-      // temp.forEach(element => {
-      //     // console.log(element.ia_idx);
-      //     const tempchild = this.datas.filter(data => data.ia_parent == element.ia_idx);
+      //     const tempchild = tempingdata.filter(data => data.parent == element.id);
+      //     element.depthvalue = counter;
           
       //     if(tempchild.length > 0){
+      //       // counter = counter + 2;
       //       // console.log(tempchild);
-      //     //   // console.log(element.ia_idx);
-      //     //   // console.log(maindata.findIndex(tempo => tempo.ia_idx ==  element.ia_idx));
+      //       var childcounter = 0;
       //       tempchild.forEach(tempelement =>{
-      //         // console.log(tempelement.ia_parent);
-      //         // console.log(maindata.findIndex(tempo => tempo.ia_idx ==  element.ia_idx) + "  index of this child in parent");
-      //         const index = maindata.findIndex(tempo => tempo.ia_idx ==  tempelement.ia_parent);
-      //         console.log(parsetInt(index) + 1);
-      //         // maindata.splice(index, 0, tempelement);
+      //         console.log(tempelement.parent+"====="+element.id)
+      //         if(tempelement.parent == element.id){
+      //           console.log(tempelement);
+      //           var index = bubonsa.findIndex(tempo => tempo.id ==  tempelement.parent);
+      //           tempelement.depthvalue = counter;
+      //           index = index + 1 + childcounter;
+                
+      //           maindata.splice(index, 0, tempelement);
+      //           childcounter++;
+      //         }
       //       });
-            
+      //     }else{
+      //       counter = 2;
       //     }
-          
       // })
-      // console.log(maindata);
+      // const rootparent = tempingdata.filter(element => element.parent == 0);
+      // maindata.splice(0, 0, rootparent[0]);
+      // this.datas = maindata;
+    },
+    collapsii(event){
+      var chevron = event.currentTarget.classList[1];
+      console.log(chevron);
+      if(chevron == 'mdi-chevron-down'){
+        event.currentTarget.classList.replace('mdi-chevron-down','mdi-chevron-up');
+      }else{
+        event.currentTarget.classList.replace('mdi-chevron-up','mdi-chevron-down');
+      }
+      var content = document.getElementById(event.currentTarget.id+'2');
+      if (content.style.display == 'block'){
+        content.style.display = 'none';
+      } else {
+        content.style.display = 'block';
+      } 
+    },
+    collapsiitable(event){
+      var target = event.currentTarget.dataset.set;
+      var folder = event.currentTarget.nextElementSibling.classList[2];
+      var chevron = event.currentTarget.classList[1];
+      if(folder == 'mdi-folder-open'){
+        event.currentTarget.nextElementSibling.classList.replace('mdi-folder-open','mdi-folder');
+      }else{
+        event.currentTarget.nextElementSibling.classList.replace('mdi-folder','mdi-folder-open');
+      }
+      if(chevron == 'mdi-chevron-down'){
+        event.currentTarget.classList.replace('mdi-chevron-down','mdi-chevron-right');
+      }else{
+        event.currentTarget.classList.replace('mdi-chevron-right','mdi-chevron-down');
+      }
+      const elements = document.getElementsByClassName('kwekwek'+target);
+      for(var x=0; x<elements.length; x++){
+        const element = elements[x];
+        target = element.getAttribute('id');
+        this.findchildelement(target);
+        if (element.style.display == ''){
+          element.style.display = 'none';
+        } else {
+          element.style.display = '';
+        } 
+      }
+    },
+    findchildelement(target){
+      const elements = document.getElementsByClassName('kwekwek'+target);
+      for(var x=0; x<elements.length; x++){
+        const element = elements[x];
+        const childtarget = element.getAttribute('id');
+        this.findchildelement(childtarget);
+        if (element.style.display == ''){
+          element.style.display = 'none';
+        } else {
+          element.style.display = '';
+        } 
+      }
+    },
+    searchcode(event){
+      const target = event.currentTarget;
+      
+      if(this.timeout){
+        clearInterval(this.timeout);
+      }
+      this.targetvalue = target.value;
+      if(target.value != ''){
+        this.timeout = setTimeout(this.findingcode,this.delay);
+      }
+    },
+    async findingcode(){
+      const res = await API.findingcode(this.targetvalue);
+      this.getpartner(res.icd_agent);
+      this.currentid = res.icd_agent;
+      this.currentcode = res.icd_code;
+      const yOffset = -300; 
+      const element = document.getElementById(res.icd_agent);
+      const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
+      window.scrollTo({top: y, behavior: 'smooth'});
+      // console.log(res.icd_idx);
+      // const elementcode = document.getElementById('code'+res.icd_idx);
+      // const yy = elementcode.getBoundingClientRect().top + window.pageYOffset + yOffset;
+      // window.scrollTo({top: yy, behavior: 'smooth'});
     },
     addpartneraccount(){
       this.$modal.show(AddAccount,{ip:this.ipaddress,partnerinfo:this.partnerinfo,getpartner:this.getpartner,currentinfo:null},{
@@ -338,6 +427,12 @@ export default {
       }
       return 'pr-4';
     },
+    hasfolder(value){
+      if(value > 0){
+        return 'pr-4 mdi mdi-folder-open';
+      }
+      return 'pr-4 mdi mdi-folder';
+    },
     hascolor(temp){
       if(temp > 0){
         return 'has-text-danger';
@@ -348,6 +443,7 @@ export default {
       if(event.target.parentElement.id != ''){
         this.currentid = event.target.parentElement.id;
         this.getpartner(event.target.parentElement.id);
+        this.currentcode = null;
       }
     },
     close(){
@@ -411,5 +507,11 @@ label {
     width:98%;
     height: 98%;
     z-index: 500;
+}
+.main-right{
+    position: fixed;
+    width: 40vw;
+    max-height: calc(100vh - 240px);
+    overflow-y: auto;
 }
 </style>

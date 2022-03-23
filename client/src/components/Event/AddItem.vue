@@ -23,6 +23,15 @@
                             </div>
                         </div>
                     </div>
+                    <!-- <div class="row mb-5">
+                        <label for="">Location</label>
+                        <div class="select" style="width:100%">
+                            <select v-model="toedit.location" name="" id=""  style="width:100%">
+                                <option value="inside">inside</option>
+                                <option value="outside">outside</option>
+                            </select>
+                        </div>
+                    </div> -->
                     <div class="row mb-5 is-flex" >
                         <input type="file" class="input" ref="fileupload" id="upload-file" @change="onfileselected">
                         <label for="upload-file" class="input-group-text">Browse</label>

@@ -72,22 +72,22 @@
         <div
           class="header is-flex is-justify-content-space-between is-bordered">
           <span class="mt-3">회원가입</span>
-          <button class="mb-3 button is-info">선택수정</button>
+          <button @click="setsignup" class="mb-3 button is-info">선택수정</button>
         </div>
         <div>
           <div class="columns header ml-4 my-4">
             <div class="column is-1">
-              <input class="check" type="checkbox" />
+              <input class="check" type="checkbox" v-model="rightAll"/>
             </div>
             <div class="column">
               <span><b>Page Name</b> </span>
             </div>
           </div>
         </div>
-        <div>
+        <div v-for="row in signup" :key="row.id">
           <div class="columns ml-4">
             <div class="column is-1">
-              <input class="check" type="checkbox" />
+              <input class="check" type="checkbox" v-model="rightselected" :value="row.id"/>
             </div>
             <div class="column">
               <span>회원가입</span>
@@ -109,6 +109,8 @@ export default {
       minigame:[],
       slot:[],
       selected:[],
+      rightselected:[],
+      signup:[],
     }
   },methods: {
       async getData(){
@@ -117,8 +119,10 @@ export default {
         this.pages = res.pages;
         this.minigame = res.minigame;
         this.slot = res.slot;
+        this.signup = res.signup;
 
         this.checkers();
+        this.rigthcheckers();
       },
       arrayRemove(arr, value) { 
           return arr.filter(function(ele){ 
@@ -190,6 +194,15 @@ export default {
 
         this.selected = selected
       },
+      rigthcheckers(){
+        var selected = [];
+        this.signup.forEach(function (temp) {
+            if(temp.maintenance == 1){
+              selected.push(temp.id);
+            }
+        });
+        this.rightselected = selected;
+      },
       async setpages(){
         var sendData = [];
         this.pages.forEach(function (temp) {
@@ -212,7 +225,21 @@ export default {
             type: (res.status < 1)?"is-danger":"is-success",
         });
         this.getData();
-      }
+      },
+      async setsignup(){
+        var sendData = [];
+        this.signup.forEach(function (temp) {
+              sendData.push(temp.id);
+        });
+        const res = await API.setpages({toone:this.rightselected,tozero:sendData});
+        this.$buefy.toast.open({
+            duration: 3000,
+            position: "is-top",
+            message: res.message,
+            type: (res.status < 1)?"is-danger":"is-success",
+        });
+        this.getData();
+      },
   },
   computed:{
     selectAll: {
@@ -236,6 +263,21 @@ export default {
                 });
             }
             this.selected = selected;
+        }
+    },
+    rightAll: {
+        get: function () {
+            // return this.users ? this.selected.length == this.users.length : false;
+        },
+        set: function (value) {
+            var selected = [];
+            if (value) {
+                var selected = [];
+                this.signup.forEach(function (temp) {
+                    selected.push(temp.id);
+                });
+            }
+            this.rightselected = selected;
         }
     },
   },

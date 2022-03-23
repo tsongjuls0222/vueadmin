@@ -31,7 +31,7 @@
               <td>{{formatDate(row.datetime)}}</td>
               <td>{{(row.datetime_check == '' || row.datetime_check == null)? '-': row.datetime_check }}</td>
               <td>{{(row.ia_name == null)?'-':row.ia_name}}</td>
-              <td>{{(row.real_code == null)?'-':row.real_code}}</td>
+              <td>{{(row.otp_real_code == null)?row.ia_code:row.otp_real_code}}</td>
               <td>{{(row.iu_level == null)?'-':row.iu_level}}</td>
               <td>{{(row.username == null)?'-':row.username}}</td>
               <td>{{(row.iu_nickname == null)?'-':row.iu_nickname}}</td>

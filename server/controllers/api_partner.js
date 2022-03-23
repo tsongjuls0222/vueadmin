@@ -15,6 +15,7 @@ const fs = require('fs');
 
 var crypto = require('crypto');
 const e = require('express');
+const { all } = require('../routes/routes_partner.js');
 
 module.exports = class API {
     //partner list
@@ -75,26 +76,28 @@ module.exports = class API {
             res.status(404).json({ message: err.message });
         }
     }
-    // static async getpartnertree(req, res) {
-    //     try {
-    //         var masterid = 224;
-    //         var temp = [];
-    //         const alldata = await Agent.findAll({ where: { status: 1 }, attributes: ['ia_parent', 'ia_idx', 'ia_balance', 'ia_fee', 'ia_loosing', 'ia_rate', 'ia_status', 'ia_name', 'ia_code'] });
-    //         // console.log(alldata);
-    //         // const maindata = alldata.filter(function (element) { return element.ia_parent == 224 });
-    //         // temp = maindata;
-    //         // for (const key in temp) {
-    //         //     const tempdata = temp[key];
-    //         //     console.log(tempdata);
-    //         //     const tempchild = all.filter(data => data.ia_parent == element.ia_idx);
-    //         //     maindata.splice(maindata.indexOf(element.ia_idx), 0, tempchild);
-    //         // }
+    static async getpartnertrees(req, res) {
+        try {
+            var masterid = 224;
+            var temp = [];
+            // const alldata = await Agent.findAll({ where: { status: 1 }, attributes: ['ia_parent', 'ia_idx', 'ia_balance', 'ia_fee', 'ia_loosing', 'ia_rate', 'ia_status', 'ia_name', 'ia_code'] });
+            // console.log(alldata);
+            // const maindata = alldata.filter(function (element) { return element.ia_parent == 224 });
+            // temp = maindata;
+            // for (const key in temp) {
+            //     const tempdata = temp[key];
+            //     console.log(tempdata);
+            //     const tempchild = all.filter(data => data.ia_parent == element.ia_idx);
+            //     maindata.splice(maindata.indexOf(element.ia_idx), 0, tempchild);
+            // }
 
-    //         res.status(200).json(alldata);
-    //     } catch (err) {
-    //         res.status(404).json({ message: err.message });
-    //     }
-    // }
+            const myquery = `SELECT ia_parent as parent, ia_idx as id, ia_balance as balance, ia_fee as fee, ia_loosing as loosing, ia_rate as rate, ia_status as status , ia_bonsa, ia_bubonsa, ia_chongpan, ia_name, ia_code, 'true' as expanded, ( select count(id) from info_user where iu_partner = ia_idx and iu_status IN (1, 4) and iu_memtype NOT IN ('테스트아이디', '총판전용아이디')) as member, (SELECT count(ia_idx) from info_agent where ia_parent = id) as children, 1 as depthvalue FROM info_agent ia where status = 1`;
+            const alldata = await db.query(myquery, { type: QueryTypes.SELECT });
+            res.status(200).json(alldata);
+        } catch (err) {
+            res.status(404).json({ message: err.message });
+        }
+    }
 
 
     static async getpartnerinfo(req, res) {
@@ -147,6 +150,16 @@ module.exports = class API {
         }
     }
 
+    static async findingcode(req, res) {
+        const id = req.params.id;
+        try {
+            const coderesult = await Code.findOne({ where: { icd_code: id } });
+
+            res.status(200).json(coderesult);
+        } catch (err) {
+            res.status(404).json({ message: err.message });
+        }
+    }
     static async addcode(req, res) {
         const body = req.body;
         try {
@@ -875,7 +888,8 @@ module.exports = class API {
             const minigame = await Maintenance.findAll({ where: { id: { [Op.between]: [10, 18] } } });
             const casino = await Maintenance.findAll({ where: { [Op.or]: [{ id: { [Op.between]: [19, 22] } }, { id: { [Op.in]: [32, 33] } }] } });
             const slot = await Maintenance.findAll({ where: { id: { [Op.between]: [23, 30] } } });
-            res.status(200).json({ pages: pages, casino: casino, minigame: minigame, slot: slot });
+            const registration = await Maintenance.findAll({ where: { id: 31 } });
+            res.status(200).json({ pages: pages, casino: casino, minigame: minigame, slot: slot, signup: registration });
         } catch (error) {
             res.status(404).json({ message: error.message });
         }
@@ -1026,7 +1040,8 @@ async function getmasterdata(id) {
             'expanded': true,
             'children': [],
             'depth': 1,
-            'parent': 1
+            'parent': 1,
+            'code': body.ia_code,
         }
     }
 
@@ -1059,7 +1074,8 @@ async function geteachdata(id, depth) {
             'expanded': true,
             'children': [],
             'depth': depth,
-            'parent': body.ia_parent
+            'parent': body.ia_parent,
+            'code': body.ia_code,
         }
         trees[count] = tree;
     }

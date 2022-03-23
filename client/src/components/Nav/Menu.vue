@@ -534,7 +534,7 @@ export default {
           title: "공지/이벤트",
           to: { name: "attendance-list" },
           id: "event-management",
-          checker: ["attendance", "board-list", "notice-list", "add-popup"],
+          checker: ["attendance", "board-list", "notice-list", "add-popup","add-popup-outside"],
           subItems: [
             {
               subTitle: "출석 이벤트",
@@ -559,7 +559,13 @@ export default {
               id: "popup",
               to: "/admin/add-popup",
               idto: "add-popup"
-            }
+            },
+            {
+              subTitle: "외부 팝업",
+              id: "outside",
+              to: "/admin/add-popup-outside",
+              idto: "add-popup-outside"
+            },
           ]
         },
         {

@@ -6,7 +6,7 @@
           <div class="column">
             <div class="is-flex is-justify-content-space-between my-3">
               <span class="ml-4">스포츠 기본설정</span>
-              <span class="is-clickable mdi mdi-chevron-down"></span>
+              <span @click="collapsii" class="mdi mdi-chevron-down is-clickable" id="qwekqwek"></span>
             </div>
             <div class="is-flex is-justify-content-space-between mt-5 mb-2">
               <div class="ml-4">
@@ -17,7 +17,7 @@
           </div>
         </div>
       </div>
-      <div class="card-content">
+      <div class="card-content" id="qwekqwek2">
         <div class="content">
           <div class="field my-4 is-flex is-justify-content-space-between">
             <label for="">유저페이지에서 경기 시작 몇분전에 리스트에서 사라지는가?</label>
@@ -124,7 +124,22 @@ export default {
             this.getData();
         }
       }
-    }
+    },
+    collapsii(event){
+      var chevron = event.currentTarget.classList[1];
+      console.log(chevron);
+      if(chevron == 'mdi-chevron-down'){
+        event.currentTarget.classList.replace('mdi-chevron-down','mdi-chevron-up');
+      }else{
+        event.currentTarget.classList.replace('mdi-chevron-up','mdi-chevron-down');
+      }
+      var content = document.getElementById(event.currentTarget.id+'2');
+      if (content.style.display == 'block' || content.style.display == ''){
+        content.style.display = 'none';
+      } else {
+        content.style.display = 'block';
+      } 
+    },
   },
   created() {
     this.getData();

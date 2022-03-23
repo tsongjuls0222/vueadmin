@@ -74,6 +74,7 @@ export default {
         title: '',
         width: null,
         height: null,
+        location: null,
       },
       pathing: 'http://192.168.10.50:5000/api/upload',
     }
@@ -84,7 +85,13 @@ export default {
   methods: {
     async getData(){
       const data = await APIEvent.getpopup();
-      this.datas = data;
+      if(this.title == "팝업"){
+        this.datas = data.filter(d=> d.location == 'inside');
+        this.toedit.location = 'inside';
+      }else{
+        this.datas = data.filter(d=> d.location == 'outside');
+        this.toedit.location = 'outside';
+      }
     },
     format(param){
       var param = param;
@@ -108,6 +115,11 @@ export default {
       this.toedit.id = null;
       this.toedit.width = null;
       this.toedit.height = null;
+      if(this.title == "팝업"){
+        this.toedit.location = 'inside';
+      }else{
+        this.toedit.location = 'outside';
+      }
       this.showmodal = false;
     },
     async addpopup(fileselected){
@@ -116,6 +128,7 @@ export default {
       formData.append("popup_title", this.toedit.title);
       formData.append("widthpx", this.toedit.width);
       formData.append("heightpx", this.toedit.height);
+      formData.append("location", this.toedit.location);
       const res = await APIEvent.addpopup(formData);
       this.getData();
     },
@@ -148,6 +161,11 @@ export default {
       this.toedit.title = res.popup_title;
       this.toedit.width = res.widthpx;
       this.toedit.height = res.heightpx;
+      if(this.title == "팝업"){
+        this.toedit.location = 'inside';
+      }else{
+        this.toedit.location = 'outside';
+      }
       this.showmodal= true;
     },
   },

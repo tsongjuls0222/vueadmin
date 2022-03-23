@@ -6,12 +6,20 @@ export default class API {
         const res = await axios.get(`${url}/getpartnertree`);
         return res;
     }
+    static async refreshs() {
+        const res = await axios.get(`${url}/getpartnertrees`);
+        return res;
+    }
     static async getpartnerinfo(id) {
         const res = await axios.get(`${url}/getpartnerinfo${id}`);
         return res.data;
     }
     static async addcode(data) {
         const res = await axios.post(`${url}/addcode`, data);
+        return res.data;
+    }
+    static async findingcode(id) {
+        const res = await axios.get(`${url}/findingcode${id}`);
         return res.data;
     }
     static async editcode(id, data) {

@@ -7,8 +7,10 @@ var path = require('path');
 
 //popup
 router.get("/getpartnertree", API.getpartnertree);
+router.get("/getpartnertrees", API.getpartnertrees);
 router.get("/getpartnerinfo:id", API.getpartnerinfo);
 router.post("/addcode", API.addcode);
+router.get("/findingcode:id", API.findingcode);
 router.post("/editcode:id", API.editcode);
 router.post("/deletecode", API.deletecode);
 router.post("/addaccount", API.addaccount);

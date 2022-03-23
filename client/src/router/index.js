@@ -16,6 +16,7 @@ import Attendance from '../views/Attendance.vue';
 import BoardList from '../views/BoardList.vue';
 import NoticeList from '../views/NoticeList.vue';
 import AddPopup from '../views/AddPopup.vue';
+import AddPopupOutside from '../views/AddPopupOutside.vue';
 import PartnerList from '../views/PartnerList.vue';
 import ConfigSports from '../views/ConfigSports.vue';
 import Maintenance from '../views/Maintenance.vue';
@@ -231,6 +232,19 @@ const routes = [
     path: '/admin/add-popup',
     name: 'AddPopup',
     component: AddPopup,
+    beforeEnter: (to, from, next) => {
+      if (store.state.account.authenticated == false) {
+        next("/");
+      }
+      else {
+        next();
+      }
+    }
+  },
+  {
+    path: '/admin/add-popup-outside',
+    name: 'AddPopupOutside',
+    component: AddPopupOutside,
     beforeEnter: (to, from, next) => {
       if (store.state.account.authenticated == false) {
         next("/");
