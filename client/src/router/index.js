@@ -42,6 +42,7 @@ import Minigame from '../views/Minigame.vue';
 import LeagueList from '../views/LeagueList.vue';
 import LeagueSorting from '../views/LeagueSorting.vue';
 import LiveLeagueSorting from '../views/LiveLeagueSorting.vue';
+import GameListMinigames from '../views/GameListMinigames.vue';
 
 Vue.use(VueRouter)
 
@@ -570,6 +571,19 @@ const routes = [
     path: '/admin/live-league-sorting',
     name: 'LiveLeagueSorting',
     component: LiveLeagueSorting,
+    beforeEnter: (to, from, next) => {
+      if (store.state.account.authenticated == false) {
+        next("/");
+      }
+      else {
+        next();
+      }
+    }
+  },
+  {
+    path: '/admin/game-list-minigame',
+    name: 'GameListMinigames',
+    component: GameListMinigames,
     beforeEnter: (to, from, next) => {
       if (store.state.account.authenticated == false) {
         next("/");

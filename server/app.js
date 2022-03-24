@@ -66,6 +66,9 @@ app.use("/api/cs", require("./routes/routes_customerservice"));
 // league list
 app.use("/api/league", require("./routes/routes_league"));
 
+// league list
+app.use("/api/gamelist", require("./routes/routes_gamelist"));
+
 // images
 app.use("/api/upload", express.static(path.join("./upload")));
 

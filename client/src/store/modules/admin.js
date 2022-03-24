@@ -1,11 +1,11 @@
 const state = {
-    macro : [],
-    macrocontent : {},
+    macro: [],
+    macrocontent: {},
     macrogroup: [],
     agents: [],
     codes: [],
     newData: [],
-    radioData : {
+    radioData: {
         bankgwaltotal: 0,
         totalbank: 0,
         totalgwallet: 0,
@@ -15,34 +15,34 @@ const state = {
         totalcompleted: 0,
         totalcancelled: 0,
     },
-    tableCounter2 : -1,
-    badgeCount : 0,
+    tableCounter2: -1,
+    badgeCount: 0,
     notoriusData: [],
-    userBalance : 0
+    userBalance: 0
 };
 
 const mutations = {
-    setMacroSelection(state, selection){
+    setMacroSelection(state, selection) {
         state.macro = selection;
         // console.log(state.macro);
     },
-    setMacroGroup(state, macrogroup){
+    setMacroGroup(state, macrogroup) {
         state.macrogroup = macrogroup;
         // console.log(state.macrogroup);
     },
-    setAgents(state, agents){
+    setAgents(state, agents) {
         state.agents = agents;
         // console.log(state.agents);
     },
-    setCodes(state, codes){
+    setCodes(state, codes) {
         state.codes = codes;
         // console.log(state.codes);
     },
-    setTableData(state, data){
+    setTableData(state, data) {
         state.newData = data;
         // console.log(state.newData);
     },
-    setRadioData(state, data){
+    setRadioData(state, data) {
         state.radioData = {
             bankgwaltotal: data[0].bankgwaltotal,
             totalbank: data[0].totalbank,
@@ -55,17 +55,17 @@ const mutations = {
         }
         console.log(state.radioData);
     },
-    setTableCounter(state, counter){
+    setTableCounter(state, counter) {
         state.tableCounter2 = counter;
         console.log(state.tableCounter2)
     },
-    setBadgeCount(state, badgeCount){
+    setBadgeCount(state, badgeCount) {
         state.badgeCount = badgeCount;
     },
-    setNotoriousData(state, notoriusData){
+    setNotoriousData(state, notoriusData) {
         state.notoriusData = notoriusData;
     },
-    setUserBalance(state, userBalance){
+    setUserBalance(state, userBalance) {
         state.userBalance = userBalance;
     }
 };
@@ -104,33 +104,33 @@ const getters = {
 };
 
 const actions = {
-    setNewCodes({commit,state},payload){
+    setNewCodes({ commit, state }, payload) {
         state.codes = [];
-        commit('setCodes',payload)
+        commit('setCodes', payload)
     },
-    setNewAgents({commit,state},payload){
+    setNewAgents({ commit, state }, payload) {
         state.agents = [];
-        commit('setAgents',payload)
+        commit('setAgents', payload)
     },
-    setNewData({commit,state},payload){
+    setNewData({ commit, state }, payload) {
         state.newData = [];
-        commit('setTableData',payload)
+        commit('setTableData', payload)
     },
-    setNewRadioData({commit,state},payload){
-        commit('setRadioData',payload)
+    setNewRadioData({ commit, state }, payload) {
+        commit('setRadioData', payload)
     },
-    setNewTableCounter({commit,state},payload){
-        commit('setTableCounter',payload)
+    setNewTableCounter({ commit, state }, payload) {
+        commit('setTableCounter', payload)
     },
-    setNewBadgeCount({commit,state},payload){
-        commit('setBadgeCount',payload)
+    setNewBadgeCount({ commit, state }, payload) {
+        commit('setBadgeCount', payload)
     },
-    setNewNotoriousData({commit,state},payload){
+    setNewNotoriousData({ commit, state }, payload) {
         state.notoriusData = [];
-        commit('setNotoriousData',payload)
+        commit('setNotoriousData', payload)
     },
-    setNewUserBalance({commit,state},payload){
-        commit('setUserBalance',payload)
+    setNewUserBalance({ commit, state }, payload) {
+        commit('setUserBalance', payload)
     }
 };
 

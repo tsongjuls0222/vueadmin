@@ -285,6 +285,7 @@ export default {
           title: "스포츠 경기관리",
           to: { name: "gameList-prematch" },
           id: "game-list",
+          checker: ['game-list-minigame'],
           subItems: [
             {
               subTitle: "프리메치 경기목록",
@@ -296,7 +297,13 @@ export default {
               subTitle: "국내스포츠",
               id: "game-list",
               to: "member-list-test"
-            }
+            },
+            {
+              subTitle: "미니 게임목록",
+              id: "game-list-minigame",
+              to: "/admin/game-list-minigame",
+              idto: "game-list-minigame"
+            },
           ]
         },
         {
