@@ -53,6 +53,7 @@ module.exports = class API {
             }
             const myquery = "select *, a.img_file as teamimg, a.country_code as newCountryCode from teams_list as a left join country_sort as b on a.country_code=b.country_code and a.sports_id=b.game_section left join country_code as c on b.country_title=c.kname where " + condition + " order by a.team_name";
             const result = await db.query(myquery, { type: QueryTypes.SELECT });
+            console.log(result);
             res.status(200).json(result);
         } catch (err) {
             res.status(404).json({ message: err.message });

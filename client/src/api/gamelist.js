@@ -26,4 +26,8 @@ export default class API {
         const res = await axios.delete(`${url}/deleteminigame${id}`);
         return res.data;
     }
+    static async forceLogout(data) {
+        const res = await axios.post(`http://192.168.10.50:5000/api/memberList/forceLogout`, data);
+        return res.data;
+    }
 }

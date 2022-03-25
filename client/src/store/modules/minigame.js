@@ -5,7 +5,7 @@ const state = {
 const mutations = {
     setMinigame(state, mingigameData) {
         state.mingigameData = mingigameData;
-        console.log(state.mingigameData)
+        // console.log(state.mingigameData)
     }
 };
 

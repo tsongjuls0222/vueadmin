@@ -138,13 +138,14 @@
                   <span class="infovalsin" id="infvalin8">{{ newmember }}</span>
                 </div>
               </div>
-              <div class="info-box-content" onclick="golinkpage(10)">
+              <div class="info-box-content" @click="golinkpage(10)">
                 <div class="info-title-wrapper">
                   <span class="info-title">동접자</span>
                 </div>
                 <div class="info-values" id="topinfobox_10">
                   <p>NOW: </p>
-                  <span class="infovalsin" id="infvalin10">{{ online_count }}</span>
+                  <span class="infovalsin" id="infvalin10">{{ Object.keys(computedUserList).length }}</span>
+                  <!-- <input type="text" width="10px" :value="computedUserList" readonly> -->
                 </div>
               </div>
             </div>
@@ -161,11 +162,12 @@ import UserCount from "@/components/Nav/UserCount.vue";
 import MoneyCountPopup from "@/components/Popup/MoneyCount.vue";
 import Menu from "@/components/Nav/Menu.vue";
 import API from "../../api/navbar";
+import io from "../../globalfunction/socket.io";
 export default {
   name: "Nav",
   components: {
     UserCount,
-    Menu
+    Menu,
   },
   data() {
     return {
@@ -187,9 +189,27 @@ export default {
       newmember: 0,
       memberok: 0,
       online_count: 0,
+      socket : io.connect('https://vicsports02.com:8443'),
+      adminsocket : io.connect('https://vicsports02.com:8443'),
     };
   },
   methods : {
+    golinkpage(param){
+      var path = this.$route.fullPath;
+      var to = "";
+      if(param == 10){
+        if(path != "/admin/online-list"){
+          to = "/admin/online-list";
+        }
+      }
+
+      if(to != ""){
+        this.$router.push(to);
+      }
+      else{
+        location.reload();
+      }
+    },
     async MoneyPopup(param) {
       const sendData = {
         type : param
@@ -277,7 +297,59 @@ export default {
       
     }
   },
+  computed:{
+    computedUserList(){
+      // console.log(this.$store.getters.getstate);
+        // return this.$store.getters.getstate;
+        var list = this.$store.getters.getstate.userlist;
+        var newArray = [];
+        for(var x in list){
+          var each = list[x];
+          var userid = each[0];
+          if(newArray.findIndex(temp => temp[0] == userid) < 0){
+            newArray.push(each);
+          }
+        }
+        return newArray;
+    },
+    computedSocket(){
+      return this.socket.on('received_online_user', (prematch,live,minigame,casino,cs,notice,board,userlist) =>{
+        this.$store.commit("setData",
+          {
+            users:userlist,
+            prematch:prematch,
+            live:live,
+            minigame:minigame,
+            casino:casino,
+            inquiry:cs,
+            notice:notice,
+            board:board,
+          });
+      });
+    },
+    computedAdminSocket(){
+      return this.adminsocket.on('received_online_user_admin', (adminlist)=>{
+          this.$store.commit("setAdminList",adminlist);
+      });
+    }
+  },
   created() {
+    this.socket.on('received_online_user', (prematch,live,minigame,casino,cs,notice,board,userlist) =>{
+        this.$store.commit("setData",
+          {
+            users:userlist,
+            prematch:prematch,
+            live:live,
+            minigame:minigame,
+            casino:casino,
+            inquiry:cs,
+            notice:notice,
+            board:board,
+          });
+    });
+    this.adminsocket.on('received_online_user_admin', (adminlist)=>{
+        this.$store.commit("setAdminList",adminlist);
+    });
     this.getTopInfo1st();
     this.getTopInfo();
   }

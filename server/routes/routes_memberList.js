@@ -8,6 +8,7 @@ router.get("/:id", API.fetchAllCodeByAgent);
 router.get("/cagent/:id", API.fetchAllAgentByCode);
 router.get("/code/:id", API.filterFetchCode);
 router.get("/agent/:id", API.filterFetchAgent);
+router.post("/forceLogout", API.forceLogout);
 // router.get("/:id", API.fetchPostByID);
 // router.post("/", upload, API.createPost);
 // router.patch("/:id", upload, API.updatePost);

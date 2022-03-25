@@ -12,28 +12,38 @@
               <table>
                 <thead>
                   <tr>
+                    <th>총판</th>
+                    <th>코드</th>
                     <th>아이디</th>
-                    <th>Device</th>
+                    <th>닉네임</th>
+                    <th>이름</th>
                     <th>IP</th>
+                    <th>접속일자</th>
                     <th>상태</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr v-for="(row, index) in computedAdminList" :key="index">
-                    <td>{{row[1]}}</td>
-                    <td>{{row[2]}}</td>
-                    <td>{{row[0]}}</td>
+                  <tr v-for="(data, index) in computedUserList" :key="index">
+                    <td>{{data[9]}}</td>
+                    <td>{{data[8]}}</td>
+                    <td>{{data[1]}}</td>
+                    <td>{{data[5]}}</td>
+                    <td>{{data[7]}}</td>
+                    <td>{{data[2]}}</td>
+                    <td>{{data[3]}}</td>
                     <td>ONLINE</td>
                   </tr>
                 </tbody>
               </table>
-              <div v-if="Object.keys(computedAdminList).length < 1" class="is-flex" style="height: 500px">
+              <div v-if="computedUserList.length < 1" class="is-flex" style="height: 500px">
                 <div
                   class="m-auto is-flex is-flex-direction-column is-align-items-center has-text-grey-lighter"
                 >
                   <span class="icon is-large"
                     ><i class="mdi mdi-information-outline mdi-48px"></i></span
-                  ><span class="is-size-4 is-unselectable">Sorry, no data found.</span>
+                  ><span class="is-size-4 is-unselectable"
+                    >Sorry, no data found.</span
+                  >
                 </div>
               </div>
             </div>
@@ -46,18 +56,23 @@
 </template>
 <script>
 import Nav from "../components/Nav/Nav.vue";
+import io from "../globalfunction/socket.io.js";
 export default {
-  name: "OnlineAdminList",
+  name: "OnlineList",
   components: { Nav },
   data() {
     return {
+      newsocket :null,
       currentadmin: null,
       currentip:null,
+      userlist:[],
+      socket : io.connect('https://vicsports02.com:8443')
     }
   },
   methods: {
-    vicsports(){
-
+    
+    onlinelist(param){
+      console.log(param);
     },
     async getip(){
       await fetch('https://api.ipify.org?format=json')
@@ -71,9 +86,19 @@ export default {
     computedUserInfo(){
         return this.$store.getters.getUserInfo;
     },
-    computedAdminList(){
-        return this.$store.getters.getstate.onlineadminlist;
-    },
+    computedUserList(){
+      var list = this.$store.getters.getstate.userlist;
+      var newArray = [];
+      for(var x in list){
+        var each = list[x];
+        var userid = each[0];
+        if(newArray.findIndex(temp => temp[0] == userid) < 0){
+          newArray.push(each);
+        }
+      }
+      return newArray;
+    }
+    
   },
   created() {
     this.currentadmin = this.computedUserInfo.user.username;

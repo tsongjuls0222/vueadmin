@@ -65,6 +65,9 @@ export default {
 
             return year + '-' + month + '-' + day + ' ' + hours + ':' + minutes + ':' + seconds;
         },
+        numberWithCommas(x) {
+            return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        }
     },
 
 }

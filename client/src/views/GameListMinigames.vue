@@ -122,7 +122,7 @@ export default {
     async addminigame(param){
       // console.log(param);
       const res = await API.addminigame(param);
-      console.log(res);
+      // console.log(res);
       this.$buefy.toast.open({
           duration: 3000,
           position: "is-top",
@@ -197,7 +197,7 @@ export default {
   created() {
     this.getminigamelist();
     this.getmaintenance();
-    console.log(this.computedMinigame);
+    // console.log(this.computedMinigame);
   },
 };
 </script>
