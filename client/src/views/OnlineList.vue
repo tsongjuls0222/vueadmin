@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Nav />
+     
     <div class="column">
       <div class="card">
         <div class="card-header">
@@ -55,11 +55,10 @@
   </div>
 </template>
 <script>
-import Nav from "../components/Nav/Nav.vue";
+  
 import io from "../globalfunction/socket.io.js";
 export default {
   name: "OnlineList",
-  components: { Nav },
   data() {
     return {
       newsocket :null,

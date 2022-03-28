@@ -66,7 +66,7 @@ export default {
         id: null,
         bank_name: '',
       },
-      pathing: 'http://192.168.10.50:5000/api/upload',
+      pathing: 'http://localhost:5000/api/upload',
     }
   },
   components:{

@@ -1,5 +1,5 @@
 import axios from "axios"
-const url = "http://192.168.10.50:5000/api";
+const url = "http://localhost:5000/api";
 export default class API {
     //get user
     static async getRadioButtonData() {

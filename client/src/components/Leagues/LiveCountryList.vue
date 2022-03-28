@@ -30,7 +30,7 @@ export default {
     props:['list','game_section','swapping','getleaguesorting'],
     data() {
         return {
-            pathing: 'http://192.168.10.50:5000/api/upload',
+            pathing: 'http://localhost:5000/api/upload',
             datas:[],
             currentleague:null,
             countriesupdate:[],

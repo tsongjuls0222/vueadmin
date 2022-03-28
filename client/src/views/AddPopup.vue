@@ -1,17 +1,17 @@
 <template>
   <div>
-    <Nav />
+     
     <div class="column">
       <Header :title="'팝업'" />
     </div>
   </div>
 </template>
 <script>
-import Nav from "../components/Nav/Nav.vue";
+  
 import Header from "../components/Event/Popups.vue";
 export default {
   name: "AddPopup",
-  components: { Nav, Header }
+  components: {   Header }
 };
 </script>
 <style scoped>

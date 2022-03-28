@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Nav />
+     
     <div class="column">
       <div class="card">
         <div class="card-header p-5">
@@ -76,12 +76,12 @@
   </div>
 </template>
 <script>
-import Nav from "../components/Nav/Nav.vue";
+  
 import Nodata from "../components/GlobalTemplate/Nodata.vue";
 import API from "../api/league";
 export default {
   name: "LeagueList",
-  components: { Nav ,Nodata},
+  components: { Nodata},
   data() {
       return {
           datas:[],
@@ -90,7 +90,7 @@ export default {
           selectedid:'all',
           country:'all',
           keyword:'',
-          pathing:'http://192.168.10.50:5000/api/upload',
+          pathing:'http://localhost:5000/api/upload',
           gamesec:{
             "1" : "축구",
             "12": "풋볼",

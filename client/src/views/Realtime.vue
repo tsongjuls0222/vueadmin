@@ -1,17 +1,17 @@
 <template>
   <div>
-    <Nav />
+     
     <div class="column">
         <BetList :title="'라이브'"/>
     </div>
   </div>
 </template>
 <script>
-import Nav from "../components/Nav/Nav.vue";
+  
 import BetList from "../components/Bets/BetList.vue";
 export default {
   name: "Realtime",
-  components: { Nav, BetList }
+  components: {   BetList }
 };
 </script>
 <style scoped>

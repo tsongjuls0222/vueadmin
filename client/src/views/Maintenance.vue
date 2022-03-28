@@ -1,17 +1,17 @@
 <template>
   <div>
-    <Nav />
+     
     <div class="column">
       <Mainte />
     </div>
   </div>
 </template>
 <script>
-import Nav from "../components/Nav/Nav.vue";
+  
 import Mainte from "../components/SiteSettings/MaintenanceSetting.vue";
 export default {
   name: "Maintenance",
-  components: { Nav, Mainte }
+  components: {   Mainte }
 };
 </script>
 <style scoped>

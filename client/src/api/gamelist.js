@@ -1,5 +1,5 @@
 import axios from "axios"
-const url = "http://192.168.10.50:5000/api/gamelist";
+const url = "http://localhost:5000/api/gamelist";
 export default class API {
     //get user
     static async getminigamelist() {
@@ -27,7 +27,7 @@ export default class API {
         return res.data;
     }
     static async forceLogout(data) {
-        const res = await axios.post(`http://192.168.10.50:5000/api/memberList/forceLogout`, data);
+        const res = await axios.post(`http://localhost:5000/api/memberList/forceLogout`, data);
         return res.data;
     }
 }

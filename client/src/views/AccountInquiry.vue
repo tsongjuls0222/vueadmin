@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Nav />
+     
     <div class="column">
       <div class="card">
         <div class="card-header"><CSHeader :title="'계좌문의'" /></div>
@@ -14,12 +14,12 @@
   </div>
 </template>
 <script>
-import Nav from "../components/Nav/Nav.vue";
+  
 import CSHeader from "../components/CustomerService/CSHeader.vue";
 import AccInquiry from "../components/CustomerService/AccInquiry.vue";
 export default {
   name: "AccountInquiry",
-  components: { Nav, CSHeader ,AccInquiry}
+  components: {   CSHeader ,AccInquiry}
 };
 </script>
 <style scoped>

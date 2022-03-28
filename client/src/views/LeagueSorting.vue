@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Nav />
+     
     <div class="column">
       <div class="card">
         <div class="card-header p-5">
@@ -35,12 +35,12 @@
 </template>
 
 <script>
-import Nav from "../components/Nav/Nav.vue";
+  
 import List from "../components/Leagues/CountryList.vue";
 import API from "../api/league";
 export default {
     name: "LeagueSorting",
-    components: { Nav,List },
+    components: {  List },
     data() {
         return {
             datas:[],

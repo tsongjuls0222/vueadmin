@@ -184,11 +184,10 @@
         :key="key"
       >
         <li
-          :class="setClass3(subItem.idto)"
           v-for="(subItem, key) in item.subItems"
-          :key="key"
-        >
-          <a class="" :href="subItem.to" exact-active-class="is-active">
+          :key="key">
+          <router-link :to="subItem.to" exact-active-class="is-active">{{ subItem.subTitle }}</router-link>
+          <!-- <a class="" :href="subItem.to" exact-active-class="is-active">
             {{ subItem.subTitle }}
             <span class="navmenucount" v-if="subItem.id == 'member-list-sub1'"
               >({{ memberlist_count }})</span
@@ -199,7 +198,7 @@
             <span class="navmenucount" v-if="subItem.id == 'member-list-sub3'"
               >({{ memberlistchongpan_count }})</span
             >
-          </a>
+          </a> -->
         </li>
       </ul>
     </div>

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Nav />
+     
     <div class="column">
       <Filters :title="'OTP 로그'"/>
       <!-- <div class="card">
@@ -17,13 +17,13 @@
   </div>
 </template>
 <script>
-import Nav from "../components/Nav/Nav.vue";
+  
 import Filters from "../components/API/Filter.vue";
 
 
 export default {
   name: "OTPLogs",
-  components: { Nav, Filters },
+  components: {   Filters },
   
 };
 </script>

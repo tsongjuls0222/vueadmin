@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Nav />
+     
     <div class="column">
         <div class="card">
             <div class="card-header">
@@ -11,11 +11,11 @@
   </div>
 </template>
 <script>
-import Nav from "../components/Nav/Nav.vue";
+  
 import SettlementHeader from "../components/Settlement/SettlementHeader.vue";
 export default {
   name: "MemberHistory",
-  components: { Nav, SettlementHeader }
+  components: {   SettlementHeader }
 };
 </script>
 <style scoped>

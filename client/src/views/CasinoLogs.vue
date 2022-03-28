@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Nav />
+     
     <div class="column">
       <Filters :title="'카지노 로그'" />
       <!-- <div class="card">
@@ -19,12 +19,12 @@
   </div>
 </template>
 <script>
-import Nav from "../components/Nav/Nav.vue";
+  
 import Filters from "../components/API/Filter.vue";
 import APIOTP from "../api/otp";
 export default {
   name: "CasinoLogs",
-  components: { Nav, Filters },
+  components: {   Filters },
   methods: {
     async getData(){
       var sendData = {

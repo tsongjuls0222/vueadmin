@@ -1,17 +1,17 @@
 <template>
   <div>
-    <Nav />
+     
     <div class="column">
       <Header :title="'이벤트 등록'" />
     </div>
   </div>
 </template>
 <script>
-import Nav from "../components/Nav/Nav.vue";
+  
 import Header from "../components/Event/Notice.vue";
 export default {
   name: "BoardList",
-  components: { Nav, Header }
+  components: {   Header }
 };
 </script>
 <style scoped>

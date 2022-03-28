@@ -1,17 +1,17 @@
 <template>
   <div>
-    <Nav />
+     
     <div class="column">
       <Forms :title="'계좌답변양식'" />
     </div>
   </div>
 </template>
 <script>
-import Nav from "../components/Nav/Nav.vue";
+  
 import Forms from "../components/CustomerService/Forms";
 export default {
   name: "ACListForm",
-  components: { Nav, Forms }
+  components: {   Forms }
 };
 </script>
 <style scoped>

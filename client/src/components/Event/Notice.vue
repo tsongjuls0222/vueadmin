@@ -88,7 +88,7 @@ export default {
         type:'notice',
         status:0,
       },
-      pathing: 'http://192.168.10.50:5000/api/upload',
+      pathing: 'http://localhost:5000/api/upload',
     }
   },
   components:{

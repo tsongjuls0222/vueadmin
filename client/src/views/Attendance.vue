@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Nav />
+     
     <div class="column">
       <div class="card">
         <div class="card-header">
@@ -48,11 +48,10 @@
   </div>
 </template>
 <script>
-import Nav from "../components/Nav/Nav.vue";
+  
 import API from "../api/event";
 export default {
   name: "Attendance",
-  components: { Nav },
   data() {
     return {
       datas:[],

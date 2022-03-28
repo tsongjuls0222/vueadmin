@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Nav />
+     
     <div class="column">
       <!-- <div class="card"> -->
       <!-- <div class="card-content"> -->
@@ -11,13 +11,13 @@
   </div>
 </template>
 <script>
-import Nav from "../components/Nav/Nav.vue";
+  
 import FeeLogs from "../components/FeesManagement/FeeLogs.vue";
 import APIFilter from '../api/admin';
 import APIFees from '../api/feemanagement';
 export default {
   name: "FeeLog",
-  components: { Nav, FeeLogs },
+  components: {   FeeLogs },
   data() {
     return {
       agents : [],

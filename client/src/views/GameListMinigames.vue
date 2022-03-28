@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Nav />
+     
     <div class="column">
       <div v-if="switching==false" class="card">
         <div class="card-header">
@@ -43,13 +43,13 @@
   </div>
 </template>
 <script>
-import Nav from "../components/Nav/Nav.vue";
+  
 import Minigame from "../components/GameList/MinigameTable.vue";
 import AddMini from "../components/GameList/AddMini.vue";
 import API from "../api/gamelist";
 export default {
   name: "GameListMinigames",
-  components: { Nav,Minigame,AddMini },
+  components: {  Minigame,AddMini },
   data() {
     return {
       minigamelist:[],

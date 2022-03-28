@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Nav />
+     
     <div class="column">
       <div class="card">
         <div class="card-header is-flex-direction-column">
@@ -134,13 +134,13 @@
   </div>
 </template>
 <script>
-import Nav from "../components/Nav/Nav.vue";
+  
 import AdminMainTable from "../components/Tables/AdminMain.vue";
 import AdminMainFilter from "../components/Filter/AdminMain.vue";
 import API from "../api/admin";
 export default {
   name: "Admin",
-  components: { Nav, AdminMainTable, AdminMainFilter },
+  components: {   AdminMainTable, AdminMainFilter },
   data() {
     return {
       transaction: "deposit",

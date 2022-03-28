@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Nav />
+     
     <div class="column">
       <div class="card">
         <div class="card-header"><HeaderSS :title="'IP 차단/설정'" /></div>
@@ -14,12 +14,12 @@
   </div>
 </template>
 <script>
-import Nav from "../components/Nav/Nav.vue";
+  
 import HeaderSS from "../components/SiteSettings/HeaderSiteSettings.vue";
 import IPBlock from "../components/SiteSettings/IPBlock.vue";
 export default {
   name: "IPSet",
-  components: { Nav, IPBlock, HeaderSS }
+  components: {   IPBlock, HeaderSS }
 };
 </script>
 <style scoped>

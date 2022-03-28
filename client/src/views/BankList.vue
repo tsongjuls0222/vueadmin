@@ -1,17 +1,17 @@
 <template>
   <div>
-    <Nav />
+     
     <div class="column">
       <ListBank :title="'은행목록'"/>
     </div>
   </div>
 </template>
 <script>
-import Nav from "../components/Nav/Nav.vue";
+  
 import ListBank from "../components/SiteSettings/ListBank.vue";
 export default {
   name: "BankList",
-  components: { Nav, ListBank }
+  components: {   ListBank }
 };
 </script>
 <style scoped>

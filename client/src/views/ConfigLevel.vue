@@ -1,17 +1,17 @@
 <template>
   <div>
-    <Nav />
+     
     <div class="column">
       <LevelSetting />
     </div>
   </div>
 </template>
 <script>
-import Nav from "../components/Nav/Nav.vue";
+  
 import LevelSetting from "../components/SiteSettings/LevelSetting.vue";
 export default {
   name: "ConfigLevel",
-  components: { Nav, LevelSetting }
+  components: {   LevelSetting }
 };
 </script>
 <style scoped>

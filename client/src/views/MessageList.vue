@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Nav />
+     
     <div class="column">
       <div class="card">
         <div class="card-header">
@@ -59,10 +59,9 @@
   </div>
 </template>
 <script>
-import Nav from "../components/Nav/Nav.vue";
+  
 export default {
   name: "MessageList",
-  components: { Nav }
 };
 </script>
 <style scoped>

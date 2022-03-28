@@ -1,17 +1,17 @@
 <template>
   <div>
-    <Nav />
+     
     <div class="column">
       <Notice :title="'공지 목록'" />
     </div>
   </div>
 </template>
 <script>
-import Nav from "../components/Nav/Nav.vue";
+  
 import Notice from "../components/Event/Notice.vue";
 export default {
   name: "NoticeList",
-  components: { Nav, Notice }
+  components: {   Notice }
 };
 </script>
 <style scoped>

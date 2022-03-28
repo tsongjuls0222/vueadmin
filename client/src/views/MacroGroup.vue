@@ -1,17 +1,17 @@
 <template>
   <div>
-    <Nav />
+     
     <div class="column">
       <Macro :title="'Macro Group'"/>
     </div>
   </div>
 </template>
 <script>
-import Nav from "../components/Nav/Nav.vue";
+  
 import Macro from "../components/CustomerService/Macro.vue";
 export default {
   name: "MacroGroup",
-  components: { Nav, Macro }
+  components: {   Macro }
 };
 </script>
 <style scoped>

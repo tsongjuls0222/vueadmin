@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Nav />
+     
     <div class="column">
       <div class="card">
         <Others />
@@ -9,11 +9,11 @@
   </div>
 </template>
 <script>
-import Nav from "../components/Nav/Nav.vue";
+  
 import Others from "../components/FeesManagement/Others.vue";
 export default {
   name: "MemInputsetOthers",
-  components: { Nav, Others }
+  components: {   Others }
 };
 </script>
 

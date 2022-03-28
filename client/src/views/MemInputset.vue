@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Nav />
+     
     <div class="column">
       <div class="card">
         <Settings :titles="'sports'" :settings="settings" :getData="getData" :saveSettings="saveSettings" :config="config"
@@ -10,12 +10,12 @@
   </div>
 </template>
 <script>
-import Nav from "../components/Nav/Nav.vue";
+  
 import Settings from "../components/FeesManagement/Settings.vue";
 import APIFees from '../api/feemanagement';
 export default {
   name: "MemInputset",
-  components: { Nav, Settings },
+  components: {   Settings },
   data() {
     return {
       num:1,
